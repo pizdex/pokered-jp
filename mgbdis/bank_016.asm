@@ -1150,7 +1150,7 @@ Call_016_44df:
 jr_016_44df:
 	db $e3
 	ld e, c
-	jp z, $0359
+	jp z, Function_0359
 
 	dec b
 	ld h, h

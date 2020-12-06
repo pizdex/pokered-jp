@@ -24,1127 +24,15 @@ Call_000_0153:
 
 INCLUDE "home/lcd.asm"
 INCLUDE "home/clear_sprites.asm"
+INCLUDE "home/copy.asm"
 
+unkData_01c4:
+	dr $01c4, $028c
 
-Call_000_01a3:
-	ld [wcee4], a
-	ldh a, [$b8]
-	push af
-	ld a, [wcee4]
-	ldh [$b8], a
-	ld [$2000], a
-	call Call_000_01bb
-	pop af
-	ldh [$b8], a
-	ld [$2000], a
-	ret
+INCLUDE "home/copy2.asm"
+INCLUDE "home/text.asm"
 
-
-Call_000_01bb:
-Jump_000_01bb:
-jr_000_01bb:
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec bc
-	ld a, c
-	or b
-	jr nz, jr_000_01bb
-
-	ret
-
-
-	dec bc
-	inc c
-	inc de
-	dec d
-	jr @+$01
-
-	db $00, $10, $1b, $20, $21, $23, $2c, $2d, $2e, $30, $31, $33, $39, $3c, $3e, $52
-	db $54, $58, $5b, $ff, $01, $02, $03, $11, $12, $13, $14, $1c, $1a, $ff, $11, $1a
-	db $1c, $3c, $5e, $ff, $11, $16, $19, $2b, $3c, $3d, $3f, $4a, $4c, $4d, $03, $ff
-	db $1e, $20, $2e, $30, $34, $37, $39, $3a, $40, $51, $52, $5a, $5c, $5e, $5f, $ff
-	db $01, $12, $14, $28, $32, $37, $44, $54, $5c, $ff, $01, $12, $14, $1a, $1c, $37
-	db $38, $3b, $3c, $5e, $ff
-
-	inc b
-	dec c
-	rla
-	dec e
-	ld e, $23
-	inc [hl]
-	scf
-	add hl, sp
-	ld c, d
-	rst $38
-	ld a, [bc]
-	ld a, [de]
-	ld [hld], a
-	dec sp
-	rst $38
-	ld bc, $1310
-	dec de
-	ld [hli], a
-	ld b, d
-	ld d, d
-	rst $38
-	inc b
-	rrca
-	dec d
-	rra
-	dec sp
-	ld b, l
-	ld b, a
-	ld d, l
-	ld d, [hl]
-	rst $38
-	dec b
-	dec d
-	jr jr_000_025f
-
-	jr nz, jr_000_0268
-
-	ld [hli], a
-	ld a, [hli]
-	dec l
-	jr nc, @+$01
-
-	rst $38
-	inc d
-	rla
-	ld a, [de]
-	inc e
-	jr nz, jr_000_028b
-
-	ld b, l
-	rst $38
-	ld bc, $1105
-	ld [de], a
-	inc d
-	ld a, [de]
-	inc e
-	inc l
-	ld d, e
-	rst $38
-
-jr_000_025f:
-	inc c
-	ld h, $16
-	ld e, $34
-	scf
-	rst $38
-	rrca
-	ld a, [de]
-
-jr_000_0268:
-	rra
-	ld h, $28
-	add hl, hl
-	inc l
-	dec l
-	ld l, $2f
-	ld b, c
-	rst $38
-	ld bc, $1110
-	inc de
-	dec de
-	jr nz, @+$23
-
-	ld [hli], a
-	jr nc, @+$33
-
-	ld [hld], a
-	ld b, d
-	ld b, e
-	ld c, b
-	ld d, d
-	ld d, l
-	ld e, b
-	ld e, [hl]
-	rst $38
-	dec de
-	inc hl
-	inc l
-	dec l
-	dec sp
-	ld b, l
-
-jr_000_028b:
-	rst $38
-
-Jump_000_028c:
-	ldh [$8b], a
-	ldh a, [$b8]
-	push af
-	ldh a, [$8b]
-	ldh [$b8], a
-	ld [$2000], a
-	call Call_000_01bb
-	pop af
-	ldh [$b8], a
-	ld [$2000], a
-	ret
-
-
-	ldh [$8b], a
-	ldh a, [$b8]
-	push af
-	ldh a, [$8b]
-	ldh [$b8], a
-	ld [$2000], a
-	push hl
-	push de
-	push de
-	ld d, h
-	ld e, l
-	pop hl
-	call Call_000_01bb
-	pop de
-	pop hl
-	pop af
-	ldh [$b8], a
-	ld [$2000], a
-	ret
-
-
-Jump_000_02c0:
-	ldh [$8b], a
-	ldh a, [$b8]
-	push af
-	ldh a, [$8b]
-	ldh [$b8], a
-	ld [$2000], a
-
-jr_000_02cc:
-	ld a, [hli]
-	ld [de], a
-	inc de
-	ld [de], a
-	inc de
-	dec bc
-	ld a, c
-	or b
-	jr nz, jr_000_02cc
-
-	pop af
-	ldh [$b8], a
-	ld [$2000], a
-	ret
-
-
-Call_000_02dd:
-Jump_000_02dd:
-	ldh a, [$ba]
-	push af
-	xor a
-	ldh [$ba], a
-	ldh a, [$b8]
-	ldh [$8b], a
-	ld a, b
-	ldh [$b8], a
-	ld [$2000], a
-	ld a, e
-	ldh [$c7], a
-	ld a, d
-	ldh [$c8], a
-	ld a, l
-	ldh [$c9], a
-	ld a, h
-	ldh [$ca], a
-
-jr_000_02f9:
-	ld a, c
-	cp $08
-	jr nc, jr_000_030e
-
-	ldh [$c6], a
-	call DelayFrame
-	ldh a, [$8b]
-	ldh [$b8], a
-	ld [$2000], a
-	pop af
-	ldh [$ba], a
-	ret
-
-
-jr_000_030e:
-	ld a, $08
-	ldh [$c6], a
-	call DelayFrame
-	ld a, c
-	sub $08
-	ld c, a
-	jr jr_000_02f9
-
-Jump_000_031b:
-	ldh a, [$ba]
-	push af
-	xor a
-	ldh [$ba], a
-	ldh a, [$b8]
-	ldh [$8b], a
-	ld a, b
-	ldh [$b8], a
-	ld [$2000], a
-	ld a, e
-	ldh [$cc], a
-	ld a, d
-	ldh [$cd], a
-	ld a, l
-	ldh [$ce], a
-	ld a, h
-	ldh [$cf], a
-
-jr_000_0337:
-	ld a, c
-	cp $08
-	jr nc, jr_000_034c
-
-	ldh [$cb], a
-	call DelayFrame
-	ldh a, [$8b]
-	ldh [$b8], a
-	ld [$2000], a
-	pop af
-	ldh [$ba], a
-	ret
-
-
-jr_000_034c:
-	ld a, $08
-	ldh [$cb], a
-	call DelayFrame
-	ld a, c
-	sub $08
-	ld c, a
-	jr jr_000_0337
-
-jr_000_0359:
-	call DelayFrame
-	push bc
-	call Call_000_3879
-	pop bc
-	ldh a, [$b4]
-	cp $46
-	jr z, jr_000_0372
-
-	ldh a, [$b5]
-	and $09
-	jr nz, jr_000_0372
-
-	dec c
-	jr nz, jr_000_0359
-
-	and a
-	ret
-
-
-jr_000_0372:
-	scf
-	ret
-
-
-Call_000_0374:
-	ld a, $7f
-	ld de, $0014
-
-jr_000_0379:
-	push hl
-	push bc
-
-jr_000_037b:
-	ld [hli], a
-	dec c
-	jr nz, jr_000_037b
-
-	pop bc
-	pop hl
-	add hl, de
-	dec b
-	jr nz, jr_000_0379
-
-	ret
-
-
-	ld c, $06
-	ld hl, $0000
-	ld de, wc3a0
-	call Call_000_03ac
-	call DelayFrame
-	ld hl, $0600
-	ld de, wc418
-	call Call_000_03ac
-	call DelayFrame
-	ld hl, $0c00
-	ld de, wc490
-	call Call_000_03ac
-	jp DelayFrame
-
-
-Call_000_03ac:
-	ld a, d
-	ldh [$c2], a
-	call Call_000_0774
-	ld a, l
-	ldh [$c3], a
-	ld a, h
-	ldh [$c4], a
-	ld a, c
-	ldh [$c5], a
-	ld a, e
-	ldh [$c1], a
-	ret
-
-
-	ld bc, $0168
-	inc b
-	ld hl, wc3a0
-	ld a, $7f
-
-jr_000_03c8:
-	ld [hli], a
-	dec c
-	jr nz, jr_000_03c8
-
-	dec b
-	jr nz, jr_000_03c8
-
-	jp Jump_000_3e07
-
-
-Call_000_03d2:
-	push hl
-	ld a, $79
-	ld [hli], a
-	inc a
-	call Call_000_03ff
-	inc a
-	ld [hl], a
-	pop hl
-	ld de, $0014
-	add hl, de
-
-jr_000_03e1:
-	push hl
-	ld a, $7c
-	ld [hli], a
-	ld a, $7f
-	call Call_000_03ff
-	ld [hl], $7c
-	pop hl
-	ld de, $0014
-	add hl, de
-	dec b
-	jr nz, jr_000_03e1
-
-	ld a, $7d
-	ld [hli], a
-	ld a, $7a
-	call Call_000_03ff
-	ld [hl], $7e
-	ret
-
-
-Call_000_03ff:
-	ld d, c
-
-jr_000_0400:
-	ld [hli], a
-	dec d
-	jr nz, jr_000_0400
-
-	ret
-
-
-Call_000_0405:
-Jump_000_0405:
-	push hl
-
-Jump_000_0406:
-	ld a, [de]
-	cp $50
-	jr nz, jr_000_040f
-
-	ld b, h
-	ld c, l
-	pop hl
-	ret
-
-
-jr_000_040f:
-	cp $4e
-	jr nz, jr_000_041c
-
-	pop hl
-	ld bc, $0028
-	add hl, bc
-	push hl
-	jp Jump_000_04c5
-
-
-jr_000_041c:
-	cp $4f
-	jr nz, jr_000_0428
-
-	pop hl
-	ld hl, wc4e1
-	push hl
-	jp Jump_000_04c5
-
-
-jr_000_0428:
-	and a
-	jp z, Jump_000_04c9
-
-	cp $4c
-	jp z, Jump_000_05bb
-
-	cp $4b
-	jp z, Jump_000_05a9
-
-	cp $51
-	jp z, Jump_000_0588
-
-	cp $52
-	jp z, Jump_000_04da
-
-	cp $53
-	jp z, Jump_000_04e0
-
-	cp $54
-	jp z, Jump_000_04fe
-
-	cp $5b
-	jp z, Jump_000_04f2
-
-	cp $5e
-	jp z, Jump_000_04f8
-
-	cp $5c
-	jp z, Jump_000_04ec
-
-	cp $5d
-	jp z, Jump_000_04e6
-
-	cp $55
-	jp z, Jump_000_0555
-
-	cp $56
-	jp z, Jump_000_0504
-
-	cp $57
-	jp z, Jump_000_0581
-
-	cp $58
-	jp z, Jump_000_0569
-
-	cp $59
-	jp z, Jump_000_050a
-
-	cp $5a
-	jp z, Jump_000_0510
-
-	cp $e4
-	jr z, jr_000_0484
-
-	cp $e5
-	jr nz, jr_000_048d
-
-jr_000_0484:
-	push hl
-	ld bc, $ffec
-	add hl, bc
-	ld [hl], a
-	pop hl
-	jr jr_000_04c5
-
-jr_000_048d:
-	cp $60
-	jr nc, jr_000_04c1
-
-	cp $40
-	jr nc, jr_000_04ac
-
-	cp $20
-	jr nc, jr_000_049d
-
-	add $80
-	jr jr_000_049f
-
-jr_000_049d:
-	add $90
-
-jr_000_049f:
-	push af
-	ld a, $e5
-	push hl
-	ld bc, $ffec
-	add hl, bc
-	ld [hl], a
-	pop hl
-	pop af
-	jr jr_000_04c1
-
-jr_000_04ac:
-	cp $44
-	jr nc, jr_000_04b4
-
-	add $59
-	jr jr_000_04b6
-
-jr_000_04b4:
-	add $86
-
-jr_000_04b6:
-	push af
-	ld a, $e4
-	push hl
-	ld bc, $ffec
-	add hl, bc
-	ld [hl], a
-	pop hl
-	pop af
-
-jr_000_04c1:
-	ld [hli], a
-	call Call_000_391d
-
-Jump_000_04c5:
-jr_000_04c5:
-	inc de
-	jp Jump_000_0406
-
-
-Jump_000_04c9:
-	ld b, h
-	ld c, l
-	pop hl
-	ld de, $04d1
-	dec de
-	ret
-
-
-	add hl, bc
-	adc h
-	rst $38
-	ld [de], a
-	nop
-	add e
-	and l
-	db $e3
-	ld d, a
-
-Jump_000_04da:
-	push de
-	ld de, wd11d
-	jr jr_000_0526
-
-Jump_000_04e0:
-	push de
-	ld de, wd2ce
-	jr jr_000_0526
-
-Jump_000_04e6:
-	push de
-	ld de, $0536
-	jr jr_000_0526
-
-Jump_000_04ec:
-	push de
-	ld de, $0530
-	jr jr_000_0526
-
-Jump_000_04f2:
-	push de
-	ld de, $053c
-	jr jr_000_0526
-
-Jump_000_04f8:
-	push de
-	ld de, $0541
-	jr jr_000_0526
-
-Jump_000_04fe:
-	push de
-	ld de, $0548
-	jr jr_000_0526
-
-Jump_000_0504:
-	push de
-	ld de, $054d
-	jr jr_000_0526
-
-Jump_000_050a:
-	ldh a, [$f3]
-	xor $01
-	jr jr_000_0512
-
-Jump_000_0510:
-	ldh a, [$f3]
-
-jr_000_0512:
-	push de
-	and a
-	jr nz, jr_000_051b
-
-	ld de, wcff0
-	jr jr_000_0526
-
-jr_000_051b:
-	ld de, $0550
-	call Call_000_0405
-	ld h, b
-	ld l, c
-	ld de, wcfc1
-
-jr_000_0526:
-	call Call_000_0405
-	ld h, b
-	ld l, c
-	pop de
-	inc de
-	jp Jump_000_0406
-
-
-	call c, $9d2b
-	adc e
-	xor e
-	ld d, b
-
-	db $93, $a7, $e3, $94, $e3, $50, $40, $8e, $89, $ab, $50
-
-	xor b
-	adc b
-	xor h
-	sub e
-	jr nc, @-$20
-
-	ld d, b
-
-	db $43, $88, $a1, $ab, $50, $75, $75, $50, $c3, $b7, $c9, $7f, $50
-
-Jump_000_0555:
-	push de
-	ld b, h
-	ld c, l
-	ld hl, $0565
-	call Call_000_05f1
-	ld h, b
-	ld l, c
-	pop de
-	inc de
-	jp Jump_000_0406
-
-
-	db $00, $4b, $50, $50
-
-Jump_000_0569:
-	ld a, [wd0f0]
-	cp $04
-	jp z, Jump_000_0576
-
-	ld a, $ee
-	ld [wc4f2], a
-
-Jump_000_0576:
-	call Call_000_05eb
-	call Call_000_38e1
-	ld a, $7f
-	ld [wc4f2], a
-
-Jump_000_0581:
-	pop hl
-	ld de, $0587
-	dec de
-	ret
-
-
-	db $50
-
-Jump_000_0588:
-	push de
-	ld a, $ee
-	ld [wc4f2], a
-	call Call_000_05eb
-	call Call_000_38e1
-	ld hl, wc4a5
-	ld bc, $0412
-	call Call_000_0374
-	ld c, $14
-	call DelayFrames
-	pop de
-	ld hl, wc4b9
-	jp Jump_000_04c5
-
-
-Jump_000_05a9:
-	ld a, $ee
-	ld [wc4f2], a
-	call Call_000_05eb
-	push de
-	call Call_000_38e1
-	pop de
-	ld a, $7f
-	ld [wc4f2], a
-
-Jump_000_05bb:
-	push de
-	call Call_000_05c9
-	call Call_000_05c9
-	ld hl, wc4e1
-	pop de
-	jp Jump_000_04c5
-
-
-Call_000_05c9:
-	ld hl, wc4b8
-	ld de, wc4a4
-	ld b, $3c
-
-jr_000_05d1:
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, jr_000_05d1
-
-	ld hl, wc4e1
-	ld a, $7f
-	ld b, $12
-
-jr_000_05de:
-	ld [hli], a
-	dec b
-	jr nz, jr_000_05de
-
-	ld b, $05
-
-jr_000_05e4:
-	call DelayFrame
-	dec b
-	jr nz, jr_000_05e4
-
-	ret
-
-
-Call_000_05eb:
-	push bc
-	call Call_000_3e07
-	pop bc
-	ret
-
-
-Call_000_05f1:
-Jump_000_05f1:
-	ld a, [wd2d7]
-	push af
-	set 1, a
-	ld [wd2d7], a
-	ld a, c
-	ld [wcc3a], a
-	ld a, b
-	ld [wcc3b], a
-
-Jump_000_0602:
-jr_000_0602:
-	ld a, [hli]
-	cp $50
-	jr nz, jr_000_060c
-
-	pop af
-	ld [wd2d7], a
-	ret
-
-
-jr_000_060c:
-	push hl
-	ld hl, $0746
-	push bc
-	add a
-	ld b, $00
-	ld c, a
-	add hl, bc
-	pop bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	jp hl
-
-
-	pop hl
-	ld a, [hli]
-	ld e, a
-	ld a, [hli]
-	ld d, a
-	ld a, [hli]
-	ld b, a
-	ld a, [hli]
-	ld c, a
-	push hl
-	ld h, d
-	ld l, e
-	call Call_000_03d2
-	pop hl
-	jr jr_000_0602
-
-	pop hl
-	ld d, h
-	ld e, l
-	ld h, b
-	ld l, c
-	call Call_000_0405
-	ld h, d
-	ld l, e
-	inc hl
-	jr jr_000_0602
-
-	pop hl
-	ld a, [hli]
-	ld e, a
-	ld a, [hli]
-	ld d, a
-	push hl
-	ld h, b
-	ld l, c
-	call Call_000_0405
-	pop hl
-	jr jr_000_0602
-
-	pop hl
-	ld a, [hli]
-	ld e, a
-	ld a, [hli]
-	ld d, a
-	ld a, [hli]
-	push hl
-	ld h, b
-	ld l, c
-	ld c, a
-	call Call_000_2fc4
-	ld b, h
-	ld c, l
-	pop hl
-	jr jr_000_0602
-
-	pop hl
-	ld a, [hli]
-	ld [wcc3a], a
-	ld c, a
-	ld a, [hli]
-	ld [wcc3b], a
-	ld b, a
-	jp Jump_000_0602
-
-
-	pop hl
-	ld bc, wc4e1
-	jp Jump_000_0602
-
-
-	ld a, [wd0f0]
-	cp $04
-	jp z, Jump_000_073d
-
-	ld a, $ee
-	ld [wc4f2], a
-	push bc
-	call Call_000_38e1
-	pop bc
-	ld a, $7f
-	ld [wc4f2], a
-	pop hl
-	jp Jump_000_0602
-
-
-	ld a, $7f
-	ld [wc4f2], a
-	call Call_000_05c9
-	call Call_000_05c9
-	pop hl
-	ld bc, wc4e1
-	jp Jump_000_0602
-
-
-	pop hl
-	ld de, $0602
-	push de
-	jp hl
-
-
-	pop hl
-	ld a, [hli]
-	ld e, a
-	ld a, [hli]
-	ld d, a
-	ld a, [hli]
-	push hl
-	ld h, b
-	ld l, c
-	ld b, a
-	and $0f
-	ld c, a
-	ld a, b
-	and $f0
-	swap a
-	set 6, a
-	ld b, a
-	call Call_000_3c8f
-	ld b, h
-	ld c, l
-	pop hl
-	jp Jump_000_0602
-
-
-	push bc
-	call Call_000_0153
-	ldh a, [$b4]
-	and $03
-	jr nz, jr_000_06cf
-
-	ld c, $1e
-	call DelayFrames
-
-jr_000_06cf:
-	pop bc
-	pop hl
-	jp Jump_000_0602
-
-
-	pop hl
-	push bc
-	dec hl
-	ld a, [hli]
-	ld b, a
-	push hl
-	ld hl, $0707
-
-jr_000_06dd:
-	ld a, [hli]
-	cp b
-	jr z, jr_000_06e4
-
-	inc hl
-	jr jr_000_06dd
-
-jr_000_06e4:
-	cp $14
-	jr z, jr_000_06fc
-
-	cp $15
-	jr z, jr_000_06fc
-
-	cp $16
-	jr z, jr_000_06fc
-
-	ld a, [hl]
-	call Call_000_0e45
-	call Call_000_3790
-	pop hl
-	pop bc
-	jp Jump_000_0602
-
-
-jr_000_06fc:
-	push de
-	ld a, [hl]
-	call Call_000_2dc7
-	pop de
-	pop hl
-	pop bc
-	jp Jump_000_0602
-
-
-	db $0b, $86, $12, $9a, $0e
-
-	sub c
-
-	db $0f
-
-	add [hl]
-
-	db $10
-
-	adc c
-
-	db $11, $94, $13
-
-	sbc b
-
-	db $14, $a8
-
-	dec d
-	sub a
-	ld d, $78
-	pop hl
-	ld a, [hli]
-	ld d, a
-	push hl
-	ld h, b
-	ld l, c
-
-jr_000_0721:
-	ld a, $75
-	ld [hli], a
-	push de
-	call Call_000_0153
-	pop de
-	ldh a, [$b4]
-	and $03
-	jr nz, jr_000_0734
-
-	ld c, $0a
-	call DelayFrames
-
-jr_000_0734:
-	dec d
-	jr nz, jr_000_0721
-
-	ld b, h
-	ld c, l
-	pop hl
-	jp Jump_000_0602
-
-
-Jump_000_073d:
-	push bc
-	call Call_000_38e1
-	pop bc
-	pop hl
-	jp Jump_000_0602
-
-
-	db $2d, $06, $3a, $06, $48, $06
-
-	ld e, d
-	ld b, $1b
-	db $06
-
-	db $68, $06, $6f, $06
-
-	adc d
-	db $06
-
-	db $9c, $06, $a2, $06, $c0, $06, $d4, $06
-
-	dec de
-	rlca
-	dec a
-	rlca
-	call nc, wd406
-	ld b, $d4
-	db $06
-
-	db $d4, $06, $d4, $06
-
-	db $d4
-	db $06
-
-	db $d4, $06
-
-	call nc, wd406
-	db $06
-
-Call_000_0774:
+GetRowColAddressBGMap:
 	xor a
 	srl h
 	rr a
@@ -1658,7 +546,7 @@ INCLUDE "home/timer.asm"
 
 Call_000_0d9b:
 Jump_000_0d9b:
-	call Call_000_3790
+	call WaitForSoundToFinish
 	xor a
 	ld c, a
 	ld d, a
@@ -1793,8 +681,7 @@ jr_000_0e30:
 	ld [wc0f0], a
 	ld a, b
 
-Call_000_0e45:
-PlaySound:
+PlaySound::
 	push hl
 	push de
 	push bc
@@ -2808,7 +1695,7 @@ jr_000_13d4:
 	ld [wcfae], a
 	ld a, $ff
 	ld [wc0ee], a
-	call Call_000_0e45
+	call PlaySound
 	ld a, [wc0f0]
 	ld [wc0ef], a
 	ld a, b
@@ -3104,7 +1991,7 @@ Jump_000_15de:
 	ld a, [wd67f]
 	ld [wd0df], a
 	ld a, $8f
-	call Call_000_0e45
+	call PlaySound
 	ld b, $01
 	ld hl, $72c0
 	call Bankswitch
@@ -3244,7 +2131,7 @@ jr_000_1696:
 	call Call_000_3130
 	ld a, $b2
 	call Call_000_3788
-	jp Jump_000_3790
+	jp WaitForSoundToFinish
 
 
 	ldh a, [$b8]
@@ -3500,7 +2387,7 @@ jr_000_1861:
 	ld c, $0b
 
 jr_000_187f:
-	call Call_000_03d2
+	call TextBoxBorder
 	ld hl, wc478
 	ld a, [wcf7b]
 	cp $02
@@ -3512,7 +2399,7 @@ jr_000_187f:
 
 jr_000_1894:
 	ld de, $1941
-	call Call_000_0405
+	call PlaceString
 	xor a
 	ld [wcf7d], a
 	jp Jump_000_18ba
@@ -3605,7 +2492,7 @@ jr_000_18ed:
 jr_000_191c:
 	ld hl, wc474
 	ld de, $1945
-	call Call_000_0405
+	call PlaceString
 	ld de, $ff9f
 	ld c, $83
 	call Call_000_2fc4
@@ -3649,7 +2536,7 @@ Call_000_1968:
 	ld hl, wc3e1
 	ld b, $09
 	ld c, $0e
-	call Call_000_0374
+	call ClearScreenArea
 	ld a, [wcf72]
 	ld e, a
 	ld a, [wcf73]
@@ -3725,7 +2612,7 @@ jr_000_19d8:
 	call Call_000_1b6d
 
 jr_000_19db:
-	call Call_000_0405
+	call PlaceString
 	pop de
 	pop hl
 	ld a, [wcf7a]
@@ -3856,7 +2743,7 @@ jr_000_1a8f:
 
 Jump_000_1aa1:
 	ld de, $1aa7
-	jp Jump_000_0405
+	jp PlaceString
 
 
 	db $d4, $d2, $d9, $50
@@ -3881,7 +2768,7 @@ Call_000_1aab:
 	ld de, wcd68
 	push de
 	ld bc, $0005
-	call Call_000_01bb
+	call CopyBytes
 	ld hl, wcd6d
 	ld [hl], $50
 	pop de
@@ -3939,7 +2826,7 @@ jr_000_1b19:
 
 jr_000_1b1f:
 	ld de, wcd68
-	call Call_000_01bb
+	call CopyBytes
 	ld a, [wd0e3]
 	sub $c8
 	ld b, $f6
@@ -5358,7 +4245,7 @@ jr_000_22eb:
 	ld a, $b5
 
 jr_000_22ed:
-	call Call_000_0e45
+	call PlaySound
 	ld a, [wMapPalOffset]
 	and a
 	ret nz
@@ -5447,7 +4334,7 @@ Call_000_2368:
 	ld [wcfae], a
 	ld a, $ff
 	ld [wc0ee], a
-	call Call_000_0e45
+	call PlaySound
 
 jr_000_2373:
 	ld a, [wcfae]
@@ -5561,7 +4448,7 @@ Call_000_23ff:
 	ld de, $9000
 	ld bc, $0600
 	ld a, [wd4aa]
-	jp Jump_000_028c
+	jp CopyFarBytes2
 
 
 Call_000_2413:
@@ -5974,7 +4861,7 @@ jr_000_2617:
 	jr z, jr_000_2623
 
 	ld a, $b4
-	call Call_000_0e45
+	call PlaySound
 
 jr_000_2623:
 	scf
@@ -6771,7 +5658,7 @@ jr_000_2a06:
 	jr z, jr_000_2a12
 
 	ld a, $b4
-	call Call_000_0e45
+	call PlaySound
 
 jr_000_2a12:
 	scf
@@ -6851,7 +5738,7 @@ jr_000_2a74:
 	push de
 	push hl
 	ld bc, $050c
-	call Call_000_02dd
+	call CopyVideoData
 	pop hl
 	pop de
 	ld a, $c0
@@ -6864,7 +5751,7 @@ jr_000_2a74:
 jr_000_2a85:
 	set 3, h
 	ld bc, $050c
-	jp Jump_000_02dd
+	jp CopyVideoData
 
 
 Call_000_2a8d:
@@ -7319,13 +6206,13 @@ Call_000_2cf8:
 	add hl, bc
 	ld bc, $0004
 	ld de, wd2de
-	call Call_000_01bb
+	call CopyBytes
 	pop af
 	ldh [$b8], a
 	ld [$2000], a
 	ret
 
-
+DrawHPBar::
 	push hl
 	push de
 	push bc
@@ -7392,7 +6279,7 @@ Call_000_2d68:
 	ld b, $01
 	jp Jump_000_3620
 
-
+OverwriteMoves::
 	ld hl, wd0b9
 	ld e, b
 	ld d, $00
@@ -7449,13 +6336,12 @@ jr_000_2da3:
 	ret
 
 
-Call_000_2dc7:
-	call Call_000_2dd0
-	call Call_000_0e45
-	jp Jump_000_3790
+PlayCry::
+	call GetCryData
+	call PlaySound
+	jp WaitForSoundToFinish
 
-
-Call_000_2dd0:
+GetCryData::
 	dec a
 	ld c, a
 	ld b, $00
@@ -7727,7 +6613,7 @@ jr_000_2f1a:
 	call Call_000_3ad1
 	ld de, wd095
 	ld bc, $001c
-	call Call_000_01bb
+	call CopyBytes
 	jr jr_000_2f97
 
 jr_000_2f7f:
@@ -7744,7 +6630,7 @@ jr_000_2f89:
 	ld de, wd095
 	ld bc, $001c
 	ld a, $01
-	call Call_000_01a3
+	call CopyFarBytes
 
 jr_000_2f97:
 	ld a, [wd092]
@@ -7770,7 +6656,7 @@ Call_000_2fb1:
 	ld de, wcd68
 	push de
 	ld bc, $0006
-	call Call_000_01bb
+	call CopyBytes
 	pop de
 	pop bc
 	pop hl
@@ -8020,7 +6906,7 @@ jr_000_30f2:
 	ld c, $31
 	ldh a, [$b8]
 	ld b, a
-	jp Jump_000_02dd
+	jp CopyVideoData
 
 
 	ld a, $01
@@ -8174,11 +7060,11 @@ jr_000_31bc:
 	push de
 	ld de, wcf59
 	ld bc, $0005
-	call Call_000_01bb
+	call CopyBytes
 	pop hl
 	ld de, wcf5e
 	ld bc, $0006
-	jp Jump_000_01bb
+	jp CopyBytes
 
 
 Call_000_31db:
@@ -8520,7 +7406,7 @@ Call_000_33b2:
 	ld b, $06
 	ld hl, $7e9f
 	call Bankswitch
-	jp Jump_000_3790
+	jp WaitForSoundToFinish
 
 
 Call_000_33ff:
@@ -8577,7 +7463,7 @@ Jump_000_3432:
 	xor a
 	ld [wcfae], a
 	ld a, $ff
-	call Call_000_0e45
+	call PlaySound
 	ld a, $1f
 	ld [wc0ef], a
 	ld [wc0f0], a
@@ -9063,14 +7949,14 @@ Call_000_36ca:
 	ld de, $8800
 	ld bc, $0400
 	ld a, $04
-	jp Jump_000_02c0
+	jp CopyFarBytesDouble
 
 
 jr_000_36de:
 	ld de, $4b19
 	ld hl, $8800
 	ld bc, $0480
-	jp Jump_000_031b
+	jp CopyVideoDataDouble
 
 
 Call_000_36ea:
@@ -9082,14 +7968,14 @@ Call_000_36ea:
 	ld de, $9600
 	ld bc, $0200
 	ld a, $04
-	jp Jump_000_028c
+	jp CopyFarBytes2
 
 
 jr_000_36fe:
 	ld de, $52f1
 	ld hl, $9600
 	ld bc, $0420
-	jp Jump_000_02dd
+	jp CopyVideoData
 
 
 Call_000_370a:
@@ -9101,14 +7987,14 @@ Call_000_370a:
 	ld de, $9620
 	ld bc, $01e0
 	ld a, $04
-	jp Jump_000_028c
+	jp CopyFarBytes2
 
 
 jr_000_371e:
 	ld de, $4f39
 	ld hl, $9620
 	ld bc, $041e
-	jp Jump_000_02dd
+	jp CopyVideoData
 
 
 ByteFill::
@@ -9138,7 +8024,7 @@ Call_000_373e:
 	ld hl, wc3a0
 	ld de, wcd7c
 	ld bc, $0168
-	jp Jump_000_01bb
+	jp CopyBytes
 
 
 Call_000_374a:
@@ -9154,14 +8040,14 @@ Call_000_3752:
 	ld hl, wcd7c
 	ld de, wc3a0
 	ld bc, $0168
-	jp Jump_000_01bb
+	jp CopyBytes
 
 
 Call_000_3761:
 	ld hl, wc3a0
 	ld de, wc508
 	ld bc, $0168
-	jp Jump_000_01bb
+	jp CopyBytes
 
 
 Jump_000_376d:
@@ -9170,7 +8056,7 @@ Jump_000_376d:
 	ld hl, wc508
 	ld de, wc3a0
 	ld bc, $0168
-	call Call_000_01bb
+	call CopyBytes
 	ld a, $01
 	ldh [$ba], a
 	ret
@@ -9188,13 +8074,12 @@ jr_000_3781:
 
 Call_000_3788:
 	push af
-	call Call_000_3790
+	call WaitForSoundToFinish
 	pop af
 	jp PlaySound
 
 
-Call_000_3790:
-Jump_000_3790:
+WaitForSoundToFinish::
 	ld a, [wd060]
 	and $80
 	ret nz
@@ -9299,7 +8184,7 @@ jr_000_3800:
 	ld l, e
 	ld de, wcd68
 	ld bc, $0014
-	call Call_000_01bb
+	call CopyBytes
 
 jr_000_3815:
 	ld a, e
@@ -10036,7 +8921,7 @@ jr_000_3b9d:
 	jr nz, jr_000_3bb1
 
 	ld a, $90
-	call Call_000_0e45
+	call PlaySound
 
 jr_000_3bb1:
 	pop af
@@ -10537,7 +9422,7 @@ Call_000_3e04:
 	call GBPalWhiteOut
 
 Call_000_3e07:
-Jump_000_3e07:
+Delay3:
 jr_000_3e07:
 	ld c, $03
 	jp Jump_000_3781

@@ -10138,7 +10138,7 @@ Call_010_6e85:
 	ld de, $711a
 	call Call_010_6f80
 	ld c, $0a
-	call $0359
+	call Function_0359
 	ret c
 
 	ld a, $b9
@@ -10150,7 +10150,7 @@ Call_010_6e85:
 	ld de, $711a
 	call Call_010_6f80
 	ld c, $1e
-	call $0359
+	call Function_0359
 	ret c
 
 	ld b, $04
@@ -10160,7 +10160,7 @@ Call_010_6e85:
 	ld de, $0401
 	call Call_010_6ffb
 	ld c, $1e
-	call $0359
+	call Function_0359
 	ret c
 
 	ld b, $05
@@ -10176,7 +10176,7 @@ Call_010_6e85:
 	ld de, $7125
 	call Call_010_6f80
 	ld c, $1e
-	call $0359
+	call Function_0359
 	ret c
 
 	ld de, $0401
@@ -10184,7 +10184,7 @@ Call_010_6e85:
 	ld b, $03
 	call Call_010_702c
 	ld c, $3c
-	call $0359
+	call Function_0359
 	ret c
 
 	ld a, $b9
@@ -10198,7 +10198,7 @@ Call_010_6e85:
 	ld de, $713b
 	call Call_010_6f80
 	ld c, $14
-	call $0359
+	call Function_0359
 	ret c
 
 	ld a, $24
@@ -10206,7 +10206,7 @@ Call_010_6e85:
 	ld de, $7146
 	call Call_010_6f80
 	ld c, $1e
-	call $0359
+	call Function_0359
 	ret c
 
 	ld a, $b8
@@ -10216,7 +10216,7 @@ Call_010_6e85:
 	ld de, $714f
 	call Call_010_6f80
 	ld c, $50
-	jp $0359
+	jp Function_0359
 
 
 Call_010_6f80:
@@ -10359,7 +10359,7 @@ jr_010_701e:
 	ldh [$ae], a
 	push de
 	ld c, $02
-	call $0359
+	call Function_0359
 	pop de
 	ret c
 

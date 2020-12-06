@@ -1,0 +1,24 @@
+CopyFarBytes::
+; Copy bc bytes from a:hl to de.
+	ld [wcee4], a
+	ldh a, [$b8]
+	push af
+	ld a, [wcee4]
+	ldh [$b8], a
+	ld [$2000], a
+	call CopyBytes
+	pop af
+	ldh [$b8], a
+	ld [$2000], a
+	ret
+
+CopyBytes::
+; Copy bc bytes from hl to de.
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec bc
+	ld a, c
+	or b
+	jr nz, CopyBytes
+	ret

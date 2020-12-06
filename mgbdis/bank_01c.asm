@@ -1138,7 +1138,7 @@ jr_01c_4579:
 	jr nz, jr_01c_4579
 
 	ld c, $01
-	call $0359
+	call Function_0359
 	pop bc
 	pop hl
 	ret c
@@ -1170,7 +1170,7 @@ jr_01c_45a8:
 	rrc [hl]
 	rrc [hl]
 	ld c, $0a
-	call $0359
+	call Function_0359
 	ret c
 
 	dec b
@@ -1268,7 +1268,7 @@ jr_01c_4650:
 	xor $a0
 	ldh [rOBP1], a
 	ld c, $03
-	call $0359
+	call Function_0359
 	ret c
 
 	dec b

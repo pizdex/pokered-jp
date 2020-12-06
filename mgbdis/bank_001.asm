@@ -1313,7 +1313,7 @@ jr_001_4852:
 
 jr_001_487f:
 	ld c, $ff
-	call $0359
+	call Function_0359
 	jr c, jr_001_488e
 
 	call Call_001_48f3
