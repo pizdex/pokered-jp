@@ -116,7 +116,7 @@ jr_00f_40bb:
 
 Call_00f_4100:
 	push bc
-	ld hl, wc301
+	ld hl, wOAMBuffer + $01
 	ld c, $15
 	ld de, $0004
 
@@ -6116,7 +6116,7 @@ jr_00f_6540:
 	ld e, c
 	add $7f
 	or [hl]
-	call c, wc3df
+	call c, $c3df
 	ld c, a
 	inc a
 	sbc $bc
@@ -8054,7 +8054,7 @@ jr_00f_6f8e:
 	call $3735
 	ld a, $03
 	call $3e9d
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	xor a
 	ldh [$8b], a
 	ld b, $07

@@ -606,7 +606,7 @@ jr_012_4384:
 	ld e, b
 	nop
 	ld d, d
-	jp z, wc37f
+	jp z, $c37f
 
 	sbc $b2
 	sbc $7f
@@ -4609,7 +4609,7 @@ Jump_012_55c4:
 	cp a
 
 Call_012_55c6:
-	call c, wc3da
+	call c, $c3da
 	db $d3
 	ld a, a
 	jp z, wc0bc
@@ -5811,7 +5811,7 @@ jr_012_5b82:
 	add c
 	xor e
 	ld a, a
-	call c, wc3b9
+	call c, $c3b9
 	ld a, a
 	call nc, $b3db
 	or [hl]
@@ -6085,7 +6085,7 @@ jr_012_5c7c:
 	ld a, a
 	ret nc
 
-	jp z, wc3df
+	jp z, $c3df
 
 	reti
 
@@ -7488,7 +7488,7 @@ jr_012_62c5:
 	sub h
 	db $e3
 	add $7f
-	jp z, wc3df
+	jp z, $c3df
 
 	ld a, a
 	or c
@@ -8921,7 +8921,7 @@ jr_012_6989:
 	adc a
 	ld l, c
 	nop
-	ld [wc36a], a
+	ld [wOAMBuffer + $6a], a
 	ld l, a
 	inc a
 	sbc b
@@ -9903,7 +9903,7 @@ jr_012_6d2b:
 	dec l
 	ld l, [hl]
 	nop
-	call c, wc36e
+	call c, $c36e
 	ld l, a
 	inc a
 	jr c, @+$70
@@ -11061,7 +11061,7 @@ jr_012_7370:
 	add hl, de
 	xor h
 	sub e
-	jp z, wc37f
+	jp z, $c37f
 
 	ld a, [hli]
 	call c, $e7b2
@@ -11758,7 +11758,7 @@ jr_012_777e:
 	or h
 	add $d3
 	ld a, a
-	call c, wc3b9
+	call c, $c3b9
 	ld a, a
 	call nc, wd6d9
 	ld e, b
@@ -11991,7 +11991,7 @@ jr_012_782d:
 	ld e, [hl]
 	jp z, $ba55
 
-	call c, wc3b8
+	call c, $c3b8
 	ld a, a
 	jp nz, $b2d6
 

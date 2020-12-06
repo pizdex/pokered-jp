@@ -1264,7 +1264,7 @@ jr_010_466c:
 	ld a, a
 	jp nz, $b3b6
 
-	call nz, wc37f
+	call nz, $c37f
 	ld a, [hli]
 	call c, $e8b2
 	ld d, b
@@ -2212,7 +2212,7 @@ jr_010_4ad6:
 	add $4e
 	or l
 	or l
-	call c, wc3da
+	call c, $c3da
 	or d
 	reti
 
@@ -2793,7 +2793,7 @@ jr_010_4cda:
 	inc e
 	db $e3
 	xor h
-	call nz, wc3bc
+	call nz, $c3bc
 	or d
 	jp wc57f
 
@@ -3248,7 +3248,7 @@ Jump_010_4ee8:
 
 
 	add sp, -$2a
-	call c, wc3b2
+	call c, $c3b2
 	or a
 	jp z, $bf7f
 
@@ -3468,7 +3468,7 @@ Call_010_503b:
 	ld c, [hl]
 	or l
 	or l
-	call c, wc3da
+	call c, $c3da
 	or d
 	reti
 
@@ -4513,7 +4513,7 @@ jr_010_5436:
 	jp z, wd37f
 
 	daa
-	call nz, wc3df
+	call nz, $c3df
 	db $d3
 	ld c, [hl]
 	or c
@@ -4523,7 +4523,7 @@ jr_010_5436:
 	ret nz
 
 	ld a, a
-	jp z, wc3b4
+	jp z, $c3b4
 
 	cp b
 	reti
@@ -4932,7 +4932,7 @@ jr_010_5678:
 	ld a, a
 	cp l
 	or d
-	call nz, wc3df
+	call nz, $c3df
 	cp h
 	rst $08
 	or e
@@ -5716,7 +5716,7 @@ jr_010_5945:
 	push bc
 	or [hl]
 	add $7f
-	jp z, wc3b4
+	jp z, $c3b4
 
 	or d
 	reti
@@ -6274,7 +6274,7 @@ jr_010_5ba1:
 	ld c, [hl]
 	or l
 	or l
-	call c, wc3da
+	call c, $c3da
 	or d
 	reti
 
@@ -6325,7 +6325,7 @@ jr_010_5c47:
 	add $7f
 	or l
 	or l
-	call c, wc3da
+	call c, $c3da
 	or d
 	reti
 
@@ -6527,7 +6527,7 @@ jr_010_5c47:
 	add $7f
 	push bc
 	rst $18
-	jp wc3b2
+	jp $c3b2
 
 
 	ld c, [hl]
@@ -6664,7 +6664,7 @@ jr_010_5c47:
 	ld a, a
 	cp l
 	or d
-	call nz, wc3df
+	call nz, $c3df
 	cp h
 	rst $08
 	or e
@@ -6844,7 +6844,7 @@ jr_010_5e72:
 	rst $08
 	dec hl
 	rst $18
-	jp wc3b2
+	jp $c3b2
 
 
 	ld c, [hl]
@@ -8050,7 +8050,7 @@ jr_010_62df:
 	db $dd
 	ld a, a
 	call z, wcfd8
-	call c, wc3bc
+	call c, $c3bc
 	ld c, [hl]
 	rrca
 	add c
@@ -8388,7 +8388,7 @@ jr_010_62df:
 	pop bc
 	jp z, $b57f
 
-	call c, wc3df
+	call c, $c3df
 	ld a, a
 	cp h
 	rst $08
@@ -8412,7 +8412,7 @@ jr_010_62df:
 	db $dd
 	ld a, a
 	call z, wcfd8
-	call c, wc3bc
+	call c, $c3bc
 	ld a, a
 	or c
 	or d
@@ -8458,7 +8458,7 @@ jr_010_62df:
 	ld b, a
 	xor h
 	sub e
-	call nz, wc3bc
+	call nz, $c3bc
 	ld a, a
 	add $de
 	or a
@@ -9424,7 +9424,7 @@ jr_010_6a5d:
 	xor $01
 	ld [wd07c], a
 	add $7e
-	ld hl, wc302
+	ld hl, wOAMBuffer + $02
 	ld de, $0004
 	ld c, e
 
@@ -9709,7 +9709,7 @@ Call_010_6c5e:
 	ldh a, [rBGP]
 	xor $3c
 	ldh [rBGP], a
-	ld hl, wc302
+	ld hl, wOAMBuffer + $02
 	ld de, $0004
 	ld c, $14
 
@@ -9734,7 +9734,7 @@ Call_010_6c7b:
 	call Call_010_6cce
 
 Call_010_6c86:
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld c, $14
 
 jr_010_6c8b:
@@ -10239,7 +10239,7 @@ jr_010_6f80:
 	jr jr_010_6f80
 
 Call_010_6f9b:
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld a, [wd07c]
 	ld d, a
 
@@ -10261,7 +10261,7 @@ jr_010_6fa2:
 
 
 Call_010_6fb4:
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld d, $00
 
 jr_010_6fb9:

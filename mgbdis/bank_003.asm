@@ -1736,7 +1736,7 @@ jr_003_4692:
 	ld [bc], a
 	call $fb02
 	ld [bc], a
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
@@ -1792,7 +1792,7 @@ jr_003_4692:
 
 	db $ba, $02, $ba, $02, $ba, $02, $cd, $1f, $bd, $02, $bd, $02
 
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
@@ -1801,7 +1801,7 @@ jr_003_4692:
 	ld [bc], a
 	db $e4
 	rra
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
@@ -1810,7 +1810,7 @@ jr_003_4692:
 
 	db $c3, $02, $e4, $1f
 
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
@@ -1844,11 +1844,11 @@ jr_003_4692:
 	cp l
 	ld [bc], a
 	add sp, $1f
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
@@ -1856,11 +1856,11 @@ jr_003_4692:
 
 
 	ld [bc], a
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
-	jp z, wc302
+	jp z, $c302
 
 	ld [bc], a
 	jp $bd02
@@ -2052,7 +2052,7 @@ jr_003_4692:
 	ld [bc], a
 	call $fb02
 	ld [bc], a
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
@@ -2068,11 +2068,11 @@ jr_003_4692:
 	rra
 	cp l
 	ld [bc], a
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
-	jp wc302
+	jp $c302
 
 
 	ld [bc], a
@@ -2080,7 +2080,7 @@ jr_003_4692:
 
 
 	ld [bc], a
-	jp z, wc302
+	jp z, $c302
 
 	ld [bc], a
 	jp $e402
@@ -5800,7 +5800,7 @@ jr_003_5998:
 
 	ld a, a
 	call nz, wdbba
-	call wc34f
+	call $c34f
 	sbc $bf
 	or e
 	cp e
@@ -6481,7 +6481,7 @@ jr_003_5e30:
 	ld [wcfff], a
 
 jr_003_5e4c:
-	ld hl, wc383
+	ld hl, wOAMBuffer + $83
 	ld bc, $0028
 	inc d
 
@@ -9395,7 +9395,7 @@ jr_003_721b:
 	push bc
 	push hl
 	push hl
-	ld hl, wc378
+	ld hl, wOAMBuffer + $78
 	ld de, $0014
 	ld a, [$ffbe]
 
@@ -9601,7 +9601,7 @@ jr_003_7352:
 	ld hl, $8ff0
 	call Call_003_737e
 	call Call_003_7387
-	ld hl, wc393
+	ld hl, wOAMBuffer + $93
 	ld de, $0004
 	ld a, $30
 	ld c, e

@@ -6838,7 +6838,7 @@ jr_014_5e0a:
 
 	ld h, $7f
 	cp d
-	call c, wc3b8
+	call c, $c3b8
 	ld c, a
 	dec l
 	rst $18
@@ -10336,7 +10336,7 @@ jr_014_6dc0:
 	or a
 	db $dd
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	cp b
 	jp c, $57d9
@@ -13637,7 +13637,7 @@ jr_014_7e93:
 	jp z, $5d7f
 
 	add $7f
-	call nz, wc3df
+	call nz, $c3df
 	ld d, l
 	cp e
 	or d

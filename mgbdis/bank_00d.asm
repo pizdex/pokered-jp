@@ -3583,7 +3583,7 @@ jr_00d_50e8:
 	rst $38
 	rst $38
 	cp $73
-	jp nz, wc399
+	jp nz, wOAMBuffer + $99
 
 	ld d, h
 	ld c, l
@@ -10478,7 +10478,7 @@ jr_00d_7256:
 	adc e
 	inc bc
 	rlca
-	ld sp, wc330
+	ld sp, wOAMBuffer + $30
 	ld l, b
 	ldh [$9c], a
 	ld [$6cb8], a
@@ -11703,7 +11703,7 @@ Call_00d_790d:
 Jump_00d_790d:
 	ld bc, $7adf
 	ld de, wcd3e
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld a, $30
 	ld [wd05e], a
 	jr jr_00d_793b
@@ -11712,7 +11712,7 @@ Call_00d_791d:
 Jump_00d_791d:
 	ld bc, $7b03
 	ld de, wcd3f
-	ld hl, wc330
+	ld hl, wOAMBuffer + $30
 	ld a, $50
 	ld [wd05e], a
 	jr jr_00d_793b
@@ -11721,7 +11721,7 @@ Call_00d_792d:
 Jump_00d_792d:
 	ld bc, $7b27
 	ld de, wcd40
-	ld hl, wc360
+	ld hl, wOAMBuffer + $60
 	ld a, $70
 	ld [wd05e], a
 
@@ -12424,7 +12424,7 @@ jr_00d_7c96:
 	ld h, [hl]
 	rst $20
 	ld e, d
-	jp wc35a
+	jp $c35a
 
 
 	ld h, [hl]
@@ -12441,19 +12441,19 @@ jr_00d_7c96:
 	rst $38
 	nop
 	rst $38
-	jp wc3a5
+	jp $c3a5
 
 
 	and l
-	jp wc3a5
+	jp $c3a5
 
 
 	and l
-	jp wc3a5
+	jp $c3a5
 
 
 	and l
-	jp wc3a5
+	jp $c3a5
 
 
 	and l
@@ -12559,7 +12559,7 @@ jr_00d_7c96:
 	rst $38
 	nop
 	rst $38
-	jp wc33c
+	jp $c33c
 
 
 	cp l
@@ -13089,7 +13089,7 @@ jr_00d_7faf:
 
 Jump_00d_7fc1:
 	cp d
-	call c, wc3da
+	call c, $c3da
 	reti
 
 

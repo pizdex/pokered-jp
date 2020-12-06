@@ -5580,7 +5580,7 @@ jr_002_6445:
 	inc sp
 	push hl
 	ld b, c
-	jp wc361
+	jp $c361
 
 
 	sub c

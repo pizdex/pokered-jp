@@ -1430,7 +1430,7 @@ Call_001_4921:
 	call $0188
 	xor a
 	ld [wcd3d], a
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld de, $6030
 	ld b, $07
 
@@ -3341,7 +3341,7 @@ jr_001_532c:
 	adc a
 	ld h, $4f
 	cp d
-	call c, wc3da
+	call c, $c3da
 	or d
 	rst $08
 	cp l
@@ -8268,7 +8268,7 @@ jr_001_74f2:
 	cp b
 	db $dd
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	ld c, a
 	db $d3
 	or e

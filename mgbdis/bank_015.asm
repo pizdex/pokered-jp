@@ -4661,7 +4661,7 @@ Jump_015_547f:
 	sbc $40
 	xor e
 	ld a, a
-	jp z, wc3b2
+	jp z, $c3b2
 
 	ld a, a
 	push bc
@@ -4719,7 +4719,7 @@ Call_015_553c:
 
 
 	nop
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	or a
 	ret nz
@@ -5513,7 +5513,7 @@ jr_015_5896:
 
 	rst $10
 	rst $18
-	jp wc34f
+	jp $c34f
 
 
 	or [hl]
@@ -6424,7 +6424,7 @@ jr_015_5bed:
 	ret nz
 
 	or [hl]
-	call c, wc3be
+	call c, $c3be
 	ld d, l
 	jp nz, $b8d6
 
@@ -7277,7 +7277,7 @@ jr_015_5fee:
 	ret nz
 
 	or [hl]
-	call c, wc3be
+	call c, $c3be
 	ld a, a
 	ret nc
 
@@ -8307,7 +8307,7 @@ jr_015_644d:
 	db $d3
 	ld a, a
 	cp e
-	call c, wc3df
+	call c, $c3df
 	ld a, a
 	ret nc
 
@@ -8828,7 +8828,7 @@ jr_015_666b:
 	and l
 	adc e
 	ld h, $7f
-	jp z, wc3df
+	jp z, $c3df
 
 	or c
 	reti
@@ -8998,7 +8998,7 @@ jr_015_674d:
 	and l
 	adc e
 	ld h, $7f
-	jp z, wc3df
+	jp z, $c3df
 
 	or c
 	reti
@@ -10321,7 +10321,7 @@ jr_015_6ccb:
 
 	inc sp
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	or a
 	rst $08
@@ -10353,7 +10353,7 @@ jr_015_6ccb:
 	cp d
 	inc sp
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	or a
 	ret nz
@@ -11860,7 +11860,7 @@ jr_015_74a3:
 
 	ld a, a
 	call c, $bcc0
-	jp z, wc37f
+	jp z, $c37f
 
 	sbc $bb
 	or d
@@ -12800,7 +12800,7 @@ jr_015_788e:
 	or a
 	db $dd
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	cp b
 	jp c, $57d9
@@ -13447,7 +13447,7 @@ jr_015_7ccf:
 	ld b, $01
 	ld hl, $4921
 	call $3620
-	ld hl, wc301
+	ld hl, wOAMBuffer + $01
 	ld bc, $8028
 
 jr_015_7cfc:

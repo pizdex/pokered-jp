@@ -2422,7 +2422,7 @@ jr_011_4ad0:
 	inc sp
 	db $d3
 	ld c, a
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	or [hl]
 	or h
@@ -7416,7 +7416,7 @@ jr_011_62de:
 	ld a, a
 	ld a, [hli]
 	call nz, Call_011_7fc6
-	call wc3df
+	call $c3df
 	ld a, a
 	or d
 	cp b

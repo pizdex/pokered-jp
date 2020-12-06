@@ -2503,7 +2503,7 @@ jr_018_4d02:
 	or d
 	db $dd
 	ld a, a
-	jp z, wc3df
+	jp z, $c3df
 
 	or c
 	reti
@@ -4447,7 +4447,7 @@ Call_018_5608:
 	nop
 
 jr_018_5661:
-	ld de, wc357
+	ld de, wOAMBuffer + $57
 	ld l, h
 	inc a
 	ld l, h
@@ -5374,7 +5374,7 @@ jr_018_598b:
 	ld d, h
 	ld a, a
 	call nz, $b3db
-	call nz, wc3bc
+	call nz, $c3bc
 	ld c, a
 	and c
 	xor e
@@ -8997,7 +8997,7 @@ jr_018_6aab:
 	sbc $b7
 	add $7f
 	cp h
-	jp wc3b7
+	jp $c3b7
 
 
 	ld a, a
@@ -9132,7 +9132,7 @@ jr_018_6aab:
 	db $dd
 	ld a, a
 	rst $08
-	call c, wc3df
+	call c, $c3df
 	ld a, a
 	rst $08
 	cp l
@@ -11176,7 +11176,7 @@ jr_018_74a0:
 	call z, wc974
 	ld [hl], h
 	nop
-	call wc374
+	call $c374
 	ld l, h
 	inc a
 	ld d, b

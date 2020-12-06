@@ -11183,12 +11183,12 @@ jr_005_7b02:
 	ld [wcfb2], a
 	ld a, [wd6b5]
 	bit 6, a
-	ld hl, wc38f
-	ld de, wc39f
+	ld hl, wOAMBuffer + $8f
+	ld de, wOAMBuffer + $9f
 	jr z, jr_005_7c7a
 
-	ld hl, wc37f
-	ld de, wc38f
+	ld hl, wOAMBuffer + $7f
+	ld de, wOAMBuffer + $8f
 
 jr_005_7c7a:
 	ld bc, $0090

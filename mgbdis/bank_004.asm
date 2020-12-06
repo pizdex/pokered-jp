@@ -3377,7 +3377,7 @@ jr_004_5628:
 	jp $81c3
 
 
-	jp wc381
+	jp $c381
 
 
 	add c
@@ -4599,7 +4599,7 @@ jr_004_6136:
 	jr nz, jr_004_6136
 
 	pop af
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld bc, $0010
 	call $3ad1
 	ld de, $0004

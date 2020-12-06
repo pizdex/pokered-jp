@@ -1106,11 +1106,11 @@ Call_01c_4525:
 	ld bc, $1c01
 	call $02dd
 	ld hl, $4665
-	ld de, wc360
+	ld de, wOAMBuffer + $60
 	ld bc, $0040
 	call $01bb
 	ld hl, $46a5
-	ld de, wc300
+	ld de, wOAMBuffer
 	ld bc, $0010
 	jp $01bb
 
@@ -1118,7 +1118,7 @@ Call_01c_4525:
 	call Call_01c_4525
 	ld a, $c2
 	call $0e45
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld bc, $a004
 
 jr_01c_4577:
@@ -1153,7 +1153,7 @@ jr_01c_4595:
 	cp b
 	jr nz, jr_01c_4577
 
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld c, $04
 	ld de, $0004
 
@@ -1176,7 +1176,7 @@ jr_01c_45a8:
 	dec b
 	jr nz, jr_01c_45a8
 
-	ld de, wc300
+	ld de, wOAMBuffer
 	ld a, $18
 
 jr_01c_45bd:
@@ -1200,7 +1200,7 @@ jr_01c_45d4:
 	ld d, a
 	push bc
 	push hl
-	ld hl, wc350
+	ld hl, wOAMBuffer + $50
 	ld c, $04
 
 jr_01c_45df:
@@ -1228,8 +1228,8 @@ jr_01c_45df:
 jr_01c_45fa:
 	call Call_01c_4644
 	push af
-	ld hl, wc310
-	ld de, wc300
+	ld hl, wOAMBuffer + $10
+	ld de, wOAMBuffer
 	ld bc, $0050
 	call $01bb
 	pop af
@@ -1253,7 +1253,7 @@ Call_01c_4644:
 	ld b, $08
 
 jr_01c_4646:
-	ld hl, wc35c
+	ld hl, wOAMBuffer + $5c
 	ld a, [wcd3d]
 	ld de, $fffc
 	ld c, a
@@ -1715,7 +1715,7 @@ Call_01c_4974:
 	push af
 	ld a, $e0
 	ldh [rOBP1], a
-	ld hl, wc384
+	ld hl, wOAMBuffer + $84
 	ld de, $4a28
 	call Call_01c_4a54
 	ld a, $04
@@ -2143,18 +2143,18 @@ jr_01c_4bce:
 
 jr_01c_4bd0:
 	ld [wcfb2], a
-	ld a, [wc302]
-	ld [wc30a], a
-	ld a, [wc306]
-	ld [wc30e], a
+	ld a, [wOAMBuffer + $02]
+	ld [wOAMBuffer + $0a], a
+	ld a, [wOAMBuffer + $06]
+	ld [wOAMBuffer + $0e], a
 	ld a, $a0
-	ld [wc300], a
-	ld [wc304], a
+	ld [wOAMBuffer], a
+	ld [wOAMBuffer + $04], a
 	ld c, $02
 	call $3781
 	ld a, $a0
-	ld [wc308], a
-	ld [wc30c], a
+	ld [wOAMBuffer + $08], a
+	ld [wOAMBuffer + $0c], a
 	call $0b5a
 	ld a, $01
 	ld [wcfb2], a
@@ -2369,7 +2369,7 @@ jr_01c_4cfe:
 	ld b, $00
 	ld hl, $4dc2
 	add hl, bc
-	ld de, wc39c
+	ld de, wOAMBuffer + $9c
 	ld bc, $0004
 	call $01bb
 	ld c, $64
@@ -2388,7 +2388,7 @@ jr_01c_4cfe:
 jr_01c_4d4f:
 	ld hl, wc104
 	call Call_01c_4d96
-	ld hl, wc39c
+	ld hl, wOAMBuffer + $9c
 	call Call_01c_4d96
 	call $3e07
 	dec b
@@ -2399,7 +2399,7 @@ jr_01c_4d4f:
 	jr nz, jr_01c_4d6d
 
 	ld a, $a0
-	ld [wc39c], a
+	ld [wOAMBuffer + $9c], a
 
 jr_01c_4d6d:
 	ld hl, wcd4f
@@ -2413,7 +2413,7 @@ jr_01c_4d6d:
 	jr nz, jr_01c_4d84
 
 	ld a, $44
-	ld [wc39c], a
+	ld [wOAMBuffer + $9c], a
 
 jr_01c_4d84:
 	ld hl, $4db2
@@ -2605,7 +2605,7 @@ Call_01c_4e96:
 	ld [wd05f], a
 	ld a, $70
 	ld [wd05e], a
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld bc, $0606
 	ld d, $08
 
@@ -2666,7 +2666,7 @@ jr_01c_4efb:
 	dec c
 	jr nz, jr_01c_4ef5
 
-	ld hl, wc310
+	ld hl, wOAMBuffer + $10
 	ld c, $09
 
 jr_01c_4f04:
@@ -3502,7 +3502,7 @@ jr_01c_5365:
 	ld hl, wc3b5
 	ld de, wcd68
 	call $0405
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld de, wc508
 	ld bc, $0010
 	call $01bb
@@ -3534,7 +3534,7 @@ jr_01c_53ff:
 	call Call_01c_57f4
 	ld a, $04
 	ld [wcd51], a
-	ld hl, wc310
+	ld hl, wOAMBuffer + $10
 	call Call_01c_5815
 	pop hl
 	ld de, wcd68
@@ -3549,7 +3549,7 @@ jr_01c_5419:
 	ld hl, wc3b5
 	ld de, wcd68
 	call $0405
-	ld hl, wc310
+	ld hl, wOAMBuffer + $10
 	ld de, wc518
 	ld bc, $0010
 	call $01bb
@@ -4149,7 +4149,7 @@ jr_01c_577b:
 	cp $50
 	jr nz, jr_01c_577b
 
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld de, wc508
 	ld bc, $00a0
 	jp $01bb
@@ -4160,7 +4160,7 @@ Call_01c_578e:
 	ld hl, $6cd6
 	call $3620
 	call Call_01c_5875
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld de, wcee4
 
 jr_01c_579f:
@@ -4208,7 +4208,7 @@ jr_01c_57d5:
 	call Call_01c_5763
 
 jr_01c_57dd:
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld de, wc508
 	ld bc, $00a0
 	jp $01bb
@@ -4244,10 +4244,10 @@ Call_01c_57f4:
 Call_01c_5809:
 	ld a, [wcd51]
 	and a
-	ld hl, wc390
+	ld hl, wOAMBuffer + $90
 	jr z, jr_01c_5815
 
-	ld hl, wc380
+	ld hl, wOAMBuffer + $80
 
 Call_01c_5815:
 jr_01c_5815:
@@ -5108,14 +5108,14 @@ Call_01c_5b8a:
 	jr nz, jr_01c_5bb5
 
 	ld hl, wc508
-	ld de, wc300
+	ld de, wOAMBuffer
 	ld bc, $0090
 	call $01bb
 	xor a
 	jr jr_01c_5bb5
 
 jr_01c_5ba5:
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld b, $24
 	ld de, $0004
 
@@ -5177,7 +5177,7 @@ jr_01c_5bea:
 jr_01c_5bf0:
 	push bc
 	ld hl, wcc5b
-	ld de, wc300
+	ld de, wOAMBuffer
 	ld bc, $0060
 	call $01bb
 	pop bc
@@ -5186,7 +5186,7 @@ jr_01c_5bf0:
 
 jr_01c_5c01:
 	push bc
-	ld hl, wc302
+	ld hl, wOAMBuffer + $02
 	ld bc, $0010
 	ld a, [wcc26]
 	call $3ad1
@@ -5386,7 +5386,7 @@ jr_01c_5d9e:
 	call Call_01c_581d
 
 jr_01c_5da1:
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	ld de, wcc5b
 	ld bc, $0060
 	jp $01bb
@@ -11210,7 +11210,7 @@ jr_01c_7a70:
 	adc a
 	ld h, $4f
 	cp d
-	call c, wc3da
+	call c, $c3da
 	or d
 	rst $08
 	cp l

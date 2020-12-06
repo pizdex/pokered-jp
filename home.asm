@@ -10,7 +10,6 @@ SECTION "Home", ROM0
 _Start:
 	jp Init
 
-
 Call_000_0153:
 	ldh a, [$b8]
 	push af
@@ -23,60 +22,8 @@ Call_000_0153:
 	ld [$2000], a
 	ret
 
-
-DisableLCD:
-	xor a
-	ldh [rIF], a
-	ldh a, [rIE]
-	ld b, a
-	res 0, a
-	ldh [rIE], a
-
-jr_000_0171:
-	ldh a, [rLY]
-	cp $91
-	jr nz, jr_000_0171
-
-	ldh a, [rLCDC]
-	and $7f
-	ldh [rLCDC], a
-	ld a, b
-	ldh [rIE], a
-	ret
-
-
-Call_000_0181:
-	ldh a, [rLCDC]
-	set 7, a
-	ldh [rLCDC], a
-	ret
-
-
-ClearSprites:
-	xor a
-	ld hl, wc300
-	ld b, $a0
-
-jr_000_018e:
-	ld [hli], a
-	dec b
-	jr nz, jr_000_018e
-
-	ret
-
-
-	ld a, $a0
-	ld hl, wc300
-	ld de, $0004
-	ld b, $28
-
-jr_000_019d:
-	ld [hl], a
-	add hl, de
-	dec b
-	jr nz, jr_000_019d
-
-	ret
+INCLUDE "home/lcd.asm"
+INCLUDE "home/clear_sprites.asm"
 
 
 Call_000_01a3:
@@ -1707,11 +1654,7 @@ INCLUDE "home/init.asm"
 INCLUDE "home/vblank.asm"
 INCLUDE "home/fade.asm"
 INCLUDE "home/serial.asm"
-
-
-Timer:
-	reti
-
+INCLUDE "home/timer.asm"
 
 Call_000_0d9b:
 Jump_000_0d9b:
@@ -4083,7 +4026,7 @@ Call_000_1b6d:
 	call Call_000_36ea
 	call Call_000_26bb
 	call Call_000_23ff
-	call Call_000_0181
+	call EnableLCD
 	pop af
 	ldh [$b8], a
 	ld [$2000], a
@@ -4096,7 +4039,7 @@ Call_000_1b6d:
 	call Call_000_2ccd
 	call DisableLCD
 	call Call_000_23ff
-	call Call_000_0181
+	call EnableLCD
 	pop af
 	ldh [$b8], a
 	ld [$2000], a
@@ -4509,7 +4452,7 @@ jr_000_1d59:
 	ld [hl], c
 	sub d
 	ld [hl], h
-	call nz, wc378
+	call nz, $c378
 	ld l, b
 	ld c, h
 	ld [hl], a
@@ -7298,7 +7241,7 @@ jr_000_2c9f:
 
 	ld a, $01
 	ld [wcfb2], a
-	call Call_000_0181
+	call EnableLCD
 	ld b, $09
 	call Call_000_3e1f
 	call Call_000_23ae
@@ -10656,7 +10599,7 @@ Call_000_3e38:
 	ld b, $05
 	ld hl, $7840
 	call Bankswitch
-	call Call_000_0181
+	call EnableLCD
 	pop hl
 	pop af
 	ld [hl], a

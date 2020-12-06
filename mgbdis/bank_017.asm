@@ -1253,7 +1253,7 @@ jr_017_45d1:
 	call nz, $bbb3
 	sbc $c6
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	or a
 	jp Jump_017_7fc8
 
@@ -5909,7 +5909,7 @@ jr_017_5a4e:
 	db $dd
 	ld a, a
 	or [hl]
-	call c, wc3da
+	call c, $c3da
 
 jr_017_5a5d:
 	ld d, l
@@ -6792,7 +6792,7 @@ jr_017_5d8d:
 	sbc $56
 	rst $20
 	ld c, a
-	call nz, wc3df
+	call nz, $c3df
 	db $d3
 	ld a, a
 	ret nz
@@ -10970,7 +10970,7 @@ jr_017_70db:
 	db $d3
 	ret c
 
-	jp z, wc37f
+	jp z, $c37f
 
 	sbc $c8
 	sbc $c9
@@ -12100,7 +12100,7 @@ jr_017_75f6:
 	or a
 	db $dd
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	cp b
 	jp c, $57d9
 
@@ -13368,7 +13368,7 @@ jr_017_7c50:
 	or d
 	ld a, a
 	or l
-	call c, wc3df
+	call c, $c3df
 	db $d3
 	ld a, a
 	ret z
@@ -13408,7 +13408,7 @@ jr_017_7c50:
 	ld [c], a
 	cp b
 	ld h, $7f
-	call wc3df
+	call $c3df
 	ld a, a
 	or d
 	or a
@@ -13423,7 +13423,7 @@ jr_017_7c50:
 	or d
 	ld a, a
 	or l
-	call c, wc3df
+	call c, $c3df
 	db $d3
 	ld c, a
 	inc [hl]
@@ -13480,7 +13480,7 @@ jr_017_7c50:
 	or d
 	ld a, a
 	or l
-	call c, wc3df
+	call c, $c3df
 	db $d3
 	ld c, a
 	sbc l
@@ -13521,7 +13521,7 @@ jr_017_7c50:
 	ld [c], a
 	cp b
 	ld h, $7f
-	call wc3df
+	call $c3df
 	ld c, a
 	cp d
 	or e
@@ -13554,7 +13554,7 @@ jr_017_7c50:
 	or d
 	ld a, a
 	or l
-	call c, wc3df
+	call c, $c3df
 	db $d3
 	ld c, a
 	call nc, $34b9
@@ -13619,7 +13619,7 @@ jr_017_7c50:
 	or d
 	ld a, a
 	or l
-	call c, wc3df
+	call c, $c3df
 	db $d3
 	ld a, a
 	cp d

@@ -5524,7 +5524,7 @@ jr_01a_74c2:
 	rst $38
 	rst $38
 	rst $38
-	jp wc3ff
+	jp $c3ff
 
 
 	rst $38

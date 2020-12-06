@@ -627,7 +627,7 @@ jr_01d_434a:
 	ld d, l
 	cp d
 	sbc $34
-	jp z, wc37f
+	jp z, $c37f
 
 	or [hl]
 	add hl, hl
@@ -1654,7 +1654,7 @@ jr_01d_473a:
 	or [hl]
 	or h
 	rst $18
-	jp wc3b7
+	jp $c3b7
 
 
 	ld d, l
@@ -2228,7 +2228,7 @@ jr_01d_497c:
 	ld c, c
 	ld hl, sp+$49
 	nop
-	ld bc, wc34a
+	ld bc, wOAMBuffer + $4a
 	ld l, h
 	inc a
 	push bc
@@ -8447,7 +8447,7 @@ jr_01d_6679:
 	db $e3
 	ld a, a
 	call nz, $b27f
-	call c, wc3da
+	call c, $c3da
 	reti
 
 
@@ -13761,7 +13761,7 @@ Call_01d_7f3c:
 	or [hl]
 	ld a, a
 	or l
-	call nz, wc3bc
+	call nz, $c3bc
 	cp h
 	rst $08
 	rst $18

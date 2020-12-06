@@ -6146,7 +6146,7 @@ Call_01f_60e4:
 	add sp, -$16
 	inc c
 	inc hl
-	call c, wc380
+	call c, $c380
 	db $e4
 	cp e
 	call c, $e4b4
@@ -6830,7 +6830,7 @@ jr_01f_6617:
 	jp $edc3
 
 
-	ld bc, wc320
+	ld bc, wOAMBuffer + $20
 	jp $01ed
 
 
@@ -7429,25 +7429,25 @@ jr_01f_687c:
 	inc hl
 	inc sp
 	sub $11
-	jp wc3c3
+	jp $c3c3
 
 
-	jp wc3c3
+	jp $c3c3
 
 
-	jp wc3c3
+	jp $c3c3
 
 
-	jp wc3c3
+	jp $c3c3
 
 
-	jp wc3c3
+	jp $c3c3
 
 
 	jp $11dc
 
 
-	jp wc3c3
+	jp $c3c3
 
 
 	jp Jump_01f_43e3

@@ -504,7 +504,7 @@ Call_00e_6bfc:
 	ld [hl], a
 	ld a, $08
 	ld [wcd3e], a
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	jp Jump_00e_6c74
 
 
@@ -519,7 +519,7 @@ Jump_00e_6c1a:
 	ld [hl], $20
 	ld a, $f8
 	ld [wcd3e], a
-	ld hl, wc318
+	ld hl, wOAMBuffer + $18
 	jp Jump_00e_6c74
 
 
@@ -662,7 +662,7 @@ jr_00e_6ccf:
 	ld [hl], $40
 	ld a, $08
 	ld [wcd3e], a
-	ld hl, wc300
+	ld hl, wOAMBuffer
 	call Call_00e_6c74
 	ld hl, wd823
 	ld de, wd81b
@@ -671,7 +671,7 @@ jr_00e_6ccf:
 	ld a, $50
 	ld [hli], a
 	ld [hl], $60
-	ld hl, wc318
+	ld hl, wOAMBuffer + $18
 	jp Jump_00e_6c74
 
 unk_00e_6d11:

@@ -4311,7 +4311,7 @@ jr_019_6908:
 	pop de
 	pop af
 	rst $18
-	jp wc3c4
+	jp $c3c4
 
 
 	call nz, $e4e3
@@ -4335,7 +4335,7 @@ jr_019_6908:
 	ld b, d
 	rst $38
 	ld h, [hl]
-	jp wc366
+	jp $c366
 
 
 	nop
@@ -6394,11 +6394,11 @@ jr_019_71c7:
 	rst $38
 	add c
 	rst $38
-	jp wc3bd
+	jp $c3bd
 
 
 	cp l
-	jp wc3bd
+	jp $c3bd
 
 
 	cp l

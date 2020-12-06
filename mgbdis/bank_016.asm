@@ -6849,7 +6849,7 @@ jr_016_5d6c:
 	ret nz
 
 	or [hl]
-	call c, wc3be
+	call c, $c3be
 	ld a, a
 	ret nc
 
@@ -7027,7 +7027,7 @@ jr_016_5e68:
 	and c
 	ld e, a
 	sub $5f
-	jp wc35f
+	jp $c35f
 
 
 	ld e, a
@@ -8468,7 +8468,7 @@ jr_016_64cf:
 	ret c
 
 	call nc, $7fd8
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	or a
 	ret nz
@@ -9218,7 +9218,7 @@ jr_016_67a9:
 	or d
 	ld a, a
 	rst $08
-	call c, wc3df
+	call c, $c3df
 	ld d, l
 	adc l
 	add [hl]
@@ -11649,7 +11649,7 @@ jr_016_72b3:
 	ld b, b
 	sub l
 	db $e3
-	call nz, wc355
+	call nz, $c355
 	or d
 	cp c
 	or d
@@ -13147,7 +13147,7 @@ jr_016_7996:
 	ldh [rHDMA5], a
 	jp nz, $bbd6
 
-	jp z, wc37f
+	jp z, $c37f
 
 	sbc $b6
 	ld a, a

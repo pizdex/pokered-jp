@@ -4779,7 +4779,7 @@ jr_006_5a10:
 	and l
 	adc e
 	ld h, $7f
-	jp z, wc3df
+	jp z, $c3df
 
 	ld a, a
 	or c
@@ -7846,7 +7846,7 @@ jr_006_68a6:
 	jp c, wca33
 
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	or l
 	or a
 	ret
@@ -9918,7 +9918,7 @@ jr_006_724b:
 	ld d, [hl]
 	ld a, a
 	cp d
-	call c, wc3b8
+	call c, $c3b8
 	ld c, a
 	cp d
 	cp d
@@ -11775,7 +11775,7 @@ jr_006_7a7f:
 	or a
 	db $dd
 	ld a, a
-	call nz, wc3df
+	call nz, $c3df
 	ld a, a
 	cp b
 	jp c, $57d9
