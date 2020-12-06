@@ -1,0 +1,4 @@
+SECTION "ROM Bank $00c", ROMX[$4000], BANK[$c]
+
+unk_00c_4000:
+	dr $30000, $34000
