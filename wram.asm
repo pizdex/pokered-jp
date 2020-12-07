@@ -4052,7 +4052,7 @@ wd05e:: ds 1 ; d05e
 wd05f:: ds 1 ; d05f
 wd060:: ds 1 ; d060
 wd061:: ds 1 ; d061
-wd062:: ds 1 ; d062
+wMovingBGTilesCounter2:: ds 1 ; d062
 wd063:: ds 1 ; d063
 wd064:: ds 1 ; d064
 wd065:: ds 1 ; d065
