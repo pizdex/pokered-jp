@@ -37,365 +37,15 @@ INCLUDE "home/vblank.asm"
 INCLUDE "home/fade.asm"
 INCLUDE "home/serial.asm"
 INCLUDE "home/timer.asm"
+INCLUDE "home/audio.asm"
+INCLUDE "home/update_sprites.asm"
 
-Call_000_0d9b:
-Jump_000_0d9b:
-	call WaitForSoundToFinish
-	xor a
-	ld c, a
-	ld d, a
-	ld [wcfb1], a
-	jr jr_000_0db8
+INCLUDE "data/items/marts.asm"
 
-Call_000_0da6:
-	ld c, $0a
-	ld d, $00
-	ld a, [wd6ad]
-	bit 5, a
-	jr z, jr_000_0db8
-
-	xor a
-	ld [wcfb1], a
-	ld c, $08
-	ld d, c
-
-jr_000_0db8:
-	ld a, [wd67f]
-	and a
-	jr z, jr_000_0dd7
-
-	cp $02
-	jr z, jr_000_0dc6
-
-	ld a, $d2
-	jr jr_000_0dc8
-
-jr_000_0dc6:
-	ld a, $d6
-
-jr_000_0dc8:
-	ld b, a
-	ld a, d
-	and a
-	ld a, $1f
-	jr nz, jr_000_0dd2
-
-	ld [wc0ef], a
-
-jr_000_0dd2:
-	ld [wc0f0], a
-	jr jr_000_0de0
-
-jr_000_0dd7:
-	ld a, [wd2da]
-	ld b, a
-	call Call_000_0e19
-	jr c, jr_000_0de5
-
-jr_000_0de0:
-	ld a, [wcfb1]
-	cp b
-	ret z
-
-jr_000_0de5:
-	ld a, c
-	ld [wcfae], a
-	ld a, b
-	ld [wcfb1], a
-	ld [wc0ee], a
-	jp PlaySound
-
-
-Call_000_0df3:
-	ld a, [wc0ef]
-	ld b, a
-	cp $02
-	jr nz, jr_000_0e00
-
-	ld hl, $4000
-	jr jr_000_0e0c
-
-jr_000_0e00:
-	cp $08
-	jr nz, jr_000_0e09
-
-	ld hl, $455f
-	jr jr_000_0e0c
-
-jr_000_0e09:
-	ld hl, $4417
-
-jr_000_0e0c:
-	ld c, $06
-
-jr_000_0e0e:
-	push bc
-	push hl
-	call Bankswitch
-	pop hl
-	pop bc
-	dec c
-	jr nz, jr_000_0e0e
-
-	ret
-
-
-Call_000_0e19:
-	ld a, [wd2db]
-	ld e, a
-	ld a, [wc0ef]
-	cp e
-	jr nz, jr_000_0e28
-
-	ld [wc0f0], a
-	and a
-	ret
-
-
-jr_000_0e28:
-	ld a, c
-	and a
-	ld a, e
-	jr nz, jr_000_0e30
-
-	ld [wc0ef], a
-
-jr_000_0e30:
-	ld [wc0f0], a
-	scf
-	ret
-
-
-	ld b, a
-	ld [wc0ee], a
-	xor a
-	ld [wcfae], a
-	ld a, c
-	ld [wc0ef], a
-	ld [wc0f0], a
-	ld a, b
-
-PlaySound::
-	push hl
-	push de
-	push bc
-	ld b, a
-	ld a, [wc0ee]
-	and a
-	jr z, jr_000_0e5c
-
-	xor a
-	ld [wc02a], a
-	ld [wc02b], a
-	ld [wc02c], a
-	ld [wc02d], a
-
-jr_000_0e5c:
-	ld a, [wcfae]
-	and a
-	jr z, jr_000_0e77
-
-	ld a, [wc0ee]
-	and a
-	jr z, jr_000_0eb9
-
-	xor a
-	ld [wc0ee], a
-	ld a, [wcfb1]
-	cp $ff
-	jr nz, jr_000_0ea8
-
-	xor a
-	ld [wcfae], a
-
-jr_000_0e77:
-	xor a
-	ld [wc0ee], a
-	ldh a, [$b8]
-	ldh [$b9], a
-	ld a, [wc0ef]
-	ldh [$b8], a
-	ld [$2000], a
-	cp $02
-	jr nz, jr_000_0e91
-
-	ld a, b
-	call $4773
-	jr jr_000_0e9f
-
-jr_000_0e91:
-	cp $08
-	jr nz, jr_000_0e9b
-
-	ld a, b
-	call $4d1b
-	jr jr_000_0e9f
-
-jr_000_0e9b:
-	ld a, b
-	call $4b8a
-
-jr_000_0e9f:
-	ldh a, [$b9]
-	ldh [$b8], a
-	ld [$2000], a
-	jr jr_000_0eb9
-
-jr_000_0ea8:
-	ld a, b
-	ld [wcfb1], a
-	ld a, [wcfae]
-	ld [wcfaf], a
-	ld [wcfb0], a
-	ld a, b
-	ld [wcfae], a
-
-jr_000_0eb9:
-	pop bc
-	pop de
-	pop hl
-	ret
-
-
-Call_000_0ebd:
-Jump_000_0ebd:
-	ld a, [wcfb2]
-	dec a
-	ret nz
-
-	ldh a, [$b8]
-	push af
-	ld a, $01
-	ldh [$b8], a
-	ld [$2000], a
-	call $4a1c
-	pop af
-	ldh [$b8], a
-	ld [$2000], a
-	ret
-
-
-	db $fe, $04, $04, $0b, $0f, $0c, $ff
-
-	cp $07
-	inc b
-	inc d
-	dec e
-	dec bc
-	inc c
-	ld c, $0f
-	rst $38
-	cp $07
-	inc b
-	inc d
-	ld e, $0b
-	inc c
-	ld c, $0f
-	rst $38
-	cp $01
-	ld b, $ff
-	cp $06
-	inc b
-	inc de
-	dec c
-	ld c, $0f
-	ld e, $ff
-	cp $09
-	inc bc
-	inc de
-	dec [hl]
-	dec e
-	jr c, jr_000_0f11
-
-	inc c
-	dec c
-	rrca
-	rst $38
-	cp $09
-	inc bc
-	inc de
-	dec [hl]
-	jr c, @+$0d
-
-jr_000_0f11:
-	inc c
-	dec c
-	ld c, $0f
-	rst $38
-	cp $09
-	add sp, -$17
-	jp z, $edcf
-
-	ret
-
-
-	call wd9d1
-	rst $38
-	cp $05
-	inc sp
-	jr nz, jr_000_0f48
-
-	ld [hli], a
-	cpl
-	rst $38
-	cp $07
-	ld l, $37
-	ld a, [hld]
-	ld b, c
-	ld b, d
-	ld b, e
-	ld b, h
-	rst $38
-	cp $04
-	inc h
-	dec h
-	ld h, $27
-	rst $38
-	cp $06
-	ld [bc], a
-	inc bc
-	inc de
-	dec [hl]
-	inc [hl]
-	jr c, @+$01
-
-	cp $05
-	inc bc
-	ld [de], a
-
-jr_000_0f48:
-	inc de
-	inc [hl]
-	dec [hl]
-	rst $38
-	cp $07
-	ld [bc], a
-	inc bc
-	ld [de], a
-	add hl, sp
-	dec e
-	inc [hl]
-	dec [hl]
-	rst $38
-	cp $06
-	inc bc
-	ld [de], a
-	add hl, sp
-	dec e
-	inc [hl]
-	dec [hl]
-	rst $38
-	cp $07
-	ld [bc], a
-	inc bc
-	db $10
-	ld de, $3534
-	add hl, sp
-	rst $38
-
+TextScriptEndingText::
 	db $50
 
-Jump_000_0f6a:
+TextScriptEnd:
 	ld hl, $0f69
 	ret
 
@@ -494,10 +144,9 @@ Jump_000_0f6a:
 	ld d, a
 
 	db $08
-
 	ld a, $5c
 	call Call_000_3e9d
-	jp Jump_000_0f6a
+	jp TextScriptEnd
 
 
 Jump_000_0fce:
@@ -1368,7 +1017,7 @@ jr_000_14d5:
 	pop af
 	ldh [$b8], a
 	ld [$2000], a
-	jp Jump_000_0ebd
+	jp UpdateSprites
 
 
 Jump_000_1500:
@@ -1492,7 +1141,7 @@ Jump_000_15de:
 	ld b, $03
 	ld hl, $4b75
 	call Bankswitch
-	call Call_000_0ebd
+	call UpdateSprites
 
 jr_000_1603:
 	call Call_000_3b08
@@ -1686,14 +1335,14 @@ jr_000_170b:
 	ld a, $0d
 	ld [wd0ea], a
 	call Call_000_3130
-	call Call_000_0ebd
+	call UpdateSprites
 	ld hl, wc3cc
 	ld de, $090e
 	ld a, [wcf7b]
 	and a
 	jr nz, jr_000_1740
 
-	call Call_000_0ebd
+	call UpdateSprites
 
 jr_000_1740:
 	ld a, $01
@@ -2952,7 +2601,7 @@ jr_000_1def:
 	ld b, $1c
 	ld hl, $4a61
 	call Bankswitch
-	call Call_000_0ebd
+	call UpdateSprites
 
 jr_000_1e01:
 	ld b, $03
@@ -2960,7 +2609,7 @@ jr_000_1e01:
 	call Bankswitch
 	ld hl, wd6ac
 	res 5, [hl]
-	call Call_000_0ebd
+	call UpdateSprites
 	ld hl, wd0eb
 	set 5, [hl]
 	set 6, [hl]
@@ -3044,7 +2693,7 @@ jr_000_1e76:
 Jump_000_1e9a:
 	ld a, $35
 	call Call_000_3e9d
-	call Call_000_0ebd
+	call UpdateSprites
 	ld a, [wcd5b]
 	bit 2, a
 	jr nz, jr_000_1eda
@@ -3088,7 +2737,7 @@ Jump_000_1ee4:
 jr_000_1ee4:
 	ld hl, wcd5b
 	res 2, [hl]
-	call Call_000_0ebd
+	call UpdateSprites
 	ld a, $01
 	ld [wcc4b], a
 	ld a, [wd4a7]
@@ -3202,7 +2851,7 @@ jr_000_1f7b:
 jr_000_1f95:
 	ld a, [wd4a9]
 	ld [wd4a7], a
-	call Call_000_0ebd
+	call UpdateSprites
 	ld a, [wd67f]
 	cp $02
 	jr z, jr_000_1fbf
@@ -3243,7 +2892,7 @@ Jump_000_1fcc:
 	call Bankswitch
 
 jr_000_1fdb:
-	call Call_000_0ebd
+	call UpdateSprites
 
 jr_000_1fde:
 	ld hl, wcd5b
@@ -3713,7 +3362,7 @@ jr_000_2290:
 
 Jump_000_22c4:
 	call Call_000_2a8d
-	call Call_000_0da6
+	call PlayDefaultMusicFadeOutCurrent
 	ld b, $09
 	call Call_000_3e1f
 	ld b, $05
@@ -3820,7 +3469,7 @@ Jump_000_2348:
 	ld [$2000], a
 	call $755f
 	call $6260
-	call Call_000_0da6
+	call PlayDefaultMusicFadeOutCurrent
 	jp $5bb6
 
 
@@ -3839,7 +3488,7 @@ jr_000_2373:
 
 
 Jump_000_237c:
-	call Call_000_0ebd
+	call UpdateSprites
 	call Call_000_3e07
 	xor a
 	ld [wcf06], a
@@ -5170,7 +4819,7 @@ jr_000_2a17:
 	xor a
 	ld [wd67f], a
 	call Call_000_23ae
-	call Call_000_0d9b
+	call PlayDefaultMusic
 	jr jr_000_2a15
 
 jr_000_2a23:
@@ -5634,8 +5283,8 @@ jr_000_2c9f:
 	bit 1, a
 	jr nz, jr_000_2cc6
 
-	call Call_000_0df3
-	call Call_000_0da6
+	call UpdateMusic6Times
+	call PlayDefaultMusicFadeOutCurrent
 
 jr_000_2cc6:
 	pop af
@@ -5683,7 +5332,7 @@ Call_000_2cf8:
 	ld b, $05
 	ld hl, $23ae
 	call Bankswitch
-	jp Jump_000_0d9b
+	jp PlayDefaultMusic
 
 
 	ld b, a
@@ -6927,7 +6576,7 @@ jr_000_340e:
 
 	call Call_000_33ff
 	call Call_000_05f1
-	jp Jump_000_0f6a
+	jp TextScriptEnd
 
 
 	ld a, [wcd5b]
@@ -8592,7 +8241,7 @@ Jump_000_3c79:
 	ld a, $01
 	ld [wd0ea], a
 	call Call_000_3130
-	call Call_000_0ebd
+	call UpdateSprites
 	call Call_000_3e07
 	pop hl
 
@@ -8984,7 +8633,7 @@ Call_000_3e38:
 	ld [hl], a
 	call Call_000_23ae
 	call Call_000_36ca
-	jp Jump_000_0ebd
+	jp UpdateSprites
 
 
 	ld a, b

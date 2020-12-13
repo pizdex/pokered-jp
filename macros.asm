@@ -1,4 +1,7 @@
+INCLUDE "macros/const.asm"
 INCLUDE "macros/farcall.asm"
+
+INCLUDE "macros/scripts/text.asm"
 
 dr: MACRO
 ; IF DEF(RED)
