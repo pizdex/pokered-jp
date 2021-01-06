@@ -42,112 +42,7 @@ INCLUDE "home/update_sprites.asm"
 
 INCLUDE "data/items/marts.asm"
 
-TextScriptEndingText::
-	db $50
-
-TextScriptEnd:
-	ld hl, $0f69
-	ret
-
-
-	nop
-	rst $20
-	ld d, a
-	nop
-	inc [hl]
-	cp d
-	or [hl]
-	inc sp
-	ld a, a
-	inc l
-	jp nc, $26de
-
-	db $d3
-	ret c
-
-	or c
-	ld h, $df
-	ret nz
-
-	rst $20
-	ld d, a
-	nop
-	ld [hl], b
-	or [hl]
-	or d
-	ret c
-
-	or a
-	ld [hl], c
-	ld a, a
-	inc sp
-	ld a, a
-	or e
-	ld a, [hli]
-	or [hl]
-	cp [hl]
-	reti
-
-
-	or [hl]
-	db $d3
-	ld d, [hl]
-	ld d, a
-	nop
-	ld d, h
-	ld a, a
-	rlca
-	xor h
-	inc c
-	ld h, $7f
-	or d
-	rst $18
-	ld b, h
-	or d
-	rst $20
-	ld c, a
-	sbc e
-	and a
-	xor e
-	inc de
-	ret c
-
-	or b
-	adc e
-	xor a
-	xor h
-	ld b, d
-	ld d, a
-	nop
-	ld d, h
-	ret
-
-
-	ld a, a
-	ret nz
-
-	or d
-	ret c
-
-	ld [c], a
-	cp b
-	ld a, a
-	or [hl]
-	or d
-	call z, $e7b8
-	ld c, a
-	ld d, h
-	adc l
-	xor e
-	adc a
-	db $e3
-	ld d, a
-
-	db $08
-	ld a, $5c
-	call Call_000_3e9d
-	jp TextScriptEnd
-
+INCLUDE "home/overworld_text.asm"
 
 Jump_000_0fce:
 	ld b, a
@@ -1268,7 +1163,7 @@ jr_000_1696:
 	ld hl, $ffa1
 	ld c, $03
 	ld a, $0b
-	call Call_000_3e9d
+	call Predef
 	ld a, $13
 	ld [wd0ea], a
 	call Call_000_3130
@@ -1609,7 +1504,7 @@ jr_000_18ed:
 	ld hl, $ff8d
 	push bc
 	ld a, $0b
-	call Call_000_3e9d
+	call Predef
 	pop bc
 	dec b
 	jr nz, jr_000_18ed
@@ -1624,7 +1519,7 @@ jr_000_18ed:
 	ld a, $02
 	ldh [$a4], a
 	ld a, $0d
-	call Call_000_3e9d
+	call Predef
 	ldh a, [$a2]
 	ldh [$9f], a
 	ldh a, [$a3]
@@ -2692,7 +2587,7 @@ jr_000_1e76:
 
 Jump_000_1e9a:
 	ld a, $35
-	call Call_000_3e9d
+	call Predef
 	call UpdateSprites
 	ld a, [wcd5b]
 	bit 2, a
@@ -2712,7 +2607,7 @@ Jump_000_1e9a:
 	jr z, jr_000_1ed7
 
 	ld a, $52
-	call Call_000_3e9d
+	call Predef
 	ld a, [wd2dd]
 	ld [wd699], a
 	call $6260
@@ -2948,7 +2843,7 @@ jr_000_2030:
 	jp nz, Jump_000_20cb
 
 	ld a, $13
-	call Call_000_3e9d
+	call Predef
 	ld a, [wd0f2]
 	and a
 	jp nz, Jump_000_2348
@@ -3821,7 +3716,7 @@ Call_000_253a:
 	jr z, jr_000_256f
 
 	ld a, $35
-	call Call_000_3e9d
+	call Predef
 	ld hl, wd430
 	ld a, [wd42f]
 	ld b, a
@@ -3860,7 +3755,7 @@ jr_000_256c:
 
 jr_000_256f:
 	ld a, $35
-	call Call_000_3e9d
+	call Predef
 	ld hl, wd4b1
 	ld b, $03
 	ld d, $20
@@ -4018,7 +3913,7 @@ jr_000_2625:
 
 Call_000_2627:
 	ld a, $35
-	call Call_000_3e9d
+	call Predef
 	ld a, [wcfad]
 	ld c, a
 	ld hl, wd4af
@@ -4044,7 +3939,7 @@ jr_000_263f:
 Call_000_2641:
 	push hl
 	ld a, $35
-	call Call_000_3e9d
+	call Predef
 	push de
 	push bc
 	ld b, $06
@@ -4768,7 +4663,7 @@ Call_000_29c8:
 	jr c, jr_000_2a06
 
 	ld a, $35
-	call Call_000_3e9d
+	call Predef
 	ld a, [wcfad]
 	cp $14
 	jr z, jr_000_2a15
@@ -5177,7 +5072,7 @@ jr_000_2bfd:
 
 Jump_000_2c09:
 	ld a, $19
-	call Call_000_3e9d
+	call Predef
 	ld hl, $4f2e
 	ld b, $03
 	call Bankswitch
@@ -5440,7 +5335,7 @@ OverwriteMoves::
 	ld a, [wcf78]
 	ld [wd0e3], a
 	ld a, $3a
-	call Call_000_3e9d
+	call Predef
 	ld hl, wd0e3
 	ld a, [hl]
 	pop bc
@@ -5748,7 +5643,7 @@ jr_000_2f1a:
 	jr z, jr_000_2f89
 
 	ld a, $3a
-	call Call_000_3e9d
+	call Predef
 	ld a, [wd0e3]
 	dec a
 	ld bc, $001c
@@ -6261,7 +6156,7 @@ jr_000_320d:
 
 Call_000_320f:
 	ld a, $10
-	jp Jump_000_3e9d
+	jp Predef
 
 
 	call Call_000_319f
@@ -6324,7 +6219,7 @@ jr_000_3273:
 	xor a
 	ld [wcd50], a
 	ld a, $4c
-	call Call_000_3e9d
+	call Predef
 	ld a, $f0
 	ld [wcd66], a
 	xor a
@@ -6387,7 +6282,7 @@ Jump_000_32a5:
 	ld a, [hl]
 	ld [wcc4d], a
 	ld a, $11
-	call Call_000_3e9d
+	call Predef
 
 jr_000_3301:
 	ld hl, wd6af
@@ -6481,7 +6376,7 @@ jr_000_3354:
 	swap a
 	ld [wcd3d], a
 	ld a, $39
-	call Call_000_3e9d
+	call Predef
 	pop de
 	pop hl
 	ld a, [wcd3d]
@@ -6714,7 +6609,7 @@ Jump_000_34c9:
 
 
 	ld a, $1c
-	call Call_000_3e9d
+	call Predef
 	ld a, b
 	and a
 	ret
@@ -7479,7 +7374,7 @@ jr_000_38c5:
 	pop hl
 	call Call_000_3879
 	ld a, $2d
-	call Call_000_3e9d
+	call Predef
 	ldh a, [$b5]
 	and $03
 	jr z, jr_000_38bb
@@ -8596,7 +8491,7 @@ Call_000_3e1f:
 	ret z
 
 	ld a, $45
-	jp Jump_000_3e9d
+	jp Predef
 
 
 	ld a, e
@@ -8662,7 +8557,7 @@ Call_000_3e38:
 	jp Jump_000_3620
 
 
-Random:
+Random::
 	push hl
 	push de
 	push bc
@@ -8676,11 +8571,12 @@ Random:
 	ret
 
 
-Call_000_3e9d:
-Jump_000_3e9d:
+Predef::
 	ld [wcc4e], a
+
 	ldh a, [$b8]
 	ld [wcf0d], a
+
 	push af
 	ld a, $13
 	ldh [$b8], a
@@ -8689,11 +8585,11 @@ Jump_000_3e9d:
 	ld a, [wd094]
 	ldh [$b8], a
 	ld [$2000], a
-	ld de, $3ebd
+	ld de, .done
 	push de
 	jp hl
 
-
+.done
 	pop af
 	ldh [$b8], a
 	ld [$2000], a

@@ -97,7 +97,7 @@ LCDC_DEFAULT EQU %11100011
 	ei
 
 	ld a, $40
-	call Call_000_3e9d
+	call Predef
 
 	ld a, $1f
 	ld [wc0ef], a
@@ -110,7 +110,7 @@ LCDC_DEFAULT EQU %11100011
 	ld [wcfb2], a
 
 	ld a, $32
-	call Call_000_3e9d
+	call Predef
 
 	call DisableLCD
 	call ClearVRAM
