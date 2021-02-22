@@ -4,7 +4,7 @@ VBlank:
 	push de
 	push hl
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wd0e7], a
 
 	ldh a, [$ae]
@@ -27,7 +27,7 @@ VBlank:
 	call UpdateMovingBGTiles
 	call $ff80
 	ld a, $01
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $4672
 
@@ -51,7 +51,7 @@ VBlank:
 	call FadeOutAudio
 
 	ld a, [wc0ef]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 
 ; checkForAudio1
@@ -78,7 +78,7 @@ VBlank:
 	call Bankswitch
 
 	ld a, [wd0e7]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 
 	pop hl

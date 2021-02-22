@@ -2474,7 +2474,7 @@ Jump_01e_57ca:
 	ld [wcf78], a
 	ld [wd092], a
 	xor a
-	ld [wd087], a
+	ld [wSpriteFlipped], a
 	call $2f2e
 	ld hl, wc3ac
 	call $2d7f

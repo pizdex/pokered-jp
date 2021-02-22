@@ -11969,7 +11969,7 @@ jr_003_7f76:
 	res 6, [hl]
 	ld de, $0f6a
 	push de
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 
 Jump_003_7fc5:
 	push af

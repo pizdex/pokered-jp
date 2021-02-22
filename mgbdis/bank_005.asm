@@ -173,7 +173,7 @@ jr_005_4085:
 	ldh [$e0], a
 	db $10
 	ldh a, [rNR10]
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld a, b
 	ld hl, sp-$28
 	db $fc
@@ -7270,7 +7270,7 @@ jr_005_6970:
 	rla
 	ldh [$e0], a
 	ld [hl], b
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld hl, sp-$28
 	ld hl, sp-$24
 	db $fc
@@ -7422,7 +7422,7 @@ jr_005_6a2c:
 	rla
 	ldh [$e0], a
 	ld [hl], b
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld hl, sp-$28
 	ld hl, sp-$24
 	db $fc

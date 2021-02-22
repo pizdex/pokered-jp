@@ -5139,12 +5139,12 @@ Jump_001_6000:
 	call $3c79
 
 jr_001_601e:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $9c
 	call $0e45
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld c, $04
 	call $3781
@@ -5161,7 +5161,7 @@ jr_001_601e:
 	ld bc, $0400
 	call Call_001_6236
 	call $1377
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $02
 	ld [wc0ef], a
@@ -5172,7 +5172,7 @@ jr_001_601e:
 	ld [wc0ee], a
 	call $0e45
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld c, $14
 	call $3781

@@ -4287,7 +4287,7 @@ Jump_01d_527f:
 	sbc c
 	add d
 	adc h
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	jp nz, wc0b9
 
@@ -5675,7 +5675,7 @@ jr_01d_5995:
 	ld c, a
 	or e
 	cp c
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	reti
@@ -8152,7 +8152,7 @@ jr_01d_64ea:
 	ld a, a
 	jp nz, wdfb6
 
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	ret nz
@@ -8431,7 +8431,7 @@ jr_01d_6679:
 
 	ld a, a
 	inc l
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	jp wcade
 
 
@@ -8465,7 +8465,7 @@ jr_01d_6679:
 	add $7f
 	adc $c9
 	or l
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	dec l
 	add $7f
@@ -8866,7 +8866,7 @@ jr_01d_6746:
 	ld a, a
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp e
 	sbc $d3
 	ld d, l
@@ -12499,7 +12499,7 @@ jr_01d_784f:
 	ld c, a
 	or e
 	cp c
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	reti
@@ -13195,7 +13195,7 @@ jr_01d_7b39:
 	push af
 	xor a
 	ldh [$d7], a
-	ld [wd087], a
+	ld [wSpriteFlipped], a
 	ld [wcfb2], a
 	ld [wcd41], a
 	ld [wcd42], a

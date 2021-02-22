@@ -4643,7 +4643,7 @@ jr_016_541f:
 	ld a, a
 	cp [hl]
 	sbc $d8
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld h, $55
 	set 0, d
 	sub $b3
@@ -11480,7 +11480,7 @@ jr_016_7112:
 	or e
 	ret c
 
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld a, a
 	inc sp
 	or a

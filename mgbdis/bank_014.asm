@@ -3360,7 +3360,7 @@ jr_014_4d2a:
 	ld d, b
 	nop
 	or l
-	jp c, wd07f
+	jp c, wSpriteCurPosY
 
 	ret nz
 
@@ -8093,7 +8093,7 @@ jr_014_6387:
 	nop
 	cp d
 	cp d
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	cp e
 	or a
@@ -8394,7 +8394,7 @@ jr_014_6533:
 jr_014_653e:
 	or l
 	cp h
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	db $db
@@ -11234,7 +11234,7 @@ Call_014_71af:
 	ld c, a
 	cp d
 	cp d
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	push bc
 	ret nc
@@ -11356,7 +11356,7 @@ jr_014_72de:
 	ld d, c
 	or l
 	cp h
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	rst $08
@@ -11853,7 +11853,7 @@ jr_014_74db:
 	or l
 	ret c
 
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	db $db
@@ -13227,7 +13227,7 @@ jr_014_7d01:
 	nop
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp e
 	sbc $7f
 	adc c
@@ -13246,7 +13246,7 @@ jr_014_7d01:
 	nop
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp e
 	sbc $7f
 	db $d3

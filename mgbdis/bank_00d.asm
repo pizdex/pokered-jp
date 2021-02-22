@@ -13038,7 +13038,7 @@ jr_00d_7f8a:
 
 jr_00d_7f8c:
 	ld [wcc5b], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wcc5e], a
 	call Call_00d_73ae
 	ret

@@ -166,10 +166,10 @@ jr_000_0e5c:
 jr_000_0e77:
 	xor a
 	ld [wc0ee], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ldh [$b9], a
 	ld a, [wc0ef]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	cp $02
 	jr nz, jr_000_0e91
@@ -191,8 +191,8 @@ jr_000_0e9b:
 	call $4b8a
 
 jr_000_0e9f:
-	ldh a, [$b9]
-	ldh [$b8], a
+	ldh a, [hSavedROMBank]
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	jr jr_000_0eb9
 

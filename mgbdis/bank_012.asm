@@ -981,7 +981,7 @@ jr_012_450d:
 	nop
 	or c
 	or [hl]
-	call nz, wd07f
+	call nz, wSpriteCurPosY
 	inc [hl]
 	ret c
 
@@ -3010,7 +3010,7 @@ jr_012_4e9e:
 	ld d, l
 	or d
 	rst $08
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	push bc
 	or d
@@ -8642,7 +8642,7 @@ jr_012_681f:
 	ld a, a
 	cp e
 	ld h, $bc
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	jp $b87f
@@ -8830,7 +8830,7 @@ jr_012_68e7:
 	nop
 	ld hl, sp-$4a
 	or d
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	jp z, $bcd7
 

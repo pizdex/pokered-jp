@@ -4850,7 +4850,7 @@ jr_018_581a:
 	or h
 	rst $10
 	cp [hl]
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	cp [hl]
@@ -5361,7 +5361,7 @@ jr_018_598b:
 	ld a, a
 	cp e
 	ld h, $bc
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	jp $b87f
@@ -5835,7 +5835,7 @@ jr_018_5cbb:
 	ld a, a
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	jp z, wc54f
 
 	ld h, $c0
@@ -6375,7 +6375,7 @@ jr_018_5f77:
 	or [hl]
 	ld a, a
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp [hl]
 	sbc $e7
 	ld d, c
@@ -6561,7 +6561,7 @@ jr_018_60ad:
 
 
 	ld h, $bc
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	db $db
@@ -6663,7 +6663,7 @@ jr_018_60ad:
 	sub $51
 	or c
 	rst $18
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	ret nz
@@ -6716,7 +6716,7 @@ jr_018_6152:
 	ld a, a
 	or c
 	rst $18
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	reti
@@ -7872,7 +7872,7 @@ jr_018_6618:
 	ld a, a
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp e
 	sbc $c6
 	ld c, a
@@ -7905,7 +7905,7 @@ jr_018_6618:
 	ldh [$7f], a
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld a, a
 	cp e
 	sbc $c6
@@ -12170,7 +12170,7 @@ jr_018_7937:
 	ld d, l
 	jp nz, wdfb6
 
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	jp $b87f

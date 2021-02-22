@@ -3210,7 +3210,7 @@ Call_007_572c:
 	cp d
 	call nz, wc14f
 	ldh [$de], a
-	call nz, wd07f
+	call nz, wSpriteCurPosY
 	jp Jump_007_57e7
 
 
@@ -4357,7 +4357,7 @@ jr_007_5c9d:
 	nop
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp e
 	sbc $e7
 	ld c, a
@@ -5206,7 +5206,7 @@ jr_007_6099:
 	ld a, a
 	jp nz, wdfb6
 
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	push bc
@@ -6742,7 +6742,7 @@ jr_007_6781:
 	jp z, $b67f
 
 	rst $18
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	ret nz

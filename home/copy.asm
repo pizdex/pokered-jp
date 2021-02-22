@@ -1,14 +1,14 @@
 CopyFarBytes::
 ; Copy bc bytes from a:hl to de.
 	ld [wcee4], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wcee4]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call CopyBytes
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 

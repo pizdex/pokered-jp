@@ -11717,7 +11717,7 @@ jr_015_740b:
 	cp a
 	jr nc, jr_015_73e8
 
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	reti
@@ -11738,7 +11738,7 @@ jr_015_740b:
 	cp a
 	jr nc, jr_015_73fd
 
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	reti

@@ -2,24 +2,24 @@ CopyFarBytes2::
 ; Identical to FarCopyData, but uses hROMBankTemp
 ; as temp space instead of wcee4.
 	ldh [$8b], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ldh a, [$8b]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call CopyBytes
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
 CopyFarBytes3::
 ; Copy bc bytes from a:de to hl.
 	ldh [$8b], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ldh a, [$8b]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	push hl
 	push de
@@ -31,7 +31,7 @@ CopyFarBytes3::
 	pop de
 	pop hl
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -39,10 +39,10 @@ CopyFarBytesDouble::
 ; Expand bc bytes of 1bpp image data
 ; from a:hl to 2bpp data at de.
 	ldh [$8b], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ldh a, [$8b]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 .asm_02cc
 	ld a, [hli]
@@ -55,7 +55,7 @@ CopyFarBytesDouble::
 	or b
 	jr nz, .asm_02cc
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -69,11 +69,11 @@ CopyVideoData::
 	xor a
 	ldh [$ba], a
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ldh [$8b], a
 
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 
 	ld a, e
@@ -93,7 +93,7 @@ CopyVideoData::
 	ldh [$c6], a
 	call DelayFrame
 	ldh a, [$8b]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	pop af
 	ldh [$ba], a
@@ -113,11 +113,11 @@ CopyVideoDataDouble:
 	push af
 	xor a
 	ldh [$ba], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ldh [$8b], a
 
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 
 	ld a, e
@@ -137,7 +137,7 @@ CopyVideoDataDouble:
 	ldh [$cb], a
 	call DelayFrame
 	ldh a, [$8b]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	pop af
 	ldh [$ba], a

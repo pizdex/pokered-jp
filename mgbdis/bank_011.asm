@@ -1752,7 +1752,7 @@ jr_011_47bb:
 	ld d, c
 	or l
 	cp h
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	rst $08
@@ -5988,7 +5988,7 @@ jr_011_5bdd:
 	ld a, a
 	or d
 	rst $18
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	db $db

@@ -4080,26 +4080,40 @@ wd07a:: ds 1 ; d07a
 wd07b:: ds 1 ; d07b
 wd07c:: ds 1 ; d07c
 wd07d:: ds 1 ; d07d
-wd07e:: ds 1 ; d07e
-wd07f:: ds 1 ; d07f
-wd080:: ds 1 ; d080
-wd081:: ds 1 ; d081
-wd082:: ds 1 ; d082
-wd083:: ds 1 ; d083
-wd084:: ds 1 ; d084
-wd085:: ds 1 ; d085
-wd086:: ds 1 ; d086
-wd087:: ds 1 ; d087
-wd088:: ds 1 ; d088
-wd089:: ds 1 ; d089
-wd08a:: ds 1 ; d08a
-wd08b:: ds 1 ; d08b
-wd08c:: ds 1 ; d08c
-wd08d:: ds 1 ; d08d
-wd08e:: ds 1 ; d08e
-wd08f:: ds 1 ; d08f
-wd090:: ds 1 ; d090
-wd091:: ds 1 ; d091
+
+wSpriteCurPosX:: ds 1
+wSpriteCurPosY:: ds 1
+wSpriteWidth:: ds 1
+wSpriteHeight:: ds 1
+
+wSpriteInputCurByte::
+; current input byte
+	ds 1
+wSpriteInputBitCounter::
+; bit offset of last read input bit
+	ds 1
+
+wSpriteOutputBitOffset::
+; determines where in the output byte the two bits are placed. Each byte contains four columns (2bpp data)
+; 3 -> XX000000   1st column
+; 2 -> 00XX0000   2nd column
+; 1 -> 0000XX00   3rd column
+; 0 -> 000000XX   4th column
+	ds 1
+
+wSpriteLoadFlags::
+; bit 0 determines used buffer (0 -> sSpriteBuffer1, 1 -> sSpriteBuffer2)
+; bit 1 loading last sprite chunk? (there are at most 2 chunks per load operation)
+	ds 1
+
+wSpriteUnpackMode:: ds 1 ; d086
+wSpriteFlipped:: ds 1 ; d087
+wSpriteInputPtr:: ds 2 ; d088
+wSpriteOutputPtr:: ds 2 ; d08a
+wSpriteOutputPtrCached:: ds 2 ; d08c
+wSpriteDecodeTable0Ptr:: ds 2 ; d08e
+wSpriteDecodeTable1Ptr:: ds 2 ; d090
+
 wd092:: ds 1 ; d092
 wd093:: ds 1 ; d093
 wd094:: ds 1 ; d094
@@ -8054,3 +8068,8 @@ SECTION "Stack", WRAMX
 
 wStackTop::
 	ds 1
+
+
+INCLUDE "sram.asm"
+
+INCLUDE "hram.asm"

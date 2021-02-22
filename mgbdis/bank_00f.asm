@@ -2018,7 +2018,7 @@ jr_00f_4cb7:
 	cp [hl]
 	push bc
 	or [hl]
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	cp [hl]
 	rst $10
@@ -8097,7 +8097,7 @@ jr_00f_6fa6:
 	ld [$4000], a
 	ld hl, $8000
 	ld de, $a188
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld b, a
 	ld c, $31
 	call $02dd
@@ -8760,7 +8760,7 @@ jr_00f_73c5:
 	ld bc, $0707
 	ld de, $0014
 	push af
-	ld a, [wd087]
+	ld a, [wSpriteFlipped]
 	and a
 	jr nz, jr_00f_73e2
 
@@ -8829,7 +8829,7 @@ jr_00f_73eb:
 	ld hl, $8000
 	ld de, $9310
 	ld c, $31
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld b, a
 	jp $02dd
 

@@ -53,12 +53,15 @@ _IO          EQU $FF00 ; $FF00->$FF7F,$FFFF
 _AUD3WAVERAM EQU $FF30 ; $FF30->$FF3F
 _HRAM        EQU $FF80 ; $FF80->$FFFE
 
-; *** MBC5 Equates ***
+; MBC1
 
-rRAMG        EQU $0000 ; $0000->$1fff
-rROMB0       EQU $2000 ; $2000->$2fff
-rROMB1       EQU $3000 ; $3000->$3fff - If more than 256 ROM banks are present.
-rRAMB        EQU $4000 ; $4000->$5fff - Bit 3 enables rumble (if present)
+MBC1SRamEnable      EQU $0000
+MBC1RomBank         EQU $2000
+MBC1SRamBank        EQU $4000
+MBC1SRamBankingMode EQU $6000
+
+SRAM_DISABLE EQU $00
+SRAM_ENABLE  EQU $0a
 
 
 ;***************************************************************************

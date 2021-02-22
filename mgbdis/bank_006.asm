@@ -2728,7 +2728,7 @@ Jump_006_4f26:
 	ld [wcf0b], a
 	ld a, $01
 	ld [wcc57], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wcc58], a
 	ld a, $04
 	ld [wd570], a
@@ -3828,7 +3828,7 @@ jr_006_550c:
 	sub e
 	add [hl]
 	xor c
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	inc [hl]
 	ret c
@@ -4405,7 +4405,7 @@ jr_006_58e2:
 	ld [wcf0b], a
 	ld a, $02
 	ld [wcc57], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wcc58], a
 	ld a, $03
 	ld [wcf0e], a
@@ -4641,7 +4641,7 @@ jr_006_59bb:
 
 jr_006_5a10:
 	ld [wcc57], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wcc58], a
 	ld a, $05
 	ld [wcf0e], a
@@ -4713,7 +4713,7 @@ jr_006_5a10:
 
 	or [hl]
 	rst $18
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	push bc
@@ -5337,7 +5337,7 @@ jr_006_5d8e:
 	ret nc
 
 	cp [hl]
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	db $db
@@ -5555,7 +5555,7 @@ Jump_006_5e7f:
 	and $51
 	or l
 	rst $18
-	call nz, wd07f
+	call nz, wSpriteCurPosY
 	pop bc
 	cp b
 	cp e
@@ -6460,7 +6460,7 @@ jr_006_6269:
 	sbc c
 	sub h
 	rrca
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	dec l
 	or d
@@ -7000,7 +7000,7 @@ jr_006_6502:
 
 	or l
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp e
 	sbc $7f
 	sub b
@@ -7279,7 +7279,7 @@ jr_006_6581:
 	or [hl]
 	ld a, a
 	or a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	cp [hl]
 	sbc $e7
 	ld d, c
@@ -8298,7 +8298,7 @@ jr_006_68f4:
 	ld a, a
 	or a
 	rst $18
-	call nz, wd07f
+	call nz, wSpriteCurPosY
 	jp nz, wd9b6
 
 	rst $20
@@ -8340,7 +8340,7 @@ jr_006_68f4:
 
 	or l
 	ld a, a
-	call nc, wd07f
+	call nc, wSpriteCurPosY
 	dec l
 	ld a, a
 	inc sp

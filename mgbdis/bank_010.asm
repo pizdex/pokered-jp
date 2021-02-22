@@ -2562,7 +2562,7 @@ jr_010_4b7d:
 	ret nz
 
 	or d
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	or h
 	push bc
@@ -3596,7 +3596,7 @@ Jump_010_50c8:
 	add sp, $50
 	inc l
 	cp h
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld d, b
 	ld a, [bc]
 	ld e, b
@@ -4788,7 +4788,7 @@ jr_010_55d9:
 	or e
 	ret nc
 
-	call nc, wd07f
+	call nc, wSpriteCurPosY
 	dec l
 	or e
 	ret nc
@@ -5081,7 +5081,7 @@ jr_010_5712:
 	cp b
 	push bc
 	rst $18
-	jp wd07f
+	jp wSpriteCurPosY
 
 
 	db $dd
@@ -5536,7 +5536,7 @@ jr_010_58bd:
 	dec l
 	add $7f
 	call nz, wd9b9
-	call nz, wd07f
+	call nz, wSpriteCurPosY
 	or h
 	push bc
 	cp b
@@ -6420,7 +6420,7 @@ jr_010_5c47:
 	dec bc
 	ld b, b
 	ld bc, $9799
-	jp z, wd07f
+	jp z, wSpriteCurPosY
 
 	dec l
 	db $dd
@@ -8291,7 +8291,7 @@ jr_010_62df:
 	ld d, b
 	inc l
 	cp h
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld d, b
 	inc bc
 	inc a

@@ -11,14 +11,14 @@ _Start:
 	jp Init
 
 Call_000_0153:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $4000
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -43,623 +43,9 @@ INCLUDE "home/update_sprites.asm"
 INCLUDE "data/items/marts.asm"
 
 INCLUDE "home/overworld_text.asm"
+INCLUDE "home/decompress.asm"
 
-Jump_000_0fce:
-	ld b, a
-	ldh a, [$b8]
-	push af
-	ld a, b
-	ldh [$b8], a
-	ld [$2000], a
-	ld a, $0a
-	ld [$0000], a
-	xor a
-	ld [$4000], a
-	call Call_000_0feb
-	pop af
-	ldh [$b8], a
-	ld [$2000], a
-	ret
-
-
-Call_000_0feb:
-	ld hl, $a188
-	ld c, $10
-	ld b, $03
-	xor a
-	call ByteFill
-	ld a, $01
-	ld [wd083], a
-	ld a, $03
-	ld [wd084], a
-	xor a
-	ld [wd07e], a
-	ld [wd07f], a
-	ld [wd085], a
-	call Call_000_115c
-	ld b, a
-	and $0f
-	add a
-	add a
-	add a
-	ld [wd081], a
-	ld a, b
-	swap a
-	and $0f
-	add a
-	add a
-	add a
-	ld [wd080], a
-	call Call_000_1141
-	ld [wd085], a
-
-Jump_000_1027:
-	ld hl, $a188
-	ld a, [wd085]
-	bit 0, a
-	jr z, jr_000_1034
-
-	ld hl, $a310
-
-jr_000_1034:
-	call Call_000_1368
-	ld a, [wd085]
-	bit 1, a
-	jr z, jr_000_104b
-
-	call Call_000_1141
-	and a
-	jr z, jr_000_1048
-
-	call Call_000_1141
-	inc a
-
-jr_000_1048:
-	ld [wd086], a
-
-jr_000_104b:
-	call Call_000_1141
-	and a
-	jr z, jr_000_1066
-
-jr_000_1051:
-	call Call_000_1141
-	ld c, a
-	call Call_000_1141
-	sla c
-	or c
-	and a
-	jr z, jr_000_1066
-
-	call Call_000_111a
-	call Call_000_10a9
-	jr jr_000_1051
-
-jr_000_1066:
-	ld c, $00
-
-jr_000_1068:
-	call Call_000_1141
-	and a
-	jr z, jr_000_1071
-
-	inc c
-	jr jr_000_1068
-
-jr_000_1071:
-	ld a, c
-	add a
-	ld hl, $1170
-	add l
-	ld l, a
-	jr nc, jr_000_107b
-
-	inc h
-
-jr_000_107b:
-	ld a, [hli]
-	ld e, a
-	ld d, [hl]
-	push de
-	inc c
-	ld e, $00
-	ld d, e
-
-jr_000_1083:
-	call Call_000_1141
-	or e
-	ld e, a
-	dec c
-	jr z, jr_000_1091
-
-	sla e
-	rl d
-	jr jr_000_1083
-
-jr_000_1091:
-	pop hl
-	add hl, de
-	ld e, l
-	ld d, h
-
-jr_000_1095:
-	ld b, e
-	xor a
-	call Call_000_111a
-	ld e, b
-	call Call_000_10a9
-	dec de
-	ld a, d
-	and a
-	jr nz, jr_000_10a5
-
-	ld a, e
-	and a
-
-jr_000_10a5:
-	jr nz, jr_000_1095
-
-	jr jr_000_1051
-
-Call_000_10a9:
-	ld a, [wd081]
-	ld b, a
-	ld a, [wd07f]
-	inc a
-	cp b
-	jr z, jr_000_10c7
-
-	ld [wd07f], a
-	ld a, [wd08a]
-	inc a
-	ld [wd08a], a
-	ret nz
-
-	ld a, [wd08b]
-	inc a
-	ld [wd08b], a
-	ret
-
-
-jr_000_10c7:
-	xor a
-	ld [wd07f], a
-	ld a, [wd084]
-	and a
-	jr z, jr_000_10e1
-
-	dec a
-	ld [wd084], a
-	ld hl, wd08c
-	ld a, [hli]
-	ld [wd08a], a
-	ld a, [hl]
-	ld [wd08b], a
-	ret
-
-
-jr_000_10e1:
-	ld a, $03
-	ld [wd084], a
-	ld a, [wd07e]
-	add $08
-	ld [wd07e], a
-	ld b, a
-	ld a, [wd080]
-	cp b
-	jr z, jr_000_1101
-
-	ld a, [wd08a]
-	ld l, a
-	ld a, [wd08b]
-	ld h, a
-	inc hl
-	jp Jump_000_1368
-
-
-jr_000_1101:
-	pop hl
-	xor a
-	ld [wd07e], a
-	ld a, [wd085]
-	bit 1, a
-	jr nz, jr_000_1117
-
-	xor $01
-	set 1, a
-	ld [wd085], a
-	jp Jump_000_1027
-
-
-jr_000_1117:
-	jp Jump_000_1190
-
-
-Call_000_111a:
-	ld e, a
-	ld a, [wd084]
-	and a
-	jr z, jr_000_1135
-
-	cp $02
-	jr c, jr_000_112d
-
-	jr z, jr_000_1133
-
-	rrc e
-	rrc e
-	jr jr_000_1135
-
-jr_000_112d:
-	sla e
-	sla e
-	jr jr_000_1135
-
-jr_000_1133:
-	swap e
-
-jr_000_1135:
-	ld a, [wd08a]
-	ld l, a
-	ld a, [wd08b]
-	ld h, a
-	ld a, [hl]
-	or e
-	ld [hl], a
-	ret
-
-
-Call_000_1141:
-	ld a, [wd083]
-	dec a
-	jr nz, jr_000_114f
-
-	call Call_000_115c
-	ld [wd082], a
-	ld a, $08
-
-jr_000_114f:
-	ld [wd083], a
-	ld a, [wd082]
-	rlca
-	ld [wd082], a
-	and $01
-	ret
-
-
-Call_000_115c:
-	ld a, [wd088]
-	ld l, a
-	ld a, [wd089]
-	ld h, a
-	ld a, [hli]
-	ld b, a
-	ld a, l
-	ld [wd088], a
-	ld a, h
-	ld [wd089], a
-	ld a, b
-	ret
-
-
-	db $01, $00, $03, $00, $07, $00, $0f, $00, $1f, $00, $3f, $00, $7f, $00, $ff, $00
-	db $ff, $01, $ff, $03
-
-	rst $38
-	rlca
-	rst $38
-	rrca
-	rst $38
-	rra
-	rst $38
-	ccf
-	rst $38
-	ld a, a
-	rst $38
-	rst $38
-
-Jump_000_1190:
-	ld a, [wd086]
-	cp $02
-	jp z, Jump_000_1348
-
-	and a
-	jp nz, Jump_000_1298
-
-	ld hl, $a188
-	call Call_000_11a5
-	ld hl, $a310
-
-Call_000_11a5:
-	xor a
-	ld [wd07e], a
-	ld [wd07f], a
-	call Call_000_1368
-	ld a, [wd087]
-	and a
-	jr z, jr_000_11bd
-
-	ld hl, $1288
-	ld de, $1290
-	jr jr_000_11c3
-
-jr_000_11bd:
-	ld hl, $1278
-	ld de, $1280
-
-jr_000_11c3:
-	ld a, l
-	ld [wd08e], a
-	ld a, h
-	ld [wd08f], a
-	ld a, e
-	ld [wd090], a
-	ld a, d
-	ld [wd091], a
-	ld e, $00
-
-jr_000_11d5:
-	ld a, [wd08a]
-	ld l, a
-	ld a, [wd08b]
-	ld h, a
-	ld a, [hl]
-	ld b, a
-	swap a
-	and $0f
-	call Call_000_123e
-	swap a
-	ld d, a
-	ld a, b
-	and $0f
-	call Call_000_123e
-	or d
-	ld b, a
-	ld a, [wd08a]
-	ld l, a
-	ld a, [wd08b]
-	ld h, a
-	ld a, b
-	ld [hl], a
-	ld a, [wd081]
-	add l
-	jr nc, jr_000_1202
-
-	inc h
-
-jr_000_1202:
-	ld [wd08a], a
-	ld a, h
-	ld [wd08b], a
-	ld a, [wd07e]
-	add $08
-	ld [wd07e], a
-	ld b, a
-	ld a, [wd080]
-	cp b
-	jr nz, jr_000_11d5
-
-	xor a
-	ld e, a
-	ld [wd07e], a
-	ld a, [wd07f]
-	inc a
-	ld [wd07f], a
-	ld b, a
-	ld a, [wd081]
-	cp b
-	jr z, jr_000_1239
-
-	ld a, [wd08c]
-	ld l, a
-	ld a, [wd08d]
-	ld h, a
-	inc hl
-	call Call_000_1368
-	jr jr_000_11d5
-
-jr_000_1239:
-	xor a
-	ld [wd07f], a
-	ret
-
-
-Call_000_123e:
-	srl a
-	ld c, $00
-	jr nc, jr_000_1246
-
-	ld c, $01
-
-jr_000_1246:
-	ld l, a
-	ld a, [wd087]
-	and a
-	jr z, jr_000_1251
-
-	bit 3, e
-	jr jr_000_1253
-
-jr_000_1251:
-	bit 0, e
-
-jr_000_1253:
-	ld e, l
-	jr nz, jr_000_125f
-
-	ld a, [wd08e]
-	ld l, a
-	ld a, [wd08f]
-	jr jr_000_1266
-
-jr_000_125f:
-	ld a, [wd090]
-	ld l, a
-	ld a, [wd091]
-
-jr_000_1266:
-	ld h, a
-	ld a, e
-	add l
-	ld l, a
-	jr nc, jr_000_126d
-
-	inc h
-
-jr_000_126d:
-	ld a, [hl]
-	bit 0, c
-	jr nz, jr_000_1274
-
-	swap a
-
-jr_000_1274:
-	and $0f
-	ld e, a
-	ret
-
-
-	db $01, $32, $76, $45, $fe, $cd, $89, $ba, $fe, $cd, $89, $ba, $01, $32, $76, $45
-	db $08, $c4, $e6, $2a, $f7, $3b, $19, $d5, $f7, $3b, $19, $d5, $08, $c4, $e6, $2a
-
-Jump_000_1298:
-	xor a
-	ld [wd07e], a
-	ld [wd07f], a
-	call Call_000_1312
-	ld a, [wd08a]
-	ld l, a
-	ld a, [wd08b]
-	ld h, a
-	call Call_000_11a5
-	call Call_000_1312
-	ld a, [wd08a]
-	ld l, a
-	ld a, [wd08b]
-	ld h, a
-	ld a, [wd08c]
-	ld e, a
-	ld a, [wd08d]
-	ld d, a
-
-jr_000_12c0:
-	ld a, [wd087]
-	and a
-	jr z, jr_000_12dc
-
-	push de
-	ld a, [de]
-	ld b, a
-	swap a
-	and $0f
-	call Call_000_1308
-	swap a
-	ld c, a
-	ld a, b
-	and $0f
-	call Call_000_1308
-	or c
-	pop de
-	ld [de], a
-
-jr_000_12dc:
-	ld a, [hli]
-	ld b, a
-	ld a, [de]
-	xor b
-	ld [de], a
-	inc de
-	ld a, [wd07f]
-	inc a
-	ld [wd07f], a
-	ld b, a
-	ld a, [wd081]
-	cp b
-	jr nz, jr_000_12c0
-
-	xor a
-	ld [wd07f], a
-	ld a, [wd07e]
-	add $08
-	ld [wd07e], a
-	ld b, a
-	ld a, [wd080]
-	cp b
-	jr nz, jr_000_12c0
-
-	xor a
-	ld [wd07e], a
-	ret
-
-
-Call_000_1308:
-	ld de, $1338
-	add e
-	ld e, a
-	jr nc, jr_000_1310
-
-	inc d
-
-jr_000_1310:
-	ld a, [de]
-	ret
-
-
-Call_000_1312:
-	ld a, [wd085]
-	bit 0, a
-	jr nz, jr_000_1321
-
-	ld de, $a188
-	ld hl, $a310
-	jr jr_000_1327
-
-jr_000_1321:
-	ld de, $a310
-	ld hl, $a188
-
-jr_000_1327:
-	ld a, l
-	ld [wd08a], a
-	ld a, h
-	ld [wd08b], a
-	ld a, e
-	ld [wd08c], a
-	ld a, d
-	ld [wd08d], a
-	ret
-
-
-	db $00, $08, $04, $0c, $02, $0a, $06, $0e, $01, $09, $05, $0d, $03, $0b, $07, $0f
-
-Jump_000_1348:
-	call Call_000_1312
-	ld a, [wd087]
-	push af
-	xor a
-	ld [wd087], a
-	ld a, [wd08c]
-	ld l, a
-	ld a, [wd08d]
-	ld h, a
-	call Call_000_11a5
-	call Call_000_1312
-	pop af
-	ld [wd087], a
-	jp Jump_000_1298
-
-
-Call_000_1368:
-Jump_000_1368:
-	ld a, l
-	ld [wd08a], a
-	ld [wd08c], a
-	ld a, h
-	ld [wd08b], a
-	ld [wd08d], a
-	ret
-
-
+ResetPlayerSpriteData::
 	ld hl, wc100
 	call Call_000_1395
 	ld hl, wc200
@@ -742,7 +128,7 @@ jr_000_13d4:
 
 
 Call_000_13f1:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld b, $01
 	ld hl, $724b
@@ -900,7 +286,7 @@ jr_000_14d5:
 	jr nz, jr_000_14d5
 
 	ld a, $05
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $7840
 	ld hl, wcfab
@@ -910,7 +296,7 @@ jr_000_14d5:
 	call z, Call_000_23ae
 	call Call_000_26bb
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	jp UpdateSprites
 
@@ -924,14 +310,14 @@ Jump_000_1500:
 	call Call_000_1539
 	ld a, $02
 	ld [wcf7b], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $01
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $6bbb
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	jp Jump_000_14a8
 
@@ -964,14 +350,14 @@ Jump_000_1551:
 	ldh [$8c], a
 	ldh [$8d], a
 	inc hl
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $01
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $7121
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	jp Jump_000_14a8
 
@@ -1024,7 +410,7 @@ Jump_000_15c6:
 
 Jump_000_15de:
 	ld a, $04
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld a, [wd67f]
 	ld [wd0df], a
@@ -1172,29 +558,29 @@ jr_000_1696:
 	jp WaitForSoundToFinish
 
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $4652
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
 
 Call_000_16e0:
 	push bc
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $45e2
 	pop bc
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	pop bc
 	ret
@@ -1788,10 +1174,10 @@ Jump_000_1aa1:
 
 Call_000_1aab:
 	push hl
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $0e
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld a, [wd0e3]
 	dec a
@@ -1811,7 +1197,7 @@ Call_000_1aab:
 	ld [hl], $50
 	pop de
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	pop hl
 	ret
@@ -1943,7 +1329,7 @@ Call_000_1b6d:
 	ret
 
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wd2dd]
 	call Call_000_2ccd
@@ -1953,12 +1339,12 @@ Call_000_1b6d:
 	call Call_000_23ff
 	call EnableLCD
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wd2dd]
 	call Call_000_2ccd
@@ -1966,7 +1352,7 @@ Call_000_1b6d:
 	call Call_000_23ff
 	call EnableLCD
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -3360,7 +2746,7 @@ Jump_000_2348:
 	ld hl, wd6ad
 	res 5, [hl]
 	ld a, $01
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $755f
 	call $6260
@@ -3395,7 +2781,7 @@ Jump_000_237c:
 	res 5, [hl]
 	call Call_000_23a6
 	ld a, $01
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $6260
 	jp $5bb6
@@ -4054,10 +3440,10 @@ jr_000_268d:
 	rst $38
 
 Call_000_26bb:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wd4aa]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld a, [wd2de]
 	ld e, a
@@ -4154,7 +3540,7 @@ jr_000_272e:
 	jr nz, jr_000_271f
 
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5086,10 +4472,10 @@ Jump_000_2c09:
 	ld a, [wd2dd]
 	ld c, a
 	ld b, $00
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld hl, $4693
 	add hl, bc
@@ -5099,7 +4485,7 @@ Jump_000_2c09:
 	ld a, [hl]
 	ld [wd2db], a
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5118,7 +4504,7 @@ jr_000_2c4b:
 
 
 Call_000_2c52:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	call DisableLCD
 	ld a, $98
@@ -5183,7 +4569,7 @@ jr_000_2c9f:
 
 jr_000_2cc6:
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5201,7 +4587,7 @@ Call_000_2ccd:
 	ldh [$e8], a
 	call Call_000_3617
 	ldh a, [$e8]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	pop bc
 	pop hl
@@ -5231,10 +4617,10 @@ Call_000_2cf8:
 
 
 	ld b, a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wcf0d]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld a, b
 	add a
@@ -5246,7 +4632,7 @@ Call_000_2cf8:
 	ld de, wd2de
 	call CopyBytes
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5328,7 +4714,7 @@ OverwriteMoves::
 
 
 	ld a, $01
-	ld [wd087], a
+	ld [wSpriteFlipped], a
 	push hl
 	ld a, [wd0e3]
 	push af
@@ -5358,18 +4744,18 @@ jr_000_2da3:
 	ld de, $9000
 	call Call_000_3034
 	pop hl
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $0f
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	xor a
 	ld [$ffe1], a
 	call $73c5
 	xor a
-	ld [wd087], a
+	ld [wSpriteFlipped], a
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5568,15 +4954,15 @@ jr_000_2ed3:
 
 
 jr_000_2eed:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $1e
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $4000
 	pop bc
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5613,10 +4999,10 @@ jr_000_2f1a:
 	ret
 
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $0e
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	push bc
 	push de
@@ -5679,7 +5065,7 @@ jr_000_2f97:
 	pop de
 	pop bc
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5761,9 +5147,9 @@ Call_000_2ffd:
 	ld bc, wd095
 	add hl, bc
 	ld a, [hli]
-	ld [wd088], a
+	ld [wSpriteInputPtr], a
 	ld a, [hl]
-	ld [wd089], a
+	ld [wSpriteInputPtr + 1], a
 	ld a, [wcf78]
 	ld b, a
 	cp $15
@@ -5793,7 +5179,7 @@ Call_000_2ffd:
 	ld a, $0d
 
 jr_000_3031:
-	jp Jump_000_0fce
+	jp DecompressSpriteData
 
 
 Call_000_3034:
@@ -5923,7 +5309,7 @@ jr_000_30cb:
 	ldh [$8b], a
 	jr nz, jr_000_30cb
 
-	ld a, [wd087]
+	ld a, [wSpriteFlipped]
 	and a
 	jr z, jr_000_30f2
 
@@ -5942,7 +5328,7 @@ jr_000_30f2:
 	pop hl
 	ld de, $a188
 	ld c, $31
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld b, a
 	jp CopyVideoData
 
@@ -5957,15 +5343,15 @@ jr_000_30f2:
 	jp Jump_000_3620
 
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $69c4
 	pop de
 	ld a, d
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -5985,15 +5371,15 @@ Call_000_3121:
 
 Call_000_3130:
 Jump_000_3130:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $01
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $766c
 	pop bc
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -6031,15 +5417,15 @@ Call_000_3156:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wcc58]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld a, [wcf0b]
 	call Call_000_3dc7
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -6391,7 +5777,7 @@ jr_000_3394:
 	jr jr_000_3354
 
 Call_000_339c:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wd06f], a
 	ld a, h
 	ld [wd069], a
@@ -6426,10 +5812,10 @@ Call_000_33b2:
 	pop hl
 	ret z
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wd06f]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	push hl
 	ld b, $09
@@ -6439,7 +5825,7 @@ Call_000_33b2:
 	call Call_000_3c79
 	pop hl
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld b, $06
 	ld hl, $7e9f
@@ -6840,10 +6226,10 @@ Call_000_35e8:
 
 Call_000_3606:
 	ld [wcf04], a
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wcf03], a
 	ld a, [wcf04]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -6851,17 +6237,17 @@ Call_000_3606:
 Call_000_3617:
 Jump_000_3617:
 	ld a, [wcf03]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
 
 Bankswitch:
 Jump_000_3620:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld bc, $362e
 	push bc
@@ -6870,7 +6256,7 @@ Jump_000_3620:
 
 	pop bc
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -7051,11 +6437,11 @@ ByteFill::
 
 UncompressSpriteFromDE::
 ; Decompress pic at a:de.
-	ld hl, wd088
+	ld hl, wSpriteInputPtr
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	jp Jump_000_0fce
+	jp DecompressSpriteData
 
 
 Call_000_373e:
@@ -7160,7 +6546,7 @@ Call_000_37b3:
 	cp $c4
 	jp nc, Jump_000_1b01
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	push hl
 	push bc
@@ -7178,7 +6564,7 @@ Call_000_37b3:
 
 jr_000_37d5:
 	ld a, [wd094]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld a, [wd093]
 	dec a
@@ -7233,13 +6619,13 @@ jr_000_3815:
 	pop bc
 	pop hl
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
 
 Call_000_3827:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wcf7b]
 	cp $01
@@ -7249,7 +6635,7 @@ Call_000_3827:
 	ld a, $0f
 
 jr_000_3835:
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld hl, wcf76
 	ld a, [hli]
@@ -7277,14 +6663,14 @@ jr_000_384a:
 
 jr_000_385a:
 	ld a, $1e
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $7fb2
 
 jr_000_3864:
 	ld de, $ff8b
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -7419,11 +6805,11 @@ Call_000_3902:
 	ld a, [$ffb8]
 	push af
 	ld a, $0d
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $7ed7
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	pop bc
 	pop de
@@ -7741,28 +7127,28 @@ jr_000_3a99:
 	ret
 
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $77d3
 	pop bc
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $7854
 	pop bc
 	ld a, b
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -8574,16 +7960,16 @@ Random::
 Predef::
 	ld [wcc4e], a
 
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	ld [wcf0d], a
 
 	push af
 	ld a, $13
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	call $7ea5
 	ld a, [wd094]
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ld de, .done
 	push de
@@ -8591,7 +7977,7 @@ Predef::
 
 .done
 	pop af
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	ret
 
@@ -8617,7 +8003,7 @@ Predef::
 
 
 Call_000_3ee5:
-	ldh a, [$b8]
+	ldh a, [hLoadedROMBank]
 	push af
 	ldh a, [$b4]
 	bit 0, a
@@ -8625,7 +8011,7 @@ Call_000_3ee5:
 
 	ld a, $11
 	ld [$2000], a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	call $78c5
 	ldh a, [$ee]
 	and a
@@ -8633,7 +8019,7 @@ Call_000_3ee5:
 
 	ld a, [wcd3e]
 	ld [$2000], a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ld de, $3f0a
 	push de
 	jp hl
@@ -8657,7 +8043,7 @@ jr_000_3f1c:
 	ldh [$eb], a
 	pop af
 	ld [$2000], a
-	ldh [$b8], a
+	ldh [hLoadedROMBank], a
 	ret
 
 

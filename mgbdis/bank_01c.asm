@@ -1337,7 +1337,7 @@ Call_01c_46c5:
 	xor a
 	ld [wcfb2], a
 	ldh [$d7], a
-	ld [wd087], a
+	ld [wSpriteFlipped], a
 	ld [wd2d7], a
 	ld [wcd40], a
 	inc a
