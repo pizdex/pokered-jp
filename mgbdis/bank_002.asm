@@ -3137,16 +3137,16 @@ jr_002_51ff:
 	ld d, d
 	call c, $e410
 	ld b, b
-	jp nz, wc240
+	jp nz, $c240
 
 	ld b, b
-	jp nz, wc240
+	jp nz, $c240
 
 	ld b, b
-	jp nz, wc240
+	jp nz, $c240
 
 	ld b, b
-	jp nz, wc230
+	jp nz, $c230
 
 	ld b, b
 	jp nz, $4040
@@ -4001,7 +4001,7 @@ jr_002_5823:
 	or b
 	ld [c], a
 	ld b, b
-	jp wc141
+	jp $c141
 
 
 	jr nc, @-$3e
@@ -4131,7 +4131,7 @@ jr_002_588d:
 	ld h, a
 	pop bc
 	ld b, c
-	ld sp, wc111
+	ld sp, $c111
 	db $e3
 	add c
 	pop bc
@@ -4140,7 +4140,7 @@ jr_002_588d:
 	or c
 	pop bc
 	ld [c], a
-	ld sp, wc147
+	ld sp, $c147
 	ld sp, $3111
 	db $e3
 	sub c
@@ -4148,7 +4148,7 @@ jr_002_588d:
 	sub c
 	and b
 	or b
-	jp wc161
+	jp $c161
 
 
 	or c
@@ -4253,7 +4253,7 @@ jr_002_58e4:
 
 	sub b
 	add b
-	jp wc141
+	jp $c141
 
 
 	jr nc, @-$3e
@@ -4327,7 +4327,7 @@ jr_002_58e4:
 	or c
 	sub b
 	add b
-	jp wc181
+	jp $c181
 
 
 	ld h, c
@@ -4592,7 +4592,7 @@ jr_002_5d66:
 	call c, wcf10
 	db $e4
 	ld b, b
-	jp nz, wc240
+	jp nz, $c240
 
 	ld b, b
 	ret z
@@ -4609,7 +4609,7 @@ jr_002_5d66:
 	call nz, $b5fd
 	ld e, l
 	or b
-	jp nz, wc280
+	jp nz, $c280
 
 	sub b
 	ret nz
@@ -5117,7 +5117,7 @@ Jump_002_60e2:
 
 	db $e3
 	ld d, b
-	jp nz, wc200
+	jp nz, $c200
 
 	db $e4
 	ld d, c
@@ -7267,7 +7267,7 @@ jr_002_6c78:
 	push hl
 	ld [hl], c
 	db $e4
-	ld bc, wc2dc
+	ld bc, $c2dc
 	ld [hli], a
 	push hl
 	and b

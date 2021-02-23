@@ -428,7 +428,7 @@ Call_007_42b7:
 	ld [wccd3], a
 	call $34d0
 	xor a
-	ld [wc109], a
+	ld [$c109], a
 	ld [wcd66], a
 	ld a, $01
 	ld [wd5b8], a
@@ -871,7 +871,7 @@ Call_007_44df:
 	ret
 
 
-	jp z, wc14f
+	jp z, $c14f
 
 	ld [c], a
 	rst $18
@@ -1433,12 +1433,12 @@ jr_007_48ca:
 	jr nz, jr_007_48df
 
 	ld a, $0c
-	ld [wc109], a
+	ld [$c109], a
 	jr jr_007_48ed
 
 jr_007_48df:
 	ld a, $08
-	ld [wc109], a
+	ld [$c109], a
 	jr jr_007_48ed
 
 jr_007_48e6:
@@ -1446,7 +1446,7 @@ jr_007_48e6:
 	ret nz
 
 	xor a
-	ld [wc109], a
+	ld [$c109], a
 
 jr_007_48ed:
 	ret
@@ -3208,7 +3208,7 @@ Call_007_572c:
 
 	ld a, a
 	cp d
-	call nz, wc14f
+	call nz, $c14f
 	ldh [$de], a
 	call nz, wSpriteCurPosY
 	jp Jump_007_57e7
@@ -3335,7 +3335,7 @@ jr_007_57fa:
 
 
 	ld a, a
-	call nz, wc1b3
+	call nz, $c1b3
 	ldh [$de], a
 	db $d3
 	ld c, a
@@ -3707,7 +3707,7 @@ jr_007_594a:
 	or e
 	ld h, $7f
 	call c, $b2d9
-	call nz, wc255
+	call nz, $c255
 	or [hl]
 	rst $08
 	or h
@@ -5483,7 +5483,7 @@ jr_007_61ea:
 	cp d
 	db $db
 	cp e
-	jp c, wc17f
+	jp c, $c17f
 
 	ldh [$df], a
 	ret nz
@@ -6232,7 +6232,7 @@ jr_007_646e:
 	ld a, $03
 	ld [wcd38], a
 	xor a
-	ld [wc206], a
+	ld [$c206], a
 	ld [wcd3b], a
 	dec a
 	ld [wcd66], a
@@ -6265,7 +6265,7 @@ Jump_007_6570:
 	ld hl, $5fec
 	call $3620
 	xor a
-	ld [wc102], a
+	ld [$c102], a
 	ld c, $78
 	call $3781
 	ld b, $9c
@@ -7905,7 +7905,7 @@ Call_007_6d47:
 	ld a, $01
 	ld [wcd38], a
 	xor a
-	ld [wc206], a
+	ld [$c206], a
 	ld [wcd3b], a
 	ret
 
@@ -7990,7 +7990,7 @@ Call_007_6db7:
 	ld a, $01
 	ld [wcd38], a
 	xor a
-	ld [wc206], a
+	ld [$c206], a
 	ld [wcd3b], a
 	ret
 
@@ -8132,7 +8132,7 @@ Call_007_6e7d:
 	ld a, $01
 	ld [wcd38], a
 	xor a
-	ld [wc206], a
+	ld [$c206], a
 	ld [wcd3b], a
 	ret
 
@@ -9343,7 +9343,7 @@ Call_007_7450:
 	ld [wcd38], a
 	ld a, $80
 	ld [wccd3], a
-	ld [wc109], a
+	ld [$c109], a
 	ld [wcd66], a
 	jp $34d0
 
@@ -9587,7 +9587,7 @@ jr_007_7510:
 	ret
 
 
-	ld a, [wc109]
+	ld a, [$c109]
 	and a
 	ld de, $75a0
 	jr nz, jr_007_7593
@@ -10372,7 +10372,7 @@ jr_007_7966:
 
 	ld a, a
 	ld e, e
-	call nz, wc27f
+	call nz, $c27f
 	push bc
 	or d
 	jr nc, jr_007_7966
@@ -10669,7 +10669,7 @@ jr_007_7ab0:
 	cp l
 	rst $20
 	ld d, a
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	ret nz
 
@@ -10732,7 +10732,7 @@ jr_007_7ab0:
 	ld h, $7f
 	or c
 	or d
-	jp wc24f
+	jp $c24f
 
 
 	daa
@@ -11018,7 +11018,7 @@ jr_007_7be0:
 	add $55
 	jp nz, $bbd6
 
-	jp z, wc17f
+	jp z, $c17f
 
 	ld h, $b3
 	and $57
@@ -11250,7 +11250,7 @@ jr_007_7d43:
 	sbc e
 	ld d, a
 	call $3c6c
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	ret nz
 
@@ -11513,7 +11513,7 @@ jr_007_7f14:
 	cp l
 	or [hl]
 	and $57
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	ret nz
 
@@ -11757,7 +11757,7 @@ Jump_007_7fe7:
 	pop af
 	sbc c
 	add $6f
-	ld bc, wc14b
+	ld bc, $c14b
 	sub a
 	ccf
 	add hl, bc

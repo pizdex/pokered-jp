@@ -1355,7 +1355,7 @@ jr_010_466c:
 	sub c
 	sbc b
 	ld h, $7f
-	call nz, wc1b8
+	call nz, $c1b8
 	ld [c], a
 	or e
 	add sp, $4e
@@ -2182,7 +2182,7 @@ jr_010_4a71:
 
 	db $dd
 	ld a, a
-	call nc, wc2b7
+	call nc, $c2b7
 	cp b
 	cp l
 	add sp, $50
@@ -2410,7 +2410,7 @@ jr_010_4b7d:
 	reti
 
 
-	call nz, wc17f
+	call nz, $c17f
 	pop hl
 	or e
 	cp h
@@ -2700,7 +2700,7 @@ jr_010_4cda:
 	rst $10
 	db $dd
 	ld c, [hl]
-	call nz, wc23b
+	call nz, $c23b
 	ld [hld], a
 	cp c
 	reti
@@ -2787,7 +2787,7 @@ jr_010_4cda:
 	ld d, b
 	inc c
 	ld l, b
-	ld bc, wc2b2
+	ld bc, $c2b2
 	db $d3
 	ld a, a
 	inc e
@@ -3823,7 +3823,7 @@ jr_010_5146:
 
 	ld d, b
 	ld [bc], a
-	ld [wc100], sp
+	ld [$c100], sp
 	pop bc
 	pop hl
 	or e
@@ -4075,7 +4075,7 @@ jr_010_51f0:
 
 	ld d, b
 	ld c, $88
-	ld bc, wc2c4
+	ld bc, $c2c4
 	ld l, $de
 	call $b2de
 	inc sp
@@ -4087,7 +4087,7 @@ jr_010_51f0:
 	ret nz
 
 	ld c, [hl]
-	call z, wc2c0
+	call z, $c2c0
 	ret
 
 
@@ -6115,7 +6115,7 @@ jr_010_5ae5:
 	ld d, b
 	ld a, [bc]
 	ld b, b
-	ld bc, wc2b2
+	ld bc, $c2b2
 	db $d3
 	ld a, a
 
@@ -6162,7 +6162,7 @@ jr_010_5ba1:
 	ld d, b
 	rlca
 	ld c, l
-	ld bc, wc1c1
+	ld bc, $c1c1
 	pop hl
 	or e
 	db $dd
@@ -6609,7 +6609,7 @@ jr_010_5c47:
 
 	cp d
 	or [hl]
-	call wc27f
+	call $c27f
 	jp c, wd9bb
 
 	inc l
@@ -7451,7 +7451,7 @@ jr_010_60df:
 	call nz, Call_010_50d8
 	rrca
 	adc e
-	ld bc, wc2b3
+	ld bc, $c2b3
 	cp b
 	cp h
 	or d
@@ -8610,10 +8610,10 @@ jr_010_65b6:
 	jp nc, $3dbc
 
 	ld h, $7f
-	jp z, wc2c5
+	jp z, $c2c5
 
 	ld a, a
-	call nz, wc2c3
+	call nz, $c2c3
 	db $d3
 	push bc
 	cp b

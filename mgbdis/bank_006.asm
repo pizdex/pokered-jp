@@ -2710,7 +2710,7 @@ jr_006_4e67:
 	ret nz
 
 	xor a
-	ld [wc109], a
+	ld [$c109], a
 	ld a, $01
 	ld [wcf08], a
 	ld a, $fc
@@ -3031,13 +3031,13 @@ Jump_006_5135:
 	ret
 
 
-	ld a, [wc134]
+	ld a, [$c134]
 	ld [$ffeb], a
-	ld a, [wc136]
+	ld a, [$c136]
 	ld [$ffec], a
-	ld a, [wc234]
+	ld a, [$c234]
 	ld [$ffed], a
-	ld a, [wc235]
+	ld a, [$c235]
 	ld [$ffee], a
 	xor a
 	ld [wcc36], a
@@ -3053,13 +3053,13 @@ Jump_006_5135:
 
 
 	ld a, [$ffeb]
-	ld [wc134], a
+	ld [$c134], a
 	ld a, [$ffec]
-	ld [wc136], a
+	ld [$c136], a
 	ld a, [$ffed]
-	ld [wc234], a
+	ld [$c234], a
 	ld a, [$ffee]
-	ld [wc235], a
+	ld [$c235], a
 	call $0ebd
 	call $3e07
 	xor a
@@ -3095,7 +3095,7 @@ Call_006_51cf:
 Call_006_51d9:
 	ld [wccd3], a
 	xor a
-	ld [wc109], a
+	ld [$c109], a
 	ld [wcd66], a
 	ret
 
@@ -4254,7 +4254,7 @@ Jump_006_57e7:
 	xor h
 	ld b, c
 	rst $18
-	jp wc27f
+	jp $c27f
 
 
 	or a
@@ -4380,7 +4380,7 @@ jr_006_5867:
 	adc a
 	adc b
 	adc e
-	jp z, wc17f
+	jp z, $c17f
 
 	ld h, $b3
 	ld l, $57
@@ -5003,7 +5003,7 @@ Jump_006_5b7f:
 jr_006_5bbb:
 	ld [wd4a7], a
 	ld a, b
-	ld [wc129], a
+	ld [$c129], a
 	call $3e07
 	ld a, $02
 	ldh [$8c], a
@@ -6633,7 +6633,7 @@ Call_006_6343:
 	add $63
 	sbc [hl]
 	ld h, e
-	ld a, [wc109]
+	ld a, [$c109]
 	and a
 	ret nz
 
@@ -6911,7 +6911,7 @@ jr_006_6450:
 	bit 2, a
 	jr nz, jr_006_64fc
 
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $0c
 	jr z, jr_006_64ce
 
@@ -7375,7 +7375,7 @@ jr_006_66d0:
 	ld h, $7f
 	cp h
 	pop hl
-	jp nz, wc23e
+	jp nz, $c23e
 
 	ld d, l
 	call nz, wdab5
@@ -8125,7 +8125,7 @@ jr_006_68f4:
 
 
 	ld c, a
-	jp nc, wc1b2
+	jp nc, $c1b2
 
 	pop hl
 	or e
@@ -12175,7 +12175,7 @@ jr_006_7c0e:
 	ld a, $80
 	ld [wccd3], a
 	xor a
-	ld [wc102], a
+	ld [$c102], a
 	call $34d0
 
 jr_006_7cbd:
@@ -12277,7 +12277,7 @@ jr_006_7d32:
 	swap a
 	ld [wcf12], a
 	xor a
-	ld [wc206], a
+	ld [$c206], a
 	ld hl, wccd3
 	ld de, $7da1
 	call $3556
@@ -12385,7 +12385,7 @@ jr_006_7e24:
 	swap a
 	ld [wcf12], a
 	xor a
-	ld [wc206], a
+	ld [$c206], a
 	ld hl, wccd3
 	ld de, $7e85
 	call $3556
@@ -12570,7 +12570,7 @@ Jump_006_7f33:
 
 	ld a, $35
 	call $3e9d
-	ld a, [wc109]
+	ld a, [$c109]
 	ld b, a
 	ld a, [wc45c]
 	ld c, a

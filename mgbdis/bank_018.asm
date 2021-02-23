@@ -1296,7 +1296,7 @@ jr_018_4770:
 	ld d, l
 	db $d3
 	rst $18
-	call nz, wc17f
+	call nz, $c17f
 	ldh [$de], a
 	call nz, $bf7f
 	jr nc, jr_018_4742
@@ -1409,7 +1409,7 @@ jr_018_4770:
 	or l
 	rst $08
 	or h
-	call nz, wc17f
+	call nz, $c17f
 	ld h, $df
 	jp $b555
 
@@ -2991,7 +2991,7 @@ jr_018_4fb5:
 	xor a
 
 Jump_018_4fc0:
-	ld [wc206], a
+	ld [$c206], a
 
 Jump_018_4fc3:
 	ld [wcd3b], a
@@ -3653,7 +3653,7 @@ jr_018_52a9:
 	ld a, $11
 	call $3e9d
 	ld a, $04
-	ld [wc109], a
+	ld [$c109], a
 	ld a, $95
 	ldh [$8b], a
 	ld a, $01
@@ -4014,7 +4014,7 @@ Jump_018_544f:
 	rst $20
 	ld d, c
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ret
 
@@ -4044,7 +4044,7 @@ Jump_018_547f:
 
 	nop
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	db $dd
 	ld a, a
@@ -5302,7 +5302,7 @@ jr_018_598b:
 	or a
 	ret nc
 
-	jp z, wc27f
+	jp z, $c27f
 
 	sub $b2
 	push bc
@@ -5603,7 +5603,7 @@ jr_018_5b84:
 	add hl, hl
 
 jr_018_5bd8:
-	jp wc255
+	jp $c255
 
 
 	or [hl]
@@ -9712,7 +9712,7 @@ jr_018_6e33:
 
 	cp h
 	cp b
-	jp wc24f
+	jp $c24f
 
 
 	sub $b2
@@ -10449,7 +10449,7 @@ jr_018_719d:
 	adc b
 	xor e
 	add l
-	jp z, wc27f
+	jp z, $c27f
 
 	or a
 	db $d3
@@ -10622,7 +10622,7 @@ jr_018_7229:
 	ld e, b
 	nop
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ret
 
@@ -12595,7 +12595,7 @@ jr_018_7b20:
 
 Call_018_7b4f:
 	adc h
-	jp z, wc27f
+	jp z, $c27f
 
 	sub $b2
 	cpl
@@ -12763,7 +12763,7 @@ jr_018_7bfd:
 	ld h, $2e
 	ld h, $27
 	call $3c6c
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	ret nz
 
@@ -12874,7 +12874,7 @@ jr_018_7c9b:
 jr_018_7ca6:
 	ld a, [hli]
 	ld b, a
-	ld a, [wc109]
+	ld a, [$c109]
 	cp b
 	jr nz, jr_018_7c9b
 
@@ -12911,7 +12911,7 @@ jr_018_7ca6:
 	reti
 
 
-	call nz, wc24f
+	call nz, $c24f
 	or [hl]
 	jp c, $7fc3
 
@@ -13165,7 +13165,7 @@ jr_018_7d6d:
 	daa
 	cp l
 	daa
-	jp wc27f
+	jp $c27f
 
 
 	or [hl]
@@ -13234,7 +13234,7 @@ Jump_018_7e05:
 	or d
 	ld c, a
 	ld d, h
-	jp z, wc27f
+	jp z, $c27f
 
 	sub $b2
 	ld a, a
@@ -13486,7 +13486,7 @@ Jump_018_7f26:
 
 	db $dd
 	ld a, a
-	call nc, wc2df
+	call nc, $c2df
 	cp c
 	jp $b855
 
@@ -13615,7 +13615,7 @@ Jump_018_7fb9:
 
 	jr nc, @+$59
 
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	ret nz
 

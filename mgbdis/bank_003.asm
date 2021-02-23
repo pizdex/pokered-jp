@@ -2560,7 +2560,7 @@ jr_003_4a21:
 	push hl
 	push de
 	push bc
-	ld a, [wc109]
+	ld a, [$c109]
 	srl a
 	ld c, a
 	ld b, $00
@@ -2639,7 +2639,7 @@ jr_003_4a92:
 	cp $63
 	jr z, jr_003_4ad6
 
-	ld a, [wc109]
+	ld a, [$c109]
 	srl a
 	ld c, a
 	ld b, $00
@@ -2846,7 +2846,7 @@ Call_003_4bc2:
 	ld d, a
 	ld a, [wd2e1]
 	ld e, a
-	ld a, [wc109]
+	ld a, [$c109]
 	and a
 	jr nz, jr_003_4bd6
 
@@ -2890,7 +2890,7 @@ Call_003_4bf7:
 	ld a, [hli]
 	ld d, a
 	ld e, [hl]
-	ld a, [wc109]
+	ld a, [$c109]
 	and a
 	jr nz, jr_003_4c11
 
@@ -2973,7 +2973,7 @@ Call_003_4c6f:
 	swap a
 	ld d, $00
 	ld e, a
-	ld hl, wc214
+	ld hl, $c214
 	add hl, de
 	ld a, [hli]
 	ldh [$dc], a
@@ -2982,7 +2982,7 @@ Call_003_4c6f:
 	ld a, [wd460]
 	ld c, a
 	ld de, $000f
-	ld hl, wc214
+	ld hl, $c214
 	ldh a, [$db]
 	and $03
 	jr z, jr_003_4cb1
@@ -5771,7 +5771,7 @@ jr_003_5998:
 	rst $20
 	ld c, a
 	or c
-	call nz, wc17f
+	call nz, $c17f
 	ld [c], a
 	rst $18
 	call nz, Call_003_7fc9
@@ -9639,7 +9639,7 @@ jr_003_7387:
 	db $10
 
 Call_003_739a:
-	ld hl, wc104
+	ld hl, $c104
 	ld a, [hli]
 	ld b, a
 	inc hl
@@ -9694,7 +9694,7 @@ Call_003_73d1:
 	ld h, [hl]
 	ld l, a
 	add hl, bc
-	ld a, [wc109]
+	ld a, [$c109]
 	and a
 	jr z, jr_003_73f9
 
@@ -10031,7 +10031,7 @@ jr_003_7552:
 	and a
 	jp z, Jump_003_760f
 
-	ld hl, wc101
+	ld hl, $c101
 	ld d, $00
 	ldh a, [$8c]
 	swap a
@@ -10060,7 +10060,7 @@ jr_003_7552:
 
 	ldh a, [$b4]
 	ld b, a
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	jr z, jr_003_75bb
 
@@ -11257,11 +11257,11 @@ jr_003_7c62:
 
 	xor a
 	ldh [$9d], a
-	ld a, [wc104]
+	ld a, [$c104]
 	ld d, a
-	ld a, [wc106]
+	ld a, [$c106]
 	ld e, a
-	ld hl, wc100
+	ld hl, $c100
 	ldh a, [$95]
 	add l
 	add $04
@@ -11684,7 +11684,7 @@ Call_003_7e6a:
 	ret
 
 
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	jr nz, jr_003_7eb9
 

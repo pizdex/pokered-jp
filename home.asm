@@ -44,28 +44,7 @@ INCLUDE "data/items/marts.asm"
 
 INCLUDE "home/overworld_text.asm"
 INCLUDE "home/decompress.asm"
-
-ResetPlayerSpriteData::
-	ld hl, wc100
-	call Call_000_1395
-	ld hl, wc200
-	call Call_000_1395
-	ld a, $01
-	ld [wc100], a
-	ld [wc20e], a
-	ld hl, wc104
-	ld [hl], $3c
-	inc hl
-	inc hl
-	ld [hl], $40
-	ret
-
-
-Call_000_1395:
-	ld bc, $0010
-	xor a
-	jp ByteFill
-
+INCLUDE "home/reset_player_sprite.asm"
 
 FadeOutAudio:
 	ld a, [wcfae]
@@ -272,7 +251,7 @@ Jump_000_14ba:
 	call LoadGBPal
 	xor a
 	ldh [$ba], a
-	ld hl, wc219
+	ld hl, $c219
 	ld c, $0f
 	ld de, $0010
 
@@ -2037,7 +2016,7 @@ Jump_000_1f02:
 	jr z, jr_000_1f11
 
 	ld a, $01
-	ld [wc103], a
+	ld [$c103], a
 	ld a, $04
 	jr jr_000_1f34
 
@@ -2046,7 +2025,7 @@ jr_000_1f11:
 	jr z, jr_000_1f1e
 
 	ld a, $ff
-	ld [wc103], a
+	ld [$c103], a
 	ld a, $08
 	jr jr_000_1f34
 
@@ -2055,7 +2034,7 @@ jr_000_1f1e:
 	jr z, jr_000_1f2b
 
 	ld a, $ff
-	ld [wc105], a
+	ld [$c105], a
 	ld a, $02
 	jr jr_000_1f34
 
@@ -2064,7 +2043,7 @@ jr_000_1f2b:
 	jr z, jr_000_1ee4
 
 	ld a, $01
-	ld [wc105], a
+	ld [$c105], a
 
 jr_000_1f34:
 	ld [wd4a9], a
@@ -3159,7 +3138,7 @@ Call_000_2582:
 
 jr_000_2584:
 	ld bc, $3c40
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	jr nz, jr_000_2595
 
@@ -3201,7 +3180,7 @@ jr_000_25b0:
 	and a
 	ret z
 
-	ld hl, wc110
+	ld hl, $c110
 	ld d, a
 	ld e, $01
 
@@ -3261,7 +3240,7 @@ Call_000_25e8:
 
 	ld a, [wd4a9]
 	ld d, a
-	ld a, [wc10c]
+	ld a, [$c10c]
 	and d
 	jr nz, jr_000_2617
 
@@ -3547,9 +3526,9 @@ jr_000_272e:
 
 Call_000_2738:
 Jump_000_2738:
-	ld a, [wc103]
+	ld a, [$c103]
 	ld b, a
-	ld a, [wc105]
+	ld a, [$c105]
 	ld c, a
 	ld hl, wcfac
 	dec [hl]
@@ -3693,7 +3672,7 @@ jr_000_2808:
 
 jr_000_281c:
 	call Call_000_26bb
-	ld a, [wc103]
+	ld a, [$c103]
 	cp $01
 	jr nz, jr_000_282b
 
@@ -3708,7 +3687,7 @@ jr_000_282b:
 	jr jr_000_2847
 
 jr_000_2834:
-	ld a, [wc105]
+	ld a, [$c105]
 	cp $01
 	jr nz, jr_000_2840
 
@@ -3723,9 +3702,9 @@ jr_000_2840:
 
 Jump_000_2847:
 jr_000_2847:
-	ld a, [wc103]
+	ld a, [$c103]
 	ld b, a
-	ld a, [wc105]
+	ld a, [$c105]
 	ld c, a
 	sla b
 	sla c
@@ -3735,7 +3714,7 @@ jr_000_2847:
 	ldh a, [$ae]
 	add c
 	ldh [$ae], a
-	ld hl, wc114
+	ld hl, $c114
 	ld a, [wd460]
 	and a
 	jr z, jr_000_2875
@@ -3963,8 +3942,8 @@ jr_000_2948:
 
 Call_000_295e:
 	xor a
-	ld [wc103], a
-	ld [wc105], a
+	ld [$c103], a
+	ld [$c105], a
 	call Call_000_2a2c
 	call Call_000_0153
 	ld a, [wd6b2]
@@ -4040,7 +4019,7 @@ Call_000_29c8:
 
 	ld a, [wd4a9]
 	ld d, a
-	ld a, [wc10c]
+	ld a, [$c10c]
 	and d
 	jr nz, jr_000_29f6
 
@@ -4335,8 +4314,8 @@ jr_000_2b61:
 	ld a, [hli]
 	ld [wd460], a
 	push hl
-	ld hl, wc110
-	ld de, wc210
+	ld hl, $c110
+	ld de, $c210
 	xor a
 	ld b, $f0
 
@@ -4347,7 +4326,7 @@ jr_000_2b77:
 	dec b
 	jr nz, jr_000_2b77
 
-	ld hl, wc112
+	ld hl, $c112
 	ld de, $0010
 	ld c, $0f
 
@@ -4358,7 +4337,7 @@ jr_000_2b85:
 	jr nz, jr_000_2b85
 
 	pop hl
-	ld de, wc110
+	ld de, $c110
 	ld a, [wd460]
 	and a
 	jp z, Jump_000_2c09
@@ -5988,7 +5967,7 @@ Jump_000_34c9:
 
 	xor a
 	ld [wcd3b], a
-	ld [wc206], a
+	ld [$c206], a
 	ld hl, wd6af
 	set 7, [hl]
 	ret
@@ -6066,7 +6045,7 @@ jr_000_352c:
 
 
 	push hl
-	ld hl, wc204
+	ld hl, $c204
 	ldh a, [$8c]
 	swap a
 	ld d, $00

@@ -3893,7 +3893,7 @@ jr_01e_5f9f:
 
 
 Call_01e_5fbe:
-	ld a, [wc109]
+	ld a, [$c109]
 	ld hl, $5fdc
 	ld c, a
 	ld b, $00

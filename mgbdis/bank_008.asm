@@ -876,7 +876,7 @@ jr_008_43b5:
 	cp $01
 	ret z
 
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $0c
 	ret nz
 
@@ -898,7 +898,7 @@ jr_008_451a:
 	cp $02
 	ret z
 
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $08
 	ret nz
 
@@ -925,7 +925,7 @@ jr_008_453a:
 	jp $57c8
 
 
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	ret nz
 
@@ -5229,7 +5229,7 @@ jr_008_62ed:
 	call c, $e6c4
 	or e
 	push hl
-	ld hl, wc2dc
+	ld hl, $c2dc
 	db $e4
 	ld b, b
 	ld b, b
@@ -6095,14 +6095,14 @@ Call_008_6790:
 	or d
 	and d
 	sub d
-	jp nz, wc292
+	jp nz, $c292
 
 	sub d
 	jp nz, $e392
 
 	ld [bc], a
 	ld [de], a
-	jp nz, wc212
+	jp nz, $c212
 
 	ld [de], a
 	jp nz, $e412

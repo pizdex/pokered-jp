@@ -625,7 +625,7 @@ jr_01c_42d7:
 
 	ld d, b
 	or [hl]
-	call c, wc128
+	call c, $c128
 	ld a, a
 	ret nz
 
@@ -1901,7 +1901,7 @@ Call_01c_4a54:
 
 	call Call_01c_4c40
 	ld a, $ec
-	ld [wc104], a
+	ld [$c104], a
 	call $3e07
 	push hl
 	call $0b78
@@ -2166,13 +2166,13 @@ jr_01c_4bff:
 	ld a, [wcd3f]
 	xor $01
 	ld [wcd3f], a
-	ld [wc102], a
+	ld [$c102], a
 	call $3e07
 	ld a, [wcd3d]
 	cp $ff
 	jr z, jr_01c_4c1e
 
-	ld hl, wc104
+	ld hl, $c104
 	ld a, [de]
 	inc de
 	ld [hli], a
@@ -2202,15 +2202,15 @@ Call_01c_4c28:
 
 
 Call_01c_4c40:
-	ld a, [wc102]
+	ld a, [$c102]
 	ld [wcd50], a
-	ld a, [wc104]
+	ld a, [$c104]
 	ld [wcd4f], a
 	ld hl, $4c64
 	ld de, wcd48
 	ld bc, $0004
 	call $01bb
-	ld a, [wc102]
+	ld a, [$c102]
 	ld hl, wcd48
 
 jr_01c_4c5e:
@@ -2227,7 +2227,7 @@ jr_01c_4c5e:
 
 Call_01c_4c68:
 	ld a, [hl]
-	ld [wc102], a
+	ld [$c102], a
 	push hl
 	ld hl, wcd48
 	ld de, wcd47
@@ -2269,9 +2269,9 @@ jr_01c_4ca6:
 	call Call_01c_4c68
 	ld a, [wcd3d]
 	ld c, a
-	ld a, [wc104]
+	ld a, [$c104]
 	add c
-	ld [wc104], a
+	ld [$c104], a
 	ld c, a
 	ld a, [wcd3e]
 	cp c
@@ -2284,9 +2284,9 @@ jr_01c_4ca6:
 
 Jump_01c_4cc3:
 	ld a, [wcd4f]
-	ld [wc104], a
+	ld [$c104], a
 	ld a, [wcd50]
-	ld [wc102], a
+	ld [$c102], a
 	ret
 
 
@@ -2364,7 +2364,7 @@ jr_01c_4cfe:
 	ld a, $04
 	ld hl, $4dd2
 	call Call_01c_5c35
-	ld a, [wc102]
+	ld a, [$c102]
 	ld c, a
 	ld b, $00
 	ld hl, $4dc2
@@ -2386,7 +2386,7 @@ jr_01c_4cfe:
 	ld b, $0a
 
 jr_01c_4d4f:
-	ld hl, wc104
+	ld hl, $c104
 	call Call_01c_4d96
 	ld hl, wOAMBuffer + $9c
 	call Call_01c_4d96
@@ -2394,7 +2394,7 @@ jr_01c_4d4f:
 	dec b
 	jr nz, jr_01c_4d4f
 
-	ld a, [wc102]
+	ld a, [$c102]
 	cp $04
 	jr nz, jr_01c_4d6d
 
@@ -2408,7 +2408,7 @@ jr_01c_4d6d:
 	ld [hl], a
 	ld a, $4c
 	call $3e9d
-	ld a, [wc102]
+	ld a, [$c102]
 	cp $04
 	jr nz, jr_01c_4d84
 
@@ -2517,7 +2517,7 @@ Call_01c_4d96:
 	ld hl, $4e26
 	add hl, bc
 	ld a, [hl]
-	ld [wc104], a
+	ld [$c104], a
 	ret
 
 
@@ -2648,7 +2648,7 @@ jr_01c_4eb9:
 	dec a
 	ld [wcfb2], a
 	call $0b31
-	ld hl, wc102
+	ld hl, $c102
 	ldh a, [$8c]
 	ld c, a
 	ld b, $00
@@ -10828,7 +10828,7 @@ jr_01c_78d7:
 	ld [bc], a
 	ld bc, $1100
 	ld de, $1113
-	ld hl, wc139
+	ld hl, $c139
 	ld a, c
 
 jr_01c_78f2:
@@ -11252,7 +11252,7 @@ Jump_01c_7ab8:
 	set 7, a
 	ld [wd2e6], a
 	ld hl, $acd5
-	ld de, wc100
+	ld de, $c100
 	ld bc, $0200
 	call $01bb
 	ld a, [$b593]
@@ -11393,7 +11393,7 @@ Call_01c_7c26:
 	ld de, $a59e
 	ld bc, $0737
 	call $01bb
-	ld hl, wc100
+	ld hl, $c100
 	ld de, $acd5
 	ld bc, $0200
 	call $01bb

@@ -1969,7 +1969,7 @@ jr_001_4c08:
 	ld d, a
 
 Jump_001_4c2c:
-	ld a, [wc200]
+	ld a, [$c200]
 	and a
 	jr z, jr_001_4c3c
 
@@ -1977,7 +1977,7 @@ Jump_001_4c2c:
 	jr z, jr_001_4c45
 
 	dec a
-	ld [wc200], a
+	ld [$c200], a
 	jr jr_001_4c45
 
 jr_001_4c3c:
@@ -1988,7 +1988,7 @@ jr_001_4c3c:
 
 jr_001_4c45:
 	ld a, $ff
-	ld [wc102], a
+	ld [$c102], a
 	ret
 
 
@@ -2029,12 +2029,12 @@ jr_001_4c70:
 
 jr_001_4c78:
 	xor a
-	ld [wc107], a
-	ld [wc108], a
+	ld [$c107], a
+	ld [$c108], a
 	jr jr_001_4ca6
 
 jr_001_4c81:
-	ld [wc109], a
+	ld [$c109], a
 	ld a, [wcfab]
 	bit 0, a
 	jr nz, jr_001_4c78
@@ -2062,11 +2062,11 @@ jr_001_4c8b:
 	ld [hl], a
 
 jr_001_4ca6:
-	ld a, [wc108]
+	ld a, [$c108]
 	ld b, a
-	ld a, [wc109]
+	ld a, [$c109]
 	add b
-	ld [wc102], a
+	ld [$c102], a
 
 jr_001_4cb1:
 	ldh a, [$93]
@@ -2079,7 +2079,7 @@ jr_001_4cb1:
 	ld a, $80
 
 jr_001_4cbe:
-	ld [wc207], a
+	ld [$c207], a
 	ret
 
 
@@ -2889,7 +2889,7 @@ Call_001_50b4:
 	ld b, a
 
 jr_001_50b7:
-	ld hl, wc100
+	ld hl, $c100
 	ldh a, [$da]
 	add l
 	add b
@@ -2899,7 +2899,7 @@ jr_001_50b7:
 
 Call_001_50c0:
 Jump_001_50c0:
-	ld hl, wc200
+	ld hl, $c200
 	ldh a, [$da]
 	add $0e
 	ld l, a
@@ -2907,7 +2907,7 @@ Jump_001_50c0:
 	dec a
 	swap a
 	ld b, a
-	ld hl, wc100
+	ld hl, $c100
 	ldh a, [$da]
 	add $09
 	ld l, a
@@ -2933,7 +2933,7 @@ jr_001_50e7:
 	ld b, a
 	ldh [$e9], a
 	call Call_001_50fe
-	ld hl, wc100
+	ld hl, $c100
 	ldh a, [$da]
 	add $02
 	ld l, a
@@ -3372,7 +3372,7 @@ jr_001_532c:
 	sbc $50
 	or c
 	or d
-	jp wc250
+	jp $c250
 
 
 	or e
@@ -5038,7 +5038,7 @@ Call_001_5f0e:
 	ld bc, $0dfb
 	xor a
 	call $372a
-	ld hl, wc100
+	ld hl, $c100
 	ld bc, $0200
 	xor a
 	call $372a
@@ -7729,7 +7729,7 @@ jr_001_713b:
 	ld hl, $71da
 	call $3c79
 	ld a, $18
-	ld [wc112], a
+	ld [$c112], a
 	call $3e07
 	ld a, $07
 	call $3e9d
@@ -7747,7 +7747,7 @@ jr_001_713b:
 	ld hl, $71ef
 	call $3c79
 	ld a, $14
-	ld [wc112], a
+	ld [$c112], a
 	ld c, a
 	call $3781
 	jr jr_001_718f
@@ -7840,7 +7840,7 @@ jr_001_727c:
 	call $0ebd
 
 jr_001_728d:
-	ld hl, wc119
+	ld hl, $c119
 	ld c, $0f
 	ld de, $0010
 
@@ -7853,7 +7853,7 @@ jr_001_7295:
 	dec c
 	jr nz, jr_001_7295
 
-	ld hl, wc102
+	ld hl, $c102
 	ld de, $0010
 	ld c, e
 
@@ -8107,7 +8107,7 @@ jr_001_7453:
 	db $d3
 	jr nc, @-$3d
 
-	call nz, wc24f
+	call nz, $c24f
 	or e
 	cp h
 	sbc $88

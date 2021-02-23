@@ -9968,7 +9968,7 @@ jr_00f_79ea:
 	ld [c], a
 	cp b
 	ld d, b
-	jp nc, wc1b2
+	jp nc, $c1b2
 
 	pop hl
 	or e
@@ -10465,7 +10465,7 @@ jr_00f_7c6e:
 	push bc
 	db $dd
 	adc $df
-	jp wc17f
+	jp $c17f
 
 
 	pop bc

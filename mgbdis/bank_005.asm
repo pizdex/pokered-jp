@@ -10260,8 +10260,8 @@ jr_005_76bc:
 	call Call_005_7960
 	ret c
 
-	ld hl, wc100
-	ld de, wc20d
+	ld hl, $c100
+	ld de, $c20d
 
 jr_005_784a:
 	ld a, [hl]
@@ -10285,7 +10285,7 @@ Call_005_7856:
 jr_005_785d:
 	ld c, a
 	ld b, $10
-	ld hl, wc20d
+	ld hl, $c20d
 	xor a
 	ldh [$8e], a
 
@@ -10298,10 +10298,10 @@ jr_005_7866:
 	dec b
 	jr nz, jr_005_7866
 
-	ld hl, wc21e
+	ld hl, $c21e
 
 Jump_005_7872:
-	ld de, wc21d
+	ld de, $c21d
 
 jr_005_7875:
 	ld a, e
@@ -10322,7 +10322,7 @@ jr_005_7875:
 	jr jr_005_7875
 
 jr_005_788a:
-	ld de, wc20e
+	ld de, $c20e
 	ld b, $01
 
 jr_005_788f:
@@ -10488,7 +10488,7 @@ jr_005_793f:
 	dec c
 	jp nz, Jump_005_7872
 
-	ld hl, wc20d
+	ld hl, $c20d
 	ld b, $10
 
 jr_005_794c:
@@ -10560,7 +10560,7 @@ jr_005_7982:
 	inc d
 
 jr_005_7999:
-	ld hl, wc20d
+	ld hl, $c20d
 	ld a, $01
 	ld [hl], a
 	ld bc, wd31c
@@ -10596,7 +10596,7 @@ jr_005_79b2:
 	call Call_005_7856
 	pop af
 	ld [wd460], a
-	ld hl, wc21e
+	ld hl, $c21e
 	ld b, $0f
 
 jr_005_79d0:
@@ -10609,7 +10609,7 @@ jr_005_79d0:
 	jr nz, jr_005_79d0
 
 jr_005_79d9:
-	ld hl, wc110
+	ld hl, $c110
 
 jr_005_79dc:
 	ld c, $00
@@ -11203,7 +11203,7 @@ jr_005_7c7d:
 	or b
 	jr nz, jr_005_7c7d
 
-	ld hl, wc104
+	ld hl, $c104
 	ld a, [wcd4f]
 	swap a
 	ld c, a
@@ -11801,7 +11801,7 @@ jr_005_7f40:
 
 	ld a, a
 	ld e, e
-	call nz, wc27f
+	call nz, $c27f
 	push bc
 	or d
 	jr nc, jr_005_7f32
@@ -11846,7 +11846,7 @@ jr_005_7f63:
 jr_005_7f67:
 	ld a, a
 	ld e, e
-	call nz, wc27f
+	call nz, $c27f
 	push bc
 	or d
 	jr nc, jr_005_7f57
@@ -11885,7 +11885,7 @@ jr_005_7f7c:
 	sbc $c9
 	ld a, a
 	ld e, e
-	call nz, wc27f
+	call nz, $c27f
 	push bc
 	or d
 	jr nc, jr_005_7f7c

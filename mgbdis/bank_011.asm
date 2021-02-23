@@ -1585,7 +1585,7 @@ jr_011_46fe:
 	ret
 
 
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	ret nz
 
@@ -3478,7 +3478,7 @@ jr_011_5030:
 
 	nop
 	call nc, wd7c0
-	call nz, wc27f
+	call nz, $c27f
 	sub $b2
 	ld a, a
 	cp d
@@ -4085,7 +4085,7 @@ jr_011_5303:
 	rst $10
 	xor l
 	ld d, e
-	jp z, wc253
+	jp z, $c253
 
 	ld d, e
 	jp nz, $0353
@@ -5073,7 +5073,7 @@ jr_011_579f:
 
 Jump_011_57b0:
 jr_011_57b0:
-	ld a, [wc102]
+	ld a, [$c102]
 	srl a
 	srl a
 	ld hl, $585c
@@ -5081,7 +5081,7 @@ jr_011_57b0:
 	ld b, $00
 	add hl, bc
 	ld a, [hl]
-	ld [wc102], a
+	ld [$c102], a
 
 Call_011_57c2:
 	ld a, [wd2e6]
@@ -5338,7 +5338,7 @@ Call_011_58c5:
 	ld a, a
 	adc $de
 	inc a
-	jp z, wc14f
+	jp z, $c14f
 
 	or [hl]
 	ld a, a
@@ -6009,7 +6009,7 @@ jr_011_5bdd:
 	ld a, a
 	push bc
 	or d
-	call nz, wc27f
+	call nz, $c27f
 	or [hl]
 	or h
 	push bc
@@ -7343,7 +7343,7 @@ Call_011_627d:
 	rrca
 	ld a, b
 	ld h, e
-	call nz, wc162
+	call nz, $c162
 	ld h, d
 	nop
 	daa
@@ -7425,7 +7425,7 @@ jr_011_62de:
 	nop
 	cp d
 	cp d
-	jp z, wc17f
+	jp z, $c17f
 
 	pop hl
 	or e
@@ -8948,7 +8948,7 @@ jr_011_6977:
 
 	and $4f
 	ld a, $b8
-	jp z, wc27f
+	jp z, $c27f
 
 	or [hl]
 	rst $08
@@ -8957,7 +8957,7 @@ jr_011_6977:
 	jp nz, wcfb6
 
 	or h
-	jp wc255
+	jp $c255
 
 
 	or [hl]
@@ -9007,7 +9007,7 @@ jr_011_6977:
 	ld a, a
 	cp l
 	daa
-	jp wc27f
+	jp $c27f
 
 
 	or [hl]
@@ -11298,7 +11298,7 @@ jr_011_7564:
 	dec a
 	ld [wcd38], a
 	xor a
-	ld [wc206], a
+	ld [$c206], a
 	ld hl, wd6af
 	set 7, [hl]
 	ld hl, wd6b2
@@ -12049,7 +12049,7 @@ jr_011_7921:
 
 
 Call_011_7926:
-	ld a, [wc109]
+	ld a, [$c109]
 	cp $04
 	jr z, jr_011_793b
 
@@ -13635,7 +13635,7 @@ jr_011_7fe6:
 	inc c
 	ld bc, $2143
 	ld bc, $1381
-	ld bc, wc181
+	ld bc, $c181
 	ld hl, $8d10
 	sub e
 	ld b, c

@@ -4602,7 +4602,7 @@ jr_016_53b2:
 	or a
 	ld [c], a
 	or e
-	jp z, wc27f
+	jp z, $c27f
 
 	or d
 	jp $b4c8
@@ -4921,7 +4921,7 @@ Jump_016_5556:
 	adc h
 	ld a, a
 	rst $18
-	jp wc14f
+	jp $c14f
 
 
 	ld [c], a
@@ -6139,7 +6139,7 @@ jr_016_5a8f:
 	or a
 	ld [c], a
 	or e
-	jp z, wc27f
+	jp z, $c27f
 
 	or d
 
@@ -6689,7 +6689,7 @@ jr_016_5cfe:
 	ld a, a
 	db $d3
 	rst $18
-	call nz, wc24f
+	call nz, $c24f
 	sub $b2
 	ld a, a
 	ld d, h
@@ -6728,7 +6728,7 @@ jr_016_5d0f:
 	ld d, [hl]
 	ld d, c
 	or c
-	jp c, wc27f
+	jp c, $c27f
 
 	or [hl]
 	rst $08
@@ -6796,7 +6796,7 @@ jr_016_5d6c:
 	cp d
 	inc [hl]
 	db $d3
-	jp z, wc27f
+	jp z, $c27f
 
 	sub $b2
 	rst $20
@@ -6885,7 +6885,7 @@ jr_016_5d6c:
 	ld c, a
 	db $d3
 	rst $18
-	call nz, wc27f
+	call nz, $c27f
 	sub $b2
 	ret
 
@@ -7749,7 +7749,7 @@ jr_016_608b:
 	nop
 	cp d
 	cp d
-	jp z, wc27f
+	jp z, $c27f
 
 	ret c
 
@@ -8046,7 +8046,7 @@ jr_016_62fe:
 	ld a, a
 	push bc
 	or d
-	call nz, wc255
+	call nz, $c255
 	cp c
 	ld a, a
 	push bc
@@ -8980,7 +8980,7 @@ jr_016_6750:
 	rst $20
 	ld c, a
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ldh [$7f], a
 	jp z, wd9bc
@@ -9183,7 +9183,7 @@ jr_016_67a9:
 	ld e, b
 	nop
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ld a, a
 	or d
@@ -12054,7 +12054,7 @@ jr_016_7459:
 	or l
 
 jr_016_74a0:
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ret
 
@@ -12177,7 +12177,7 @@ jr_016_74a0:
 
 
 	ld a, a
-	jp c, wc1de
+	jp c, $c1de
 
 	pop hl
 	or e
@@ -13405,7 +13405,7 @@ jr_016_7a48:
 	rst $20
 	ld d, l
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ld a, a
 	cp h

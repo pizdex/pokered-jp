@@ -3007,7 +3007,7 @@ jr_01f_4fa6:
 	nop
 	dec d
 	ld c, a
-	call c, wc113
+	call c, $c113
 	db $e4
 	nop
 	ret nz
@@ -3762,7 +3762,7 @@ jr_01f_521a:
 	ld [hl], c
 	ld h, c
 	ld [hl], c
-	ld sp, wc2dc
+	ld sp, $c2dc
 	db $fd
 	ld h, l
 	ld d, d
@@ -4025,7 +4025,7 @@ jr_01f_532e:
 	pop bc
 	rst $20
 	ld b, b
-	jp nz, wc240
+	jp nz, $c240
 
 	rst $38
 	and $40
@@ -5184,13 +5184,13 @@ jr_01f_56f5:
 	ld d, c
 	ld b, c
 	ld b, c
-	ld sp, wc131
+	ld sp, $c131
 	ld sp, $2121
 	db $fd
 	sbc h
 	ld e, l
 	db $e4
-	ld hl, wc121
+	ld hl, $c121
 	ld hl, $3131
 	ld b, c
 	ld b, c
@@ -6028,7 +6028,7 @@ jr_01f_60b0:
 
 	db $e3
 	ld d, b
-	jp nz, wc200
+	jp nz, $c200
 
 	db $e4
 	ld d, c
@@ -6155,7 +6155,7 @@ Call_01f_60e4:
 	add $e5
 	or b
 	add $b0
-	jp nz, wc2b0
+	jp nz, $c2b0
 
 	or b
 	add $b0
@@ -6425,7 +6425,7 @@ jr_01f_645a:
 	add $40
 	add $40
 	add $40
-	jp nz, wc270
+	jp nz, $c270
 
 	ld h, b
 
@@ -6452,17 +6452,17 @@ jr_01f_649f:
 	dec d
 	db $e4
 	ld h, b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld [hl], b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld h, b
 	adc $60
-	jp nz, wc260
+	jp nz, $c260
 
 	ld [hl], b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld h, b
 	add $dc
@@ -7287,7 +7287,7 @@ jr_01f_6872:
 	ret nz
 
 	ld [hl], b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld [hl], b
 
@@ -7298,10 +7298,10 @@ jr_01f_687c:
 	ret nz
 
 	ld [hl], b
-	jp nz, wc280
+	jp nz, $c280
 
 	ld [hl], b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld [hl], b
 	jp nz, wc080
@@ -7310,7 +7310,7 @@ jr_01f_687c:
 	ret nz
 
 	add b
-	jp nz, wc280
+	jp nz, $c280
 
 	ld [hl], b
 	jp nz, wc080
@@ -7319,10 +7319,10 @@ jr_01f_687c:
 	ret nz
 
 	add b
-	jp nz, wc270
+	jp nz, $c270
 
 	ld [hl], b
-	jp nz, wc270
+	jp nz, $c270
 
 	ld [hl], b
 	jp nz, wc070
@@ -7346,7 +7346,7 @@ jr_01f_687c:
 	ret nz
 
 	ld d, b
-	jp nz, wc250
+	jp nz, $c250
 
 	ld d, b
 	jp nz, wc050
@@ -7355,7 +7355,7 @@ jr_01f_687c:
 	ret nz
 
 	ld h, b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld h, b
 	jp nz, wc060
@@ -7364,19 +7364,19 @@ jr_01f_687c:
 	ret nz
 
 	ld [hl], b
-	jp nz, wc270
+	jp nz, $c270
 
 	ld [hl], b
-	jp nz, wc270
+	jp nz, $c270
 
 	ld [hl], b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld d, b
-	jp nz, wc240
+	jp nz, $c240
 
 	ld d, b
-	jp nz, wc240
+	jp nz, $c240
 
 	jr nc, @-$3c
 
@@ -7516,7 +7516,7 @@ jr_01f_687c:
 	ret nz
 
 	ld h, b
-	jp nz, wc260
+	jp nz, $c260
 
 	ld h, b
 	jp nz, $fea3
@@ -7598,24 +7598,24 @@ jr_01f_687c:
 	db $10
 	ld l, d
 	add b
-	jp nz, wc240
+	jp nz, $c240
 
 	add b
-	jp nz, wc240
+	jp nz, $c240
 
 	db $fd
 	db $10
 	ld l, d
 	add b
-	jp nz, wc240
+	jp nz, $c240
 
 	add b
-	jp nz, wc2b0
+	jp nz, $c2b0
 
 	cp $00
 	or $69
 	add b
-	jp nz, wc240
+	jp nz, $c240
 
 	add b
 	jp nz, wc040

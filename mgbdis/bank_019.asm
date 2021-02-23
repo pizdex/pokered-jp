@@ -4163,7 +4163,7 @@ jr_019_67df:
 	db $e3
 	ld [c], a
 	db $e3
-	jp nz, wc1c3
+	jp nz, $c1c3
 
 	pop bc
 	pop bc

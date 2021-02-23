@@ -10118,7 +10118,7 @@ jr_004_7ee8:
 	inc a
 	sbc $c6
 	ld a, a
-	jp z, wc2d8
+	jp z, $c2d8
 
 	cp c
 	ret nz

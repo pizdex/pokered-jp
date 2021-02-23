@@ -1420,7 +1420,7 @@ jr_00d_45e5:
 
 	xor e
 	ld a, [$2d8c]
-	ld sp, wc143
+	ld sp, $c143
 	ld sp, $2ca2
 	sub l
 	ld d, c
@@ -6068,7 +6068,7 @@ jr_00d_5ef5:
 
 	cp d
 	ld h, [hl]
-	jp nz, wc18b
+	jp nz, $c18b
 
 	ld d, e
 	inc de
@@ -7446,7 +7446,7 @@ jr_00d_653d:
 	ld c, b
 	and a
 	xor c
-	ld [wc219], sp
+	ld [$c219], sp
 	ld [hli], a
 
 jr_00d_6551:
@@ -8902,7 +8902,7 @@ jr_00d_6b4f:
 	ld [de], a
 	rla
 	rst $38
-	jp nz, wc1b8
+	jp nz, $c1b8
 
 	inc h
 	cp h
@@ -10668,7 +10668,7 @@ jr_00d_7327:
 	jp nc, $a3f0
 
 	inc b
-	ld de, wc27c
+	ld de, $c27c
 	ldh a, [$57]
 	ret c
 

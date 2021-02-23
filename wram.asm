@@ -1,4 +1,5 @@
 INCLUDE "constants.asm"
+INCLUDE "macros/wram.asm"
 
 INCLUDE "vram.asm"
 
@@ -261,518 +262,89 @@ wc0fc:: ds 1 ; c0fc
 wc0fd:: ds 1 ; c0fd
 wc0fe:: ds 1 ; c0fe
 wc0ff:: ds 1 ; c0ff
-wc100:: ds 1 ; c100
-wc101:: ds 1 ; c101
-wc102:: ds 1 ; c102
-wc103:: ds 1 ; c103
-wc104:: ds 1 ; c104
-wc105:: ds 1 ; c105
-wc106:: ds 1 ; c106
-wc107:: ds 1 ; c107
-wc108:: ds 1 ; c108
-wc109:: ds 1 ; c109
-wc10a:: ds 1 ; c10a
-wc10b:: ds 1 ; c10b
-wc10c:: ds 1 ; c10c
-wc10d:: ds 1 ; c10d
-wc10e:: ds 1 ; c10e
-wc10f:: ds 1 ; c10f
-wc110:: ds 1 ; c110
-wc111:: ds 1 ; c111
-wc112:: ds 1 ; c112
-wc113:: ds 1 ; c113
-wc114:: ds 1 ; c114
-wc115:: ds 1 ; c115
-wc116:: ds 1 ; c116
-wc117:: ds 1 ; c117
-wc118:: ds 1 ; c118
-wc119:: ds 1 ; c119
-wc11a:: ds 1 ; c11a
-wc11b:: ds 1 ; c11b
-wc11c:: ds 1 ; c11c
-wc11d:: ds 1 ; c11d
-wc11e:: ds 1 ; c11e
-wc11f:: ds 1 ; c11f
-wc120:: ds 1 ; c120
-wc121:: ds 1 ; c121
-wc122:: ds 1 ; c122
-wc123:: ds 1 ; c123
-wc124:: ds 1 ; c124
-wc125:: ds 1 ; c125
-wc126:: ds 1 ; c126
-wc127:: ds 1 ; c127
-wc128:: ds 1 ; c128
-wc129:: ds 1 ; c129
-wc12a:: ds 1 ; c12a
-wc12b:: ds 1 ; c12b
-wc12c:: ds 1 ; c12c
-wc12d:: ds 1 ; c12d
-wc12e:: ds 1 ; c12e
-wc12f:: ds 1 ; c12f
-wc130:: ds 1 ; c130
-wc131:: ds 1 ; c131
-wc132:: ds 1 ; c132
-wc133:: ds 1 ; c133
-wc134:: ds 1 ; c134
-wc135:: ds 1 ; c135
-wc136:: ds 1 ; c136
-wc137:: ds 1 ; c137
-wc138:: ds 1 ; c138
-wc139:: ds 1 ; c139
-wc13a:: ds 1 ; c13a
-wc13b:: ds 1 ; c13b
-wc13c:: ds 1 ; c13c
-wc13d:: ds 1 ; c13d
-wc13e:: ds 1 ; c13e
-wc13f:: ds 1 ; c13f
-wc140:: ds 1 ; c140
-wc141:: ds 1 ; c141
-wc142:: ds 1 ; c142
-wc143:: ds 1 ; c143
-wc144:: ds 1 ; c144
-wc145:: ds 1 ; c145
-wc146:: ds 1 ; c146
-wc147:: ds 1 ; c147
-wc148:: ds 1 ; c148
-wc149:: ds 1 ; c149
-wc14a:: ds 1 ; c14a
-wc14b:: ds 1 ; c14b
-wc14c:: ds 1 ; c14c
-wc14d:: ds 1 ; c14d
-wc14e:: ds 1 ; c14e
-wc14f:: ds 1 ; c14f
-wc150:: ds 1 ; c150
-wc151:: ds 1 ; c151
-wc152:: ds 1 ; c152
-wc153:: ds 1 ; c153
-wc154:: ds 1 ; c154
-wc155:: ds 1 ; c155
-wc156:: ds 1 ; c156
-wc157:: ds 1 ; c157
-wc158:: ds 1 ; c158
-wc159:: ds 1 ; c159
-wc15a:: ds 1 ; c15a
-wc15b:: ds 1 ; c15b
-wc15c:: ds 1 ; c15c
-wc15d:: ds 1 ; c15d
-wc15e:: ds 1 ; c15e
-wc15f:: ds 1 ; c15f
-wc160:: ds 1 ; c160
-wc161:: ds 1 ; c161
-wc162:: ds 1 ; c162
-wc163:: ds 1 ; c163
-wc164:: ds 1 ; c164
-wc165:: ds 1 ; c165
-wc166:: ds 1 ; c166
-wc167:: ds 1 ; c167
-wc168:: ds 1 ; c168
-wc169:: ds 1 ; c169
-wc16a:: ds 1 ; c16a
-wc16b:: ds 1 ; c16b
-wc16c:: ds 1 ; c16c
-wc16d:: ds 1 ; c16d
-wc16e:: ds 1 ; c16e
-wc16f:: ds 1 ; c16f
-wc170:: ds 1 ; c170
-wc171:: ds 1 ; c171
-wc172:: ds 1 ; c172
-wc173:: ds 1 ; c173
-wc174:: ds 1 ; c174
-wc175:: ds 1 ; c175
-wc176:: ds 1 ; c176
-wc177:: ds 1 ; c177
-wc178:: ds 1 ; c178
-wc179:: ds 1 ; c179
-wc17a:: ds 1 ; c17a
-wc17b:: ds 1 ; c17b
-wc17c:: ds 1 ; c17c
-wc17d:: ds 1 ; c17d
-wc17e:: ds 1 ; c17e
-wc17f:: ds 1 ; c17f
-wc180:: ds 1 ; c180
-wc181:: ds 1 ; c181
-wc182:: ds 1 ; c182
-wc183:: ds 1 ; c183
-wc184:: ds 1 ; c184
-wc185:: ds 1 ; c185
-wc186:: ds 1 ; c186
-wc187:: ds 1 ; c187
-wc188:: ds 1 ; c188
-wc189:: ds 1 ; c189
-wc18a:: ds 1 ; c18a
-wc18b:: ds 1 ; c18b
-wc18c:: ds 1 ; c18c
-wc18d:: ds 1 ; c18d
-wc18e:: ds 1 ; c18e
-wc18f:: ds 1 ; c18f
-wc190:: ds 1 ; c190
-wc191:: ds 1 ; c191
-wc192:: ds 1 ; c192
-wc193:: ds 1 ; c193
-wc194:: ds 1 ; c194
-wc195:: ds 1 ; c195
-wc196:: ds 1 ; c196
-wc197:: ds 1 ; c197
-wc198:: ds 1 ; c198
-wc199:: ds 1 ; c199
-wc19a:: ds 1 ; c19a
-wc19b:: ds 1 ; c19b
-wc19c:: ds 1 ; c19c
-wc19d:: ds 1 ; c19d
-wc19e:: ds 1 ; c19e
-wc19f:: ds 1 ; c19f
-wc1a0:: ds 1 ; c1a0
-wc1a1:: ds 1 ; c1a1
-wc1a2:: ds 1 ; c1a2
-wc1a3:: ds 1 ; c1a3
-wc1a4:: ds 1 ; c1a4
-wc1a5:: ds 1 ; c1a5
-wc1a6:: ds 1 ; c1a6
-wc1a7:: ds 1 ; c1a7
-wc1a8:: ds 1 ; c1a8
-wc1a9:: ds 1 ; c1a9
-wc1aa:: ds 1 ; c1aa
-wc1ab:: ds 1 ; c1ab
-wc1ac:: ds 1 ; c1ac
-wc1ad:: ds 1 ; c1ad
-wc1ae:: ds 1 ; c1ae
-wc1af:: ds 1 ; c1af
-wc1b0:: ds 1 ; c1b0
-wc1b1:: ds 1 ; c1b1
-wc1b2:: ds 1 ; c1b2
-wc1b3:: ds 1 ; c1b3
-wc1b4:: ds 1 ; c1b4
-wc1b5:: ds 1 ; c1b5
-wc1b6:: ds 1 ; c1b6
-wc1b7:: ds 1 ; c1b7
-wc1b8:: ds 1 ; c1b8
-wc1b9:: ds 1 ; c1b9
-wc1ba:: ds 1 ; c1ba
-wc1bb:: ds 1 ; c1bb
-wc1bc:: ds 1 ; c1bc
-wc1bd:: ds 1 ; c1bd
-wc1be:: ds 1 ; c1be
-wc1bf:: ds 1 ; c1bf
-wc1c0:: ds 1 ; c1c0
-wc1c1:: ds 1 ; c1c1
-wc1c2:: ds 1 ; c1c2
-wc1c3:: ds 1 ; c1c3
-wc1c4:: ds 1 ; c1c4
-wc1c5:: ds 1 ; c1c5
-wc1c6:: ds 1 ; c1c6
-wc1c7:: ds 1 ; c1c7
-wc1c8:: ds 1 ; c1c8
-wc1c9:: ds 1 ; c1c9
-wc1ca:: ds 1 ; c1ca
-wc1cb:: ds 1 ; c1cb
-wc1cc:: ds 1 ; c1cc
-wc1cd:: ds 1 ; c1cd
-wc1ce:: ds 1 ; c1ce
-wc1cf:: ds 1 ; c1cf
-wc1d0:: ds 1 ; c1d0
-wc1d1:: ds 1 ; c1d1
-wc1d2:: ds 1 ; c1d2
-wc1d3:: ds 1 ; c1d3
-wc1d4:: ds 1 ; c1d4
-wc1d5:: ds 1 ; c1d5
-wc1d6:: ds 1 ; c1d6
-wc1d7:: ds 1 ; c1d7
-wc1d8:: ds 1 ; c1d8
-wc1d9:: ds 1 ; c1d9
-wc1da:: ds 1 ; c1da
-wc1db:: ds 1 ; c1db
-wc1dc:: ds 1 ; c1dc
-wc1dd:: ds 1 ; c1dd
-wc1de:: ds 1 ; c1de
-wc1df:: ds 1 ; c1df
-wc1e0:: ds 1 ; c1e0
-wc1e1:: ds 1 ; c1e1
-wc1e2:: ds 1 ; c1e2
-wc1e3:: ds 1 ; c1e3
-wc1e4:: ds 1 ; c1e4
-wc1e5:: ds 1 ; c1e5
-wc1e6:: ds 1 ; c1e6
-wc1e7:: ds 1 ; c1e7
-wc1e8:: ds 1 ; c1e8
-wc1e9:: ds 1 ; c1e9
-wc1ea:: ds 1 ; c1ea
-wc1eb:: ds 1 ; c1eb
-wc1ec:: ds 1 ; c1ec
-wc1ed:: ds 1 ; c1ed
-wc1ee:: ds 1 ; c1ee
-wc1ef:: ds 1 ; c1ef
-wc1f0:: ds 1 ; c1f0
-wc1f1:: ds 1 ; c1f1
-wc1f2:: ds 1 ; c1f2
-wc1f3:: ds 1 ; c1f3
-wc1f4:: ds 1 ; c1f4
-wc1f5:: ds 1 ; c1f5
-wc1f6:: ds 1 ; c1f6
-wc1f7:: ds 1 ; c1f7
-wc1f8:: ds 1 ; c1f8
-wc1f9:: ds 1 ; c1f9
-wc1fa:: ds 1 ; c1fa
-wc1fb:: ds 1 ; c1fb
-wc1fc:: ds 1 ; c1fc
-wc1fd:: ds 1 ; c1fd
-wc1fe:: ds 1 ; c1fe
-wc1ff:: ds 1 ; c1ff
-wc200:: ds 1 ; c200
-wc201:: ds 1 ; c201
-wc202:: ds 1 ; c202
-wc203:: ds 1 ; c203
-wc204:: ds 1 ; c204
-wc205:: ds 1 ; c205
-wc206:: ds 1 ; c206
-wc207:: ds 1 ; c207
-wc208:: ds 1 ; c208
-wc209:: ds 1 ; c209
-wc20a:: ds 1 ; c20a
-wc20b:: ds 1 ; c20b
-wc20c:: ds 1 ; c20c
-wc20d:: ds 1 ; c20d
-wc20e:: ds 1 ; c20e
-wc20f:: ds 1 ; c20f
-wc210:: ds 1 ; c210
-wc211:: ds 1 ; c211
-wc212:: ds 1 ; c212
-wc213:: ds 1 ; c213
-wc214:: ds 1 ; c214
-wc215:: ds 1 ; c215
-wc216:: ds 1 ; c216
-wc217:: ds 1 ; c217
-wc218:: ds 1 ; c218
-wc219:: ds 1 ; c219
-wc21a:: ds 1 ; c21a
-wc21b:: ds 1 ; c21b
-wc21c:: ds 1 ; c21c
-wc21d:: ds 1 ; c21d
-wc21e:: ds 1 ; c21e
-wc21f:: ds 1 ; c21f
-wc220:: ds 1 ; c220
-wc221:: ds 1 ; c221
-wc222:: ds 1 ; c222
-wc223:: ds 1 ; c223
-wc224:: ds 1 ; c224
-wc225:: ds 1 ; c225
-wc226:: ds 1 ; c226
-wc227:: ds 1 ; c227
-wc228:: ds 1 ; c228
-wc229:: ds 1 ; c229
-wc22a:: ds 1 ; c22a
-wc22b:: ds 1 ; c22b
-wc22c:: ds 1 ; c22c
-wc22d:: ds 1 ; c22d
-wc22e:: ds 1 ; c22e
-wc22f:: ds 1 ; c22f
-wc230:: ds 1 ; c230
-wc231:: ds 1 ; c231
-wc232:: ds 1 ; c232
-wc233:: ds 1 ; c233
-wc234:: ds 1 ; c234
-wc235:: ds 1 ; c235
-wc236:: ds 1 ; c236
-wc237:: ds 1 ; c237
-wc238:: ds 1 ; c238
-wc239:: ds 1 ; c239
-wc23a:: ds 1 ; c23a
-wc23b:: ds 1 ; c23b
-wc23c:: ds 1 ; c23c
-wc23d:: ds 1 ; c23d
-wc23e:: ds 1 ; c23e
-wc23f:: ds 1 ; c23f
-wc240:: ds 1 ; c240
-wc241:: ds 1 ; c241
-wc242:: ds 1 ; c242
-wc243:: ds 1 ; c243
-wc244:: ds 1 ; c244
-wc245:: ds 1 ; c245
-wc246:: ds 1 ; c246
-wc247:: ds 1 ; c247
-wc248:: ds 1 ; c248
-wc249:: ds 1 ; c249
-wc24a:: ds 1 ; c24a
-wc24b:: ds 1 ; c24b
-wc24c:: ds 1 ; c24c
-wc24d:: ds 1 ; c24d
-wc24e:: ds 1 ; c24e
-wc24f:: ds 1 ; c24f
-wc250:: ds 1 ; c250
-wc251:: ds 1 ; c251
-wc252:: ds 1 ; c252
-wc253:: ds 1 ; c253
-wc254:: ds 1 ; c254
-wc255:: ds 1 ; c255
-wc256:: ds 1 ; c256
-wc257:: ds 1 ; c257
-wc258:: ds 1 ; c258
-wc259:: ds 1 ; c259
-wc25a:: ds 1 ; c25a
-wc25b:: ds 1 ; c25b
-wc25c:: ds 1 ; c25c
-wc25d:: ds 1 ; c25d
-wc25e:: ds 1 ; c25e
-wc25f:: ds 1 ; c25f
-wc260:: ds 1 ; c260
-wc261:: ds 1 ; c261
-wc262:: ds 1 ; c262
-wc263:: ds 1 ; c263
-wc264:: ds 1 ; c264
-wc265:: ds 1 ; c265
-wc266:: ds 1 ; c266
-wc267:: ds 1 ; c267
-wc268:: ds 1 ; c268
-wc269:: ds 1 ; c269
-wc26a:: ds 1 ; c26a
-wc26b:: ds 1 ; c26b
-wc26c:: ds 1 ; c26c
-wc26d:: ds 1 ; c26d
-wc26e:: ds 1 ; c26e
-wc26f:: ds 1 ; c26f
-wc270:: ds 1 ; c270
-wc271:: ds 1 ; c271
-wc272:: ds 1 ; c272
-wc273:: ds 1 ; c273
-wc274:: ds 1 ; c274
-wc275:: ds 1 ; c275
-wc276:: ds 1 ; c276
-wc277:: ds 1 ; c277
-wc278:: ds 1 ; c278
-wc279:: ds 1 ; c279
-wc27a:: ds 1 ; c27a
-wc27b:: ds 1 ; c27b
-wc27c:: ds 1 ; c27c
-wc27d:: ds 1 ; c27d
-wc27e:: ds 1 ; c27e
-wc27f:: ds 1 ; c27f
-wc280:: ds 1 ; c280
-wc281:: ds 1 ; c281
-wc282:: ds 1 ; c282
-wc283:: ds 1 ; c283
-wc284:: ds 1 ; c284
-wc285:: ds 1 ; c285
-wc286:: ds 1 ; c286
-wc287:: ds 1 ; c287
-wc288:: ds 1 ; c288
-wc289:: ds 1 ; c289
-wc28a:: ds 1 ; c28a
-wc28b:: ds 1 ; c28b
-wc28c:: ds 1 ; c28c
-wc28d:: ds 1 ; c28d
-wc28e:: ds 1 ; c28e
-wc28f:: ds 1 ; c28f
-wc290:: ds 1 ; c290
-wc291:: ds 1 ; c291
-wc292:: ds 1 ; c292
-wc293:: ds 1 ; c293
-wc294:: ds 1 ; c294
-wc295:: ds 1 ; c295
-wc296:: ds 1 ; c296
-wc297:: ds 1 ; c297
-wc298:: ds 1 ; c298
-wc299:: ds 1 ; c299
-wc29a:: ds 1 ; c29a
-wc29b:: ds 1 ; c29b
-wc29c:: ds 1 ; c29c
-wc29d:: ds 1 ; c29d
-wc29e:: ds 1 ; c29e
-wc29f:: ds 1 ; c29f
-wc2a0:: ds 1 ; c2a0
-wc2a1:: ds 1 ; c2a1
-wc2a2:: ds 1 ; c2a2
-wc2a3:: ds 1 ; c2a3
-wc2a4:: ds 1 ; c2a4
-wc2a5:: ds 1 ; c2a5
-wc2a6:: ds 1 ; c2a6
-wc2a7:: ds 1 ; c2a7
-wc2a8:: ds 1 ; c2a8
-wc2a9:: ds 1 ; c2a9
-wc2aa:: ds 1 ; c2aa
-wc2ab:: ds 1 ; c2ab
-wc2ac:: ds 1 ; c2ac
-wc2ad:: ds 1 ; c2ad
-wc2ae:: ds 1 ; c2ae
-wc2af:: ds 1 ; c2af
-wc2b0:: ds 1 ; c2b0
-wc2b1:: ds 1 ; c2b1
-wc2b2:: ds 1 ; c2b2
-wc2b3:: ds 1 ; c2b3
-wc2b4:: ds 1 ; c2b4
-wc2b5:: ds 1 ; c2b5
-wc2b6:: ds 1 ; c2b6
-wc2b7:: ds 1 ; c2b7
-wc2b8:: ds 1 ; c2b8
-wc2b9:: ds 1 ; c2b9
-wc2ba:: ds 1 ; c2ba
-wc2bb:: ds 1 ; c2bb
-wc2bc:: ds 1 ; c2bc
-wc2bd:: ds 1 ; c2bd
-wc2be:: ds 1 ; c2be
-wc2bf:: ds 1 ; c2bf
-wc2c0:: ds 1 ; c2c0
-wc2c1:: ds 1 ; c2c1
-wc2c2:: ds 1 ; c2c2
-wc2c3:: ds 1 ; c2c3
-wc2c4:: ds 1 ; c2c4
-wc2c5:: ds 1 ; c2c5
-wc2c6:: ds 1 ; c2c6
-wc2c7:: ds 1 ; c2c7
-wc2c8:: ds 1 ; c2c8
-wc2c9:: ds 1 ; c2c9
-wc2ca:: ds 1 ; c2ca
-wc2cb:: ds 1 ; c2cb
-wc2cc:: ds 1 ; c2cc
-wc2cd:: ds 1 ; c2cd
-wc2ce:: ds 1 ; c2ce
-wc2cf:: ds 1 ; c2cf
-wc2d0:: ds 1 ; c2d0
-wc2d1:: ds 1 ; c2d1
-wc2d2:: ds 1 ; c2d2
-wc2d3:: ds 1 ; c2d3
-wc2d4:: ds 1 ; c2d4
-wc2d5:: ds 1 ; c2d5
-wc2d6:: ds 1 ; c2d6
-wc2d7:: ds 1 ; c2d7
-wc2d8:: ds 1 ; c2d8
-wc2d9:: ds 1 ; c2d9
-wc2da:: ds 1 ; c2da
-wc2db:: ds 1 ; c2db
-wc2dc:: ds 1 ; c2dc
-wc2dd:: ds 1 ; c2dd
-wc2de:: ds 1 ; c2de
-wc2df:: ds 1 ; c2df
-wc2e0:: ds 1 ; c2e0
-wc2e1:: ds 1 ; c2e1
-wc2e2:: ds 1 ; c2e2
-wc2e3:: ds 1 ; c2e3
-wc2e4:: ds 1 ; c2e4
-wc2e5:: ds 1 ; c2e5
-wc2e6:: ds 1 ; c2e6
-wc2e7:: ds 1 ; c2e7
-wc2e8:: ds 1 ; c2e8
-wc2e9:: ds 1 ; c2e9
-wc2ea:: ds 1 ; c2ea
-wc2eb:: ds 1 ; c2eb
-wc2ec:: ds 1 ; c2ec
-wc2ed:: ds 1 ; c2ed
-wc2ee:: ds 1 ; c2ee
-wc2ef:: ds 1 ; c2ef
-wc2f0:: ds 1 ; c2f0
-wc2f1:: ds 1 ; c2f1
-wc2f2:: ds 1 ; c2f2
-wc2f3:: ds 1 ; c2f3
-wc2f4:: ds 1 ; c2f4
-wc2f5:: ds 1 ; c2f5
-wc2f6:: ds 1 ; c2f6
-wc2f7:: ds 1 ; c2f7
-wc2f8:: ds 1 ; c2f8
-wc2f9:: ds 1 ; c2f9
-wc2fa:: ds 1 ; c2fa
-wc2fb:: ds 1 ; c2fb
-wc2fc:: ds 1 ; c2fc
-wc2fd:: ds 1 ; c2fd
-wc2fe:: ds 1 ; c2fe
-wc2ff:: ds 1 ; c2ff
+
+SECTION "Sprite State Data", WRAM0[$c100]
+
+wSpriteDataStart::
+
+wSpriteStateData1::
+; data for all sprites on the current map
+; holds info for 16 sprites with $10 bytes each
+; player sprite is always sprite 0
+; struct fields:
+; - 0: picture ID (fixed, loaded at map init)
+; - 1: movement status (0: uninitialized, 1: ready, 2: delayed, 3: moving)
+; - 2: sprite image index (changed on update, $ff if off screen, includes facing direction, progress in walking animation and a sprite-specific offset)
+; - 3: Y screen position delta (-1,0 or 1; added to Y pixels on each walking animation update)
+; - 4: Y screen position (in pixels, always 4 pixels above grid which makes sprites appear to be in the center of a tile)
+; - 5: X screen position delta (-1,0 or 1; added to field X pixels on each walking animation update)
+; - 6: X screen position (in pixels, snaps to grid if not currently walking)
+; - 7: intra-animation-frame counter (counting upwards to 4 until animation frame counter is incremented)
+; - 8: animation frame counter (increased every 4 updates, hold four states (totalling to 16 walking frames)
+; - 9: facing direction ($0: down, $4: up, $8: left, $c: right)
+; - A: adjusted Y coordinate
+; - B: adjusted X coordinate
+; - C: direction of collision
+; - D
+; - E
+; - F
+wSpritePlayerStateData1::  spritestatedata1 wSpritePlayerStateData1
+wSprite01StateData1::      spritestatedata1 wSprite01StateData1
+wSprite02StateData1::      spritestatedata1 wSprite02StateData1
+wSprite03StateData1::      spritestatedata1 wSprite03StateData1
+wSprite04StateData1::      spritestatedata1 wSprite04StateData1
+wSprite05StateData1::      spritestatedata1 wSprite05StateData1
+wSprite06StateData1::      spritestatedata1 wSprite06StateData1
+wSprite07StateData1::      spritestatedata1 wSprite07StateData1
+wSprite08StateData1::      spritestatedata1 wSprite08StateData1
+wSprite09StateData1::      spritestatedata1 wSprite09StateData1
+wSprite10StateData1::      spritestatedata1 wSprite10StateData1
+wSprite11StateData1::      spritestatedata1 wSprite11StateData1
+wSprite12StateData1::      spritestatedata1 wSprite12StateData1
+wSprite13StateData1::      spritestatedata1 wSprite13StateData1
+wSprite14StateData1::      spritestatedata1 wSprite14StateData1
+wSprite15StateData1::      spritestatedata1 wSprite15StateData1
+
+wSpriteStateData2::
+; more data for all sprites on the current map
+; holds info for 16 sprites with $10 bytes each
+; player sprite is always sprite 0
+; struct fields:
+; - 0: walk animation counter (counting from $10 backwards when moving)
+; - 1:
+; - 2: Y displacement (initialized at 8, supposed to keep moving sprites from moving too far, but bugged)
+; - 3: X displacement (initialized at 8, supposed to keep moving sprites from moving too far, but bugged)
+; - 4: Y position (in 2x2 tile grid steps, topmost 2x2 tile has value 4)
+; - 5: X position (in 2x2 tile grid steps, leftmost 2x2 tile has value 4)
+; - 6: movement byte 1 (determines whether a sprite can move, $ff:not moving, $fe:random movements, others unknown)
+; - 7: (?) (set to $80 when in grass, else $0; may be used to draw grass above the sprite)
+; - 8: delay until next movement (counted downwards, movement status is set to ready if reached 0)
+; - 9: original facing direction (backed up by DisplayTextIDInit, restored by CloseTextDisplay)
+; - A
+; - B
+; - C
+; - D: picture ID
+; - E: sprite image base offset (in video ram, player always has value 1, used to compute sprite image index)
+; - F
+wSpritePlayerStateData2::  spritestatedata2 wSpritePlayerStateData2
+wSprite01StateData2::      spritestatedata2 wSprite01StateData2
+wSprite02StateData2::      spritestatedata2 wSprite02StateData2
+wSprite03StateData2::      spritestatedata2 wSprite03StateData2
+wSprite04StateData2::      spritestatedata2 wSprite04StateData2
+wSprite05StateData2::      spritestatedata2 wSprite05StateData2
+wSprite06StateData2::      spritestatedata2 wSprite06StateData2
+wSprite07StateData2::      spritestatedata2 wSprite07StateData2
+wSprite08StateData2::      spritestatedata2 wSprite08StateData2
+wSprite09StateData2::      spritestatedata2 wSprite09StateData2
+wSprite10StateData2::      spritestatedata2 wSprite10StateData2
+wSprite11StateData2::      spritestatedata2 wSprite11StateData2
+wSprite12StateData2::      spritestatedata2 wSprite12StateData2
+wSprite13StateData2::      spritestatedata2 wSprite13StateData2
+wSprite14StateData2::      spritestatedata2 wSprite14StateData2
+wSprite15StateData2::      spritestatedata2 wSprite15StateData2
+
+
+wSpriteDataEnd::
 
 
 SECTION "OAM Buffer", WRAM0[$c300]

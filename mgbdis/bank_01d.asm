@@ -4500,7 +4500,7 @@ jr_01d_5436:
 	xor a
 	ldh [$b4], a
 	ld a, $0c
-	ld [wc109], a
+	ld [$c109], a
 	ld a, [wcd3d]
 	cp $01
 	jr z, jr_01d_5466
@@ -4999,7 +4999,7 @@ jr_01d_5660:
 	ld hl, $56fe
 	call $3c79
 	xor a
-	ld [wc109], a
+	ld [$c109], a
 	ld a, $80
 	ld c, $03
 	call Call_01d_54fa
@@ -5014,7 +5014,7 @@ jr_01d_56df:
 	ld hl, $5719
 	call $3c79
 	ld a, $04
-	ld [wc109], a
+	ld [$c109], a
 	ld a, $40
 	ld c, $01
 	call Call_01d_54fa
@@ -7968,7 +7968,7 @@ jr_01d_6403:
 	reti
 
 
-	call nz, wc24f
+	call nz, $c24f
 	or d
 	ld a, a
 	rst $00
@@ -8925,7 +8925,7 @@ jr_01d_6746:
 	or l
 	or e
 	cp [hl]
-	jp nz, wc2bc
+	jp nz, $c2bc
 
 	ld d, a
 	nop
@@ -11181,7 +11181,7 @@ jr_01d_72f3:
 	rst $20
 	ld d, c
 	adc $d2
-	jp wc27f
+	jp $c27f
 
 
 	or [hl]
@@ -12481,7 +12481,7 @@ jr_01d_784f:
 	rst $20
 	ld d, c
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ret
 
@@ -12893,7 +12893,7 @@ jr_01d_7aed:
 	pop de
 	or [hl]
 	cp h
-	jp z, wc27f
+	jp z, $c27f
 
 	sub $b8
 	jp $b24f
@@ -13339,7 +13339,7 @@ jr_01d_7d41:
 	sbc h
 	adc h
 	sub e
-	call nz, wc27f
+	call nz, $c27f
 	push bc
 	or d
 	jr nc, jr_01d_7d41
@@ -13879,7 +13879,7 @@ jr_01d_7fe6:
 
 Call_01d_7fe7:
 	nop
-	ld bc, wc1c0
+	ld bc, $c1c0
 	pop bc
 	adc l
 	add b

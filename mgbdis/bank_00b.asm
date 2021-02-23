@@ -246,7 +246,7 @@ jr_00b_7f6b:
 
 	rst $20
 	ld e, b
-	ld a, [wc102]
+	ld a, [$c102]
 	and $08
 	jr z, jr_00b_7fde
 

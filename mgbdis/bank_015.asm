@@ -5025,7 +5025,7 @@ jr_015_5683:
 	ld l, $de
 	inc a
 	ld a, a
-	call nz, wc1df
+	call nz, $c1df
 	ldh [$df], a
 	ret nz
 
@@ -5195,7 +5195,7 @@ Jump_015_56d3:
 	rst $10
 	xor c
 	ld e, b
-	call wc158
+	call $c158
 	ld e, b
 	pop bc
 	ld e, b
@@ -6708,7 +6708,7 @@ jr_015_5ceb:
 	or e
 	ld c, a
 	or l
-	call c, wc1df
+	call c, $c1df
 	ldh [$df], a
 	ret nz
 
@@ -7299,7 +7299,7 @@ jr_015_603e:
 	nop
 	db $d3
 	rst $18
-	call nz, wc27f
+	call nz, $c27f
 	sub $b2
 	ld a, a
 	call c, Call_015_4f2b
@@ -8381,7 +8381,7 @@ jr_015_64c9:
 
 	nop
 	or l
-	jp c, wc1c0
+	jp c, $c1c0
 
 	ld a, a
 	ld a, $b3
@@ -8845,7 +8845,7 @@ jr_015_666b:
 	push bc
 	add hl, hl
 	cp l
-	jp wc17f
+	jp $c17f
 
 
 	pop hl
@@ -8905,7 +8905,7 @@ jr_015_66d5:
 	cp a
 	jr nc, jr_015_66d5
 
-	call nz, wc155
+	call nz, $c155
 	ld h, $b2
 	ld h, $7f
 	or l
@@ -10735,7 +10735,7 @@ jr_015_6ecb:
 	or a
 	ret nc
 
-	jp z, wc27f
+	jp z, $c27f
 
 	ret c
 
@@ -10794,7 +10794,7 @@ jr_015_6efd:
 	sub $e7
 	ld d, c
 	ld d, d
-	jp z, wc27f
+	jp z, $c27f
 
 	ret c
 
@@ -11223,7 +11223,7 @@ jr_015_7113:
 	or a
 	ret nc
 
-	jp z, wc27f
+	jp z, $c27f
 
 	ret c
 
@@ -11282,7 +11282,7 @@ jr_015_7149:
 	sub $e7
 	ld d, c
 	ld d, d
-	jp z, wc27f
+	jp z, $c27f
 
 	ret c
 
@@ -12180,7 +12180,7 @@ jr_015_7606:
 	or a
 	ret nc
 
-	jp z, wc27f
+	jp z, $c27f
 
 	ret c
 
@@ -12239,7 +12239,7 @@ jr_015_7641:
 	sub $e7
 	ld d, c
 	ld d, d
-	jp z, wc27f
+	jp z, $c27f
 
 	ret c
 
@@ -12343,7 +12343,7 @@ jr_015_7687:
 	reti
 
 
-	call nz, wc255
+	call nz, $c255
 	jp c, $7fd9
 
 	ld d, h
@@ -13588,7 +13588,7 @@ Jump_015_7d68:
 	add a
 	ld d, b
 
-	ld hl, wc100
+	ld hl, $c100
 	ld de, $0004
 	ld a, [wcf0e]
 	ldh [$8c], a
@@ -13607,7 +13607,7 @@ Jump_015_7d68:
 	ret
 
 
-	ld hl, wc100
+	ld hl, $c100
 	ld de, $0004
 	ld a, [wcf0e]
 	ldh [$8c], a
@@ -13626,7 +13626,7 @@ Jump_015_7d68:
 	ret
 
 
-	ld hl, wc100
+	ld hl, $c100
 	ld de, $0004
 	ld a, [wcf0e]
 	ldh [$8c], a
@@ -13645,7 +13645,7 @@ Jump_015_7d68:
 	ret
 
 
-	ld hl, wc100
+	ld hl, $c100
 	ld de, $0004
 	ld a, [wcf0e]
 	ldh [$8c], a
@@ -13767,7 +13767,7 @@ Call_015_7ead:
 	add $02
 	ld d, $00
 	ld e, a
-	ld hl, wc100
+	ld hl, $c100
 	add hl, de
 	ld a, [hl]
 	sub $ff
@@ -13781,7 +13781,7 @@ jr_015_7ecf:
 	add $09
 	ld d, $00
 	ld e, a
-	ld hl, wc100
+	ld hl, $c100
 	add hl, de
 	ld a, [hl]
 	ld [wcd3f], a
@@ -13856,7 +13856,7 @@ Call_015_7f38:
 	add $04
 	ld d, $00
 	ld e, a
-	ld hl, wc100
+	ld hl, $c100
 	add hl, de
 	ld a, [hl]
 	ld [wcd40], a
@@ -13864,7 +13864,7 @@ Call_015_7f38:
 	add $06
 	ld d, $00
 	ld e, a
-	ld hl, wc100
+	ld hl, $c100
 	add hl, de
 	ld a, [hl]
 	ld [wcd41], a
@@ -13928,7 +13928,7 @@ Call_015_7f8d:
 	add $04
 	ld d, $00
 	ld e, a
-	ld hl, wc100
+	ld hl, $c100
 	add hl, de
 	ld a, [hl]
 	cp $fc
@@ -13944,7 +13944,7 @@ jr_015_7fa8:
 
 Jump_015_7fb2:
 	ld e, a
-	ld hl, wc100
+	ld hl, $c100
 
 Call_015_7fb6:
 Jump_015_7fb6:
