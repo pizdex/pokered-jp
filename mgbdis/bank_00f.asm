@@ -1199,7 +1199,7 @@ jr_00f_4727:
 Call_00f_4788:
 	push af
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $3788
 	ld c, $08
 	pop af

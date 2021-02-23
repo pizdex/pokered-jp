@@ -50,7 +50,7 @@ VBlank:
 .asm_0af9
 	call FadeOutAudio
 
-	ld a, [wc0ef]
+	ld a, [wAudioROMBank]
 	ldh [hLoadedROMBank], a
 	ld [$2000], a
 

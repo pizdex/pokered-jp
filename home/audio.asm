@@ -39,10 +39,10 @@ jr_000_0dc8:
 	ld a, $1f
 	jr nz, jr_000_0dd2
 
-	ld [wc0ef], a
+	ld [wAudioROMBank], a
 
 jr_000_0dd2:
-	ld [wc0f0], a
+	ld [wAudioSavedROMBank], a
 	jr jr_000_0de0
 
 jr_000_0dd7:
@@ -58,14 +58,14 @@ jr_000_0de0:
 
 jr_000_0de5:
 	ld a, c
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, b
 	ld [wcfb1], a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	jp PlaySound
 
 UpdateMusic6Times::
-	ld a, [wc0ef]
+	ld a, [wAudioROMBank]
 	ld b, a
 	cp $02
 	jr nz, jr_000_0e00
@@ -99,11 +99,11 @@ jr_000_0e0e:
 CompareMapMusicBankWithCurrentBank::
 	ld a, [wd2db]
 	ld e, a
-	ld a, [wc0ef]
+	ld a, [wAudioROMBank]
 	cp e
 	jr nz, jr_000_0e28
 
-	ld [wc0f0], a
+	ld [wAudioSavedROMBank], a
 	and a
 	ret
 
@@ -113,21 +113,21 @@ jr_000_0e28:
 	ld a, e
 	jr nz, jr_000_0e30
 
-	ld [wc0ef], a
+	ld [wAudioROMBank], a
 
 jr_000_0e30:
-	ld [wc0f0], a
+	ld [wAudioSavedROMBank], a
 	scf
 	ret
 
 PlayMusic::
 	ld b, a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	xor a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, c
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, b
 
 PlaySound::
@@ -135,7 +135,7 @@ PlaySound::
 	push de
 	push bc
 	ld b, a
-	ld a, [wc0ee]
+	ld a, [wNewSoundID]
 	and a
 	jr z, jr_000_0e5c
 
@@ -146,29 +146,29 @@ PlaySound::
 	ld [wc02d], a
 
 jr_000_0e5c:
-	ld a, [wcfae]
+	ld a, [wAudioFadeOutControl]
 	and a
 	jr z, jr_000_0e77
 
-	ld a, [wc0ee]
+	ld a, [wNewSoundID]
 	and a
 	jr z, jr_000_0eb9
 
 	xor a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	ld a, [wcfb1]
 	cp $ff
 	jr nz, jr_000_0ea8
 
 	xor a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 
 jr_000_0e77:
 	xor a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	ldh a, [hLoadedROMBank]
 	ldh [$b9], a
-	ld a, [wc0ef]
+	ld a, [wAudioROMBank]
 	ldh [hLoadedROMBank], a
 	ld [$2000], a
 	cp $02
@@ -199,11 +199,11 @@ jr_000_0e9f:
 jr_000_0ea8:
 	ld a, b
 	ld [wcfb1], a
-	ld a, [wcfae]
-	ld [wcfaf], a
-	ld [wcfb0], a
+	ld a, [wAudioFadeOutControl]
+	ld [wAudioFadeOutCounterReloadValue], a
+	ld [wAudioFadeOutCounter], a
 	ld a, b
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 
 jr_000_0eb9:
 	pop bc

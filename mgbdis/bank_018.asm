@@ -973,7 +973,7 @@ Jump_018_459d:
 	ret nc
 
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld c, $02
 	ld a, $de
@@ -1034,7 +1034,7 @@ jr_018_4628:
 	ldh [$8c], a
 	call $3684
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a44
@@ -6164,7 +6164,7 @@ Jump_018_5e88:
 	ret nc
 
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld c, $02
 	ld a, $de
@@ -6295,7 +6295,7 @@ jr_018_5f77:
 	ldh [$8c], a
 	call $3684
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a44
@@ -8216,18 +8216,18 @@ jr_018_67dc:
 	ret nz
 
 	cp $1f
-	ld [wc0f0], a
+	ld [wAudioSavedROMBank], a
 	jr nz, jr_018_67f8
 
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld a, $02
-	ld [wc0ef], a
+	ld [wAudioROMBank], a
 
 jr_018_67f8:
 	ld a, $e8
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 
 jr_018_6800:

@@ -100,8 +100,8 @@ LCDC_DEFAULT EQU %11100011
 	call Predef
 
 	ld a, $1f
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, $9c
 	ld [$ffbd], a
 	xor a
@@ -129,11 +129,11 @@ ClearVRAM::
 
 StopAllSounds::
 	ld a, $02
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	xor a
-	ld [wcfae], a
-	ld [wc0ee], a
+	ld [wAudioFadeOutControl], a
+	ld [wNewSoundID], a
 	ld [wcfb1], a
 	dec a
 	jp PlaySound

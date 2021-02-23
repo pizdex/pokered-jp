@@ -10442,10 +10442,10 @@ Call_010_7077:
 
 jr_010_70c0:
 	ld a, $1f
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, $dc
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	call Call_010_6fe5
 	call $0188

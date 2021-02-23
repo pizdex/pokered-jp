@@ -1969,10 +1969,10 @@ Jump_002_4a5d:
 
 
 	ld a, $0a
-	ld [wcfaf], a
-	ld [wcfb0], a
+	ld [wAudioFadeOutCounterReloadValue], a
+	ld [wAudioFadeOutCounter], a
 	ld a, $ff
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld c, $64
 	call $3781
 	ld c, $02
@@ -7460,10 +7460,10 @@ jr_002_6d3e:
 	db $41, $91, $71, $91, $ff, $61, $91, $61, $91, $61, $91, $61, $91, $ff
 
 	xor a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld [wd060], a
 	dec a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	call $0b31
 	ld c, $08

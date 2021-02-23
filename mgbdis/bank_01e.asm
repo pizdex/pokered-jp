@@ -10220,7 +10220,7 @@ jr_01e_7e14:
 	ld [wd060], a
 	ld [wc02a], a
 	dec a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld a, $01
 	ldh [$ba], a
@@ -10282,7 +10282,7 @@ jr_01e_7e8f:
 jr_01e_7ead:
 	ld [wcf17], a
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld a, [wcf17]
 	call $2dc7

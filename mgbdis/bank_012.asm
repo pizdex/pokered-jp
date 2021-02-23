@@ -335,7 +335,7 @@ Call_012_41ef:
 	ld a, $07
 	call $3e9d
 	ld a, $e8
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 
 jr_012_4208:
@@ -344,7 +344,7 @@ jr_012_4208:
 	jr z, jr_012_4208
 
 	ld a, [wd2da]
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	call $0b78
 	ld hl, $4248

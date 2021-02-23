@@ -1190,8 +1190,8 @@ SetDefaultNamesBeforeTitlescreen::
 	ld [hli], a
 	ld [hl], a
 	ld a, $1f
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 
 Jump_001_4794:
 	call $3e15
@@ -1308,7 +1308,7 @@ jr_001_4852:
 	call $376d
 	call $3e07
 	ld a, $c3
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 
 jr_001_487f:
@@ -3989,11 +3989,11 @@ jr_001_5721:
 	ld a, [hl]
 	ld [wcd3e], a
 	ld a, $0a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, $02
-	ld [wc0f0], a
+	ld [wAudioSavedROMBank], a
 	ld a, $e5
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld c, $64
 	call $3781
@@ -4135,11 +4135,11 @@ jr_001_589f:
 	ld [wd0f0], a
 	ld [$ffb5], a
 	ld a, $0a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, $02
-	ld [wc0f0], a
+	ld [wAudioSavedROMBank], a
 	ld a, $ca
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	jp $0e45
 
 
@@ -5164,12 +5164,12 @@ jr_001_601e:
 	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $02
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, $0a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	pop af
 	ldh [hLoadedROMBank], a
@@ -7737,12 +7737,12 @@ jr_001_713b:
 	ld hl, $4984
 	call $3620
 	xor a
-	ld [wcfae], a
-	ld a, [wc0f0]
-	ld [wc0ef], a
+	ld [wAudioFadeOutControl], a
+	ld a, [wAudioSavedROMBank]
+	ld [wAudioROMBank], a
 	ld a, [wd2da]
 	ld [wcfb1], a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld hl, $71ef
 	call $3c79

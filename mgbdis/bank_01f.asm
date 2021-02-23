@@ -801,7 +801,7 @@ Jump_01f_43e3:
 jr_01f_43e9:
 	push bc
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $3788
 	pop bc
 	ld b, $00

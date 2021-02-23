@@ -4828,7 +4828,7 @@ jr_014_5420:
 	jr z, jr_014_543c
 
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 
 jr_014_543c:
@@ -4926,7 +4926,7 @@ jr_014_54b7:
 	ldh [$8c], a
 	call $13f1
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a44
@@ -5015,12 +5015,12 @@ Jump_014_553c:
 	jr z, jr_014_5558
 
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 
 jr_014_5558:
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a62
@@ -5124,7 +5124,7 @@ jr_014_55f0:
 	ldh [$8c], a
 	call $13f1
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a72
@@ -9376,7 +9376,7 @@ Jump_014_697e:
 	ld a, $04
 	ld [wd4a7], a
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld c, $02
 	ld a, $de
@@ -9473,7 +9473,7 @@ jr_014_6a2e:
 	ldh [$8c], a
 	call $13f1
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a44

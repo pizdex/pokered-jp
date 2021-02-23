@@ -1456,7 +1456,7 @@ jr_007_48ed:
 	ldh [$b4], a
 	call $3c6c
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a44
@@ -1567,7 +1567,7 @@ Call_007_493b:
 	call $372a
 	ld [hl], $ff
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a44
@@ -6256,7 +6256,7 @@ Jump_007_6570:
 	set 2, [hl]
 	ld a, $ff
 	ld [wcd66], a
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld c, $1f
 	ld a, $d6
@@ -10568,7 +10568,7 @@ jr_007_7a57:
 jr_007_7a5c:
 	call $3c6c
 	xor a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	dec a
 	call $0e45
 	ld c, $02
@@ -11364,7 +11364,7 @@ jr_007_7df6:
 	ld d, b
 	ld b, $08
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld c, $10
 	call $3781

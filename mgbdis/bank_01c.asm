@@ -1695,10 +1695,10 @@ Jump_01c_4955:
 
 Call_01c_4974:
 	ld a, $0a
-	ld [wcfaf], a
-	ld [wcfb0], a
+	ld [wAudioFadeOutCounterReloadValue], a
+	ld [wAudioFadeOutCounter], a
 	ld a, $ff
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	jp $0b5a
 
 
@@ -1719,13 +1719,13 @@ Call_01c_4974:
 	ld de, $4a28
 	call Call_01c_4a54
 	ld a, $04
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 
 jr_01c_49b5:
-	ld a, [wcfae]
+	ld a, [wAudioFadeOutControl]
 	and a
 	jr nz, jr_01c_49b5
 
@@ -1741,20 +1741,20 @@ jr_01c_49bf:
 	dec b
 	jr nz, jr_01c_49bf
 
-	ld a, [wc0ef]
+	ld a, [wAudioROMBank]
 	cp $1f
-	ld [wc0f0], a
+	ld [wAudioSavedROMBank], a
 	jr nz, jr_01c_49e6
 
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld a, $02
-	ld [wc0ef], a
+	ld [wAudioROMBank], a
 
 jr_01c_49e6:
 	ld a, $e8
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld d, $28
 	call Call_01c_4a44

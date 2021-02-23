@@ -244,9 +244,9 @@ wc0ea:: ds 1 ; c0ea
 wc0eb:: ds 1 ; c0eb
 wc0ec:: ds 1 ; c0ec
 wc0ed:: ds 1 ; c0ed
-wc0ee:: ds 1 ; c0ee
-wc0ef:: ds 1 ; c0ef
-wc0f0:: ds 1 ; c0f0
+wNewSoundID:: ds 1 ; c0ee
+wAudioROMBank:: ds 1 ; c0ef
+wAudioSavedROMBank:: ds 1 ; c0f0
 wc0f1:: ds 1 ; c0f1
 wc0f2:: ds 1 ; c0f2
 wc0f3:: ds 1 ; c0f3
@@ -3440,9 +3440,9 @@ wcfaa:: ds 1 ; cfaa
 wcfab:: ds 1 ; cfab
 wcfac:: ds 1 ; cfac
 wcfad:: ds 1 ; cfad
-wcfae:: ds 1 ; cfae
-wcfaf:: ds 1 ; cfaf
-wcfb0:: ds 1 ; cfb0
+wAudioFadeOutControl:: ds 1 ; cfae
+wAudioFadeOutCounterReloadValue:: ds 1 ; cfaf
+wAudioFadeOutCounter:: ds 1 ; cfb0
 wcfb1:: ds 1 ; cfb1
 wcfb2:: ds 1 ; cfb2
 wcfb3:: ds 1 ; cfb3

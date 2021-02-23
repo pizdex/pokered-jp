@@ -5024,7 +5024,7 @@ jr_006_5bcc:
 	jr z, jr_006_5be7
 
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 
 jr_006_5be7:
@@ -5136,7 +5136,7 @@ jr_006_5c77:
 	ldh [$8c], a
 	call $13f1
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld b, $02
 	ld hl, $4a44
@@ -12316,10 +12316,10 @@ jr_006_7d32:
 	call z, $237d
 	ld a, [hl]
 	ld a, $02
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, $e1
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld a, [wcf0e]
 	swap a
@@ -12376,10 +12376,10 @@ jr_006_7e24:
 	inc hl
 	ld a, [hl]
 	ld a, $02
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, $e1
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call $0e45
 	ld a, [wcf0e]
 	swap a

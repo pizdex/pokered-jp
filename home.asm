@@ -45,66 +45,7 @@ INCLUDE "data/items/marts.asm"
 INCLUDE "home/overworld_text.asm"
 INCLUDE "home/decompress.asm"
 INCLUDE "home/reset_player_sprite.asm"
-
-FadeOutAudio:
-	ld a, [wcfae]
-	and a
-	jr nz, jr_000_13ad
-
-	ld a, [wd6ab]
-	bit 1, a
-	ret nz
-
-	ld a, $77
-	ldh [rNR50], a
-	ret
-
-
-jr_000_13ad:
-	ld a, [wcfb0]
-	and a
-	jr z, jr_000_13b8
-
-	dec a
-	ld [wcfb0], a
-	ret
-
-
-jr_000_13b8:
-	ld a, [wcfaf]
-	ld [wcfb0], a
-	ldh a, [rNR50]
-	and a
-	jr z, jr_000_13d4
-
-	ld b, a
-	and $0f
-	dec a
-	ld c, a
-	ld a, b
-	and $f0
-	swap a
-	dec a
-	swap a
-	or c
-	ldh [rNR50], a
-	ret
-
-
-jr_000_13d4:
-	ld a, [wcfae]
-	ld b, a
-	xor a
-	ld [wcfae], a
-	ld a, $ff
-	ld [wc0ee], a
-	call PlaySound
-	ld a, [wc0f0]
-	ld [wc0ef], a
-	ld a, b
-	ld [wc0ee], a
-	jp PlaySound
-
+INCLUDE "home/fade_audio.asm"
 
 Call_000_13f1:
 	ldh a, [hLoadedROMBank]
@@ -2734,13 +2675,13 @@ Jump_000_2348:
 
 
 Call_000_2368:
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, $ff
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	call PlaySound
 
 jr_000_2373:
-	ld a, [wcfae]
+	ld a, [wAudioFadeOutControl]
 	and a
 	jr nz, jr_000_2373
 
@@ -5864,12 +5805,12 @@ Jump_000_3432:
 	ret nz
 
 	xor a
-	ld [wcfae], a
+	ld [wAudioFadeOutControl], a
 	ld a, $ff
 	call PlaySound
 	ld a, $1f
-	ld [wc0ef], a
-	ld [wc0f0], a
+	ld [wAudioROMBank], a
+	ld [wAudioSavedROMBank], a
 	ld a, [wcd2d]
 	ld b, a
 	ld hl, $3483
@@ -5903,7 +5844,7 @@ jr_000_3476:
 	ld a, $fc
 
 jr_000_3478:
-	ld [wc0ee], a
+	ld [wNewSoundID], a
 	jp PlaySound
 
 
