@@ -8140,7 +8140,7 @@ jr_015_6287:
 
 
 	ld h, l
-	call nc, wd465
+	call nc, $d465
 	ld h, l
 	ld [$6020], sp
 	rst $10
@@ -8590,7 +8590,7 @@ jr_015_6588:
 	ld a, a
 	or [hl]
 	or d
-	jp wd47f
+	jp $d47f
 
 
 	cp [hl]
@@ -9518,7 +9518,7 @@ jr_015_6983:
 
 	ld a, a
 	ld d, h
-	jp z, wd47f
+	jp z, $d47f
 
 	rst $18
 	ld b, h
@@ -11494,7 +11494,7 @@ jr_015_7244:
 	ld hl, $742d
 	call $3c79
 	xor a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld [wd05a], a
 	call $2df3
 	push af
@@ -12688,7 +12688,7 @@ jr_015_786e:
 	ld a, a
 	or [hl]
 	rst $18
-	jp wd47f
+	jp $d47f
 
 
 	rst $10
@@ -13406,7 +13406,7 @@ Call_015_7c26:
 	call $3e04
 	call $03bf
 	xor a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld hl, wd6af
 	set 6, [hl]
 	call $0167
@@ -13590,7 +13590,7 @@ Jump_015_7d68:
 
 	ld hl, $c100
 	ld de, $0004
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	call Call_015_7ead
 	ld a, [hli]
@@ -13609,7 +13609,7 @@ Jump_015_7d68:
 
 	ld hl, $c100
 	ld de, $0004
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	call Call_015_7ead
 	ld a, [hli]
@@ -13628,7 +13628,7 @@ Jump_015_7d68:
 
 	ld hl, $c100
 	ld de, $0004
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	call Call_015_7ead
 	ldh a, [$eb]
@@ -13647,7 +13647,7 @@ Jump_015_7d68:
 
 	ld hl, $c100
 	ld de, $0004
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	call Call_015_7ead
 	ld a, [wd0f5]
@@ -13664,7 +13664,7 @@ Jump_015_7d68:
 	ret
 
 
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	swap a
 	ld [wcd3d], a
 	call Call_015_7f38
@@ -13744,7 +13744,7 @@ jr_015_7e9a:
 	ld de, wcc97
 	call $372a
 	ld [hl], $ff
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	jp $3687
 
@@ -13920,7 +13920,7 @@ jr_015_7f8b:
 
 
 Call_015_7f8d:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $53
 	jp z, Jump_015_7fec
 

@@ -1547,7 +1547,7 @@ jr_017_475b:
 	ld de, $495d
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $01
@@ -3213,7 +3213,7 @@ jr_017_4eed:
 	ld de, $5069
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $02
@@ -5276,7 +5276,7 @@ jr_017_57b4:
 	ld de, $598a
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $03
@@ -7258,7 +7258,7 @@ jr_017_6002:
 	ldh a, [$8c]
 
 jr_017_607e:
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $03
@@ -8326,7 +8326,7 @@ jr_017_6576:
 	ld de, $6617
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $06
@@ -9390,7 +9390,7 @@ jr_017_694c:
 	or l
 	cp h
 	or h
-	jp wd47f
+	jp $d47f
 
 
 	db $db

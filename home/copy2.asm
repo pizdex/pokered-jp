@@ -6,11 +6,11 @@ CopyFarBytes2::
 	push af
 	ldh a, [$8b]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call CopyBytes
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 CopyFarBytes3::
@@ -20,7 +20,7 @@ CopyFarBytes3::
 	push af
 	ldh a, [$8b]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	push hl
 	push de
 	push de
@@ -32,7 +32,7 @@ CopyFarBytes3::
 	pop hl
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 CopyFarBytesDouble::
@@ -43,7 +43,7 @@ CopyFarBytesDouble::
 	push af
 	ldh a, [$8b]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 .asm_02cc
 	ld a, [hli]
 	ld [de], a
@@ -56,7 +56,7 @@ CopyFarBytesDouble::
 	jr nz, .asm_02cc
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 CopyVideoData::
@@ -74,7 +74,7 @@ CopyVideoData::
 
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 
 	ld a, e
 	ldh [$c7], a
@@ -94,7 +94,7 @@ CopyVideoData::
 	call DelayFrame
 	ldh a, [$8b]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	pop af
 	ldh [$ba], a
 	ret
@@ -118,7 +118,7 @@ CopyVideoDataDouble:
 
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 
 	ld a, e
 	ldh [$cc], a
@@ -138,7 +138,7 @@ CopyVideoDataDouble:
 	call DelayFrame
 	ldh a, [$8b]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	pop af
 	ldh [$ba], a
 	ret

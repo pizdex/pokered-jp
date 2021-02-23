@@ -10257,6 +10257,8 @@ jr_005_76bc:
 
 	INCBIN "gfx/auto/image_005_77c0.2bpp"
 
+
+InitMapSprites::
 	call Call_005_7960
 	ret c
 
@@ -10275,7 +10277,7 @@ jr_005_784a:
 	jr nz, jr_005_784a
 
 Call_005_7856:
-	ld a, [wd460]
+	ld a, [wNumSprites]
 	and a
 	jr nz, jr_005_785d
 
@@ -10423,7 +10425,7 @@ jr_005_78f0:
 	ld l, e
 	pop de
 	ld b, a
-	ld a, [wcfab]
+	ld a, [wFontLoaded]
 	bit 0, a
 	jr nz, jr_005_7906
 
@@ -10449,7 +10451,7 @@ jr_005_7906:
 	inc d
 
 jr_005_791a:
-	ld a, [wcfab]
+	ld a, [wFontLoaded]
 	bit 0, a
 	jr nz, jr_005_792e
 
@@ -10517,7 +10519,7 @@ Call_005_7956:
 
 
 Call_005_7960:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $25
 	ret nc
 
@@ -10533,7 +10535,7 @@ jr_005_796e:
 	cp $f0
 	call nc, Call_005_79ff
 	ld b, a
-	ld a, [wcfab]
+	ld a, [wFontLoaded]
 	bit 0, a
 	jr nz, jr_005_7982
 
@@ -10589,13 +10591,13 @@ jr_005_79b2:
 	dec b
 	jr nz, jr_005_79b2
 
-	ld a, [wd460]
+	ld a, [wNumSprites]
 	push af
 	ld a, $0b
-	ld [wd460], a
+	ld [wNumSprites], a
 	call Call_005_7856
 	pop af
-	ld [wd460], a
+	ld [wNumSprites], a
 	ld hl, $c21e
 	ld b, $0f
 
@@ -11177,10 +11179,10 @@ jr_005_7b02:
 	ld hl, $8f80
 	ld bc, $0504
 	call $02dd
-	ld a, [wcfb2]
+	ld a, [wUpdateSpritesEnabled]
 	push af
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, [wd6b5]
 	bit 6, a
 	ld hl, wOAMBuffer + $8f
@@ -11221,7 +11223,7 @@ jr_005_7c7d:
 	ld c, $3c
 	call $3781
 	pop af
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $0b31
 	jp $0ebd
 

@@ -23,26 +23,26 @@ jpfar: MACRO
 ENDM
 
 homecall: MACRO
-	ldh a, [ldh a, [$b8]]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, BANK(\1)
-	ldh [ldh a, [$b8]], a
+	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	call \1
 	pop af
-	ldh [ldh a, [$b8]], a
+	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 ENDM
 
 homecall_sf: MACRO ; homecall but save flags by popping into bc instead of af
-	ldh a, [ldh a, [$b8]]
+	ldh a, [hLoadedROMBank]
 	push af
 	ld a, BANK(\1)
-	ldh [ldh a, [$b8]], a
+	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	call \1
 	pop bc
 	ld a, b
-	ldh [ldh a, [$b8]], a
+	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 ENDM

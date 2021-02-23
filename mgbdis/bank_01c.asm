@@ -1335,7 +1335,7 @@ Call_01c_46c5:
 	ld bc, $0060
 	call $372a
 	xor a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ldh [$d7], a
 	ld [wSpriteFlipped], a
 	ld [wd2d7], a
@@ -1706,7 +1706,7 @@ Call_01c_4974:
 	ld hl, $87c0
 	ld bc, $1c03
 	call $02dd
-	ld hl, wcfb2
+	ld hl, wUpdateSpritesEnabled
 	ld a, [hl]
 	push af
 	ld [hl], $ff
@@ -2142,7 +2142,7 @@ jr_01c_4bce:
 	ld a, $ff
 
 jr_01c_4bd0:
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, [wOAMBuffer + $02]
 	ld [wOAMBuffer + $0a], a
 	ld a, [wOAMBuffer + $06]
@@ -2157,7 +2157,7 @@ jr_01c_4bd0:
 	ld [wOAMBuffer + $0c], a
 	call $0b5a
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	jp Jump_01c_4cc3
 
 
@@ -2646,7 +2646,7 @@ jr_01c_4eb9:
 	xor a
 	ldh [$b0], a
 	dec a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $0b31
 	ld hl, $c102
 	ldh a, [$8c]
@@ -2771,7 +2771,7 @@ jr_01c_4f7e:
 
 
 Call_01c_4f85:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld e, a
 	ld hl, $4fab
 
@@ -3488,14 +3488,14 @@ jr_01c_5365:
 	db $04, $00, $03, $00, $03, $00, $02, $00, $02, $00, $01, $00, $01, $00, $01, $ff
 
 	call Call_01c_5617
-	ld hl, wcfb2
+	ld hl, wUpdateSpritesEnabled
 	ld a, [hl]
 	push af
 	ld [hl], $ff
 	push hl
 	ld a, $01
 	ld [$ffb7], a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	push af
 	ld b, $00
 	call Call_01c_5763
@@ -3688,7 +3688,7 @@ jr_01c_54b7:
 	ld a, a
 	ld a, a
 	call Call_01c_5617
-	ld hl, wcfb2
+	ld hl, wUpdateSpritesEnabled
 	ld a, [hl]
 	push af
 	ld [hl], $ff
@@ -3730,7 +3730,7 @@ jr_01c_54b7:
 	ld bc, $1c01
 	call $031b
 	call Call_01c_55ec
-	ld hl, wcfb2
+	ld hl, wUpdateSpritesEnabled
 	ld a, [hl]
 	push af
 	ld [hl], $ff
@@ -3738,7 +3738,7 @@ jr_01c_54b7:
 	ld hl, wc3b9
 	ld de, $55e2
 	call $0405
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, $00
 	call Call_01c_5763
 	ld hl, wcd3e
@@ -4203,7 +4203,7 @@ jr_01c_57bc:
 	jr jr_01c_57dd
 
 jr_01c_57d5:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, $00
 	call Call_01c_5763
 
@@ -5667,7 +5667,7 @@ Call_01c_6093:
 	xor a
 	ld [wd05a], a
 	dec a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $2df3
 	push af
 	call Call_01c_6125
@@ -6358,7 +6358,7 @@ jr_01c_6444:
 	cp $11
 	jr z, jr_01c_64f0
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $25
 	jr c, jr_01c_64d8
 
@@ -11538,7 +11538,7 @@ jr_01c_7d0a:
 	call Call_01c_7cf9
 	ld de, wd9b2
 	call Call_01c_7da6
-	ld hl, wd2eb
+	ld hl, wMapTextPtr
 	ld de, wcd3d
 	ld a, [hli]
 	ld [de], a

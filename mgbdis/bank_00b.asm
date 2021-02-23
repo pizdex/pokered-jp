@@ -52,7 +52,7 @@ jr_00b_7e91:
 	ld a, a
 	or l
 	ld a, $b4
-	jp wcfb2
+	jp wUpdateSpritesEnabled
 
 
 	cp l

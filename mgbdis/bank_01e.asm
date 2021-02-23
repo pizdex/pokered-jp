@@ -3858,10 +3858,10 @@ Call_01e_5f5c:
 
 	ld a, $01
 	ld [wcd50], a
-	ld a, [wcfb2]
+	ld a, [wUpdateSpritesEnabled]
 	push af
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, $e4
 	ldh [rOBP1], a
 	call Call_01e_5fec
@@ -3888,7 +3888,7 @@ jr_01e_5f9f:
 	jr nz, jr_01e_5f9f
 
 	pop af
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	jp $23ae
 
 

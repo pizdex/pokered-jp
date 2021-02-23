@@ -317,7 +317,7 @@ jr_000_0d43:
 
 Call_000_0d47:
 	push hl
-	ld hl, wcc47
+	ld hl, wEnteringCableClub
 	ld a, [hli]
 	or [hl]
 	pop hl
@@ -327,7 +327,7 @@ Call_000_0d47:
 Jump_000_0d4f:
 jr_000_0d4f:
 	dec a
-	ld [wcc47], a
+	ld [wEnteringCableClub], a
 	ld [wcc48], a
 	ret
 

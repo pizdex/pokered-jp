@@ -86,7 +86,7 @@ jr_01d_4061:
 	ld de, $0003
 
 Call_01d_4064:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	call $3ddd
 	ret nc
 
@@ -526,7 +526,7 @@ jr_01d_42ce:
 	ld de, $4388
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $08
@@ -2458,7 +2458,7 @@ jr_01d_4b0f:
 	call $3c79
 	ld hl, $4b56
 	call $1539
-	ld hl, wcf62
+	ld hl, wItemList
 	ld a, l
 	ld [wcf72], a
 	ld a, h
@@ -2468,7 +2468,7 @@ jr_01d_4b0f:
 jr_01d_4b27:
 	ld [wcf7a], a
 	ld a, $04
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	call $16f7
 	jr c, jr_01d_4b49
 
@@ -3195,6 +3195,8 @@ jr_01d_4b75:
 	rst $00
 	rlca
 	inc bc
+
+VendingMachineMenu::
 	ld hl, $4ee6
 	call $3c79
 	ld a, $13
@@ -5549,7 +5551,7 @@ jr_01d_5967:
 	ld de, $5a0e
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $05
@@ -6048,7 +6050,7 @@ jr_01d_5b70:
 	or l
 	cp h
 	or h
-	jp wd47f
+	jp $d47f
 
 
 	reti
@@ -7346,13 +7348,13 @@ jr_01d_6144:
 
 Jump_01d_617b:
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld hl, wd6ac
 	set 6, [hl]
 	set 7, [hl]
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	cp $01
 	jr z, jr_01d_6198
 
@@ -8587,7 +8589,7 @@ jr_01d_6701:
 
 	ld d, c
 	or c
-	call nz, wd47f
+	call nz, $d47f
 	cp c
 	inc [hl]
 	push bc
@@ -12997,7 +12999,7 @@ jr_01d_7b39:
 	or l
 	cp h
 	or h
-	jp wd47f
+	jp $d47f
 
 
 	reti
@@ -13189,14 +13191,14 @@ jr_01d_7b39:
 	ld hl, wd6af
 	set 6, [hl]
 	push hl
-	ld a, [wcfb2]
+	ld a, [wUpdateSpritesEnabled]
 	push af
 	ldh a, [$d7]
 	push af
 	xor a
 	ldh [$d7], a
 	ld [wSpriteFlipped], a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld [wcd41], a
 	ld [wcd42], a
 	ld a, [wd521]
@@ -13231,7 +13233,7 @@ jr_01d_7c9a:
 	pop af
 	ldh [$d7], a
 	pop af
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	pop hl
 	res 6, [hl]
 	call $3e04
@@ -13775,7 +13777,7 @@ Call_01d_7f9e:
 	ld d, a
 	ld a, [wcd41]
 	ld e, a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, a
 	ld c, $00
 

@@ -2569,7 +2569,7 @@ wcc43:: ds 1 ; cc43
 wcc44:: ds 1 ; cc44
 wcc45:: ds 1 ; cc45
 wcc46:: ds 1 ; cc46
-wcc47:: ds 1 ; cc47
+wEnteringCableClub:: ds 1 ; cc47
 wcc48:: ds 1 ; cc48
 wcc49:: ds 1 ; cc49
 wcc4a:: ds 1 ; cc4a
@@ -3278,9 +3278,9 @@ wcf08:: ds 1 ; cf08
 wcf09:: ds 1 ; cf09
 wcf0a:: ds 1 ; cf0a
 wcf0b:: ds 1 ; cf0b
-wcf0c:: ds 1 ; cf0c
+wTextPredefFlag:: ds 1 ; cf0c
 wcf0d:: ds 1 ; cf0d
-wcf0e:: ds 1 ; cf0e
+wSpriteIndex:: ds 1 ; cf0e
 wcf0f:: ds 1 ; cf0f
 wcf10:: ds 1 ; cf10
 wcf11:: ds 1 ; cf11
@@ -3364,7 +3364,7 @@ wcf5e:: ds 1 ; cf5e
 wcf5f:: ds 1 ; cf5f
 wcf60:: ds 1 ; cf60
 wcf61:: ds 1 ; cf61
-wcf62:: ds 1 ; cf62
+wItemList:: ds 1 ; cf62
 wcf63:: ds 1 ; cf63
 wcf64:: ds 1 ; cf64
 wcf65:: ds 1 ; cf65
@@ -3389,7 +3389,7 @@ wcf77:: ds 1 ; cf77
 wcf78:: ds 1 ; cf78
 wcf79:: ds 1 ; cf79
 wcf7a:: ds 1 ; cf7a
-wcf7b:: ds 1 ; cf7b
+wListMenuID:: ds 1 ; cf7b
 wcf7c:: ds 1 ; cf7c
 wcf7d:: ds 1 ; cf7d
 wcf7e:: ds 1 ; cf7e
@@ -3437,14 +3437,14 @@ wcfa7:: ds 1 ; cfa7
 wcfa8:: ds 1 ; cfa8
 wcfa9:: ds 1 ; cfa9
 wcfaa:: ds 1 ; cfaa
-wcfab:: ds 1 ; cfab
+wFontLoaded:: ds 1 ; cfab
 wcfac:: ds 1 ; cfac
 wcfad:: ds 1 ; cfad
 wAudioFadeOutControl:: ds 1 ; cfae
 wAudioFadeOutCounterReloadValue:: ds 1 ; cfaf
 wAudioFadeOutCounter:: ds 1 ; cfb0
 wcfb1:: ds 1 ; cfb1
-wcfb2:: ds 1 ; cfb2
+wUpdateSpritesEnabled:: ds 1 ; cfb2
 wcfb3:: ds 1 ; cfb3
 wcfb4:: ds 1 ; cfb4
 wcfb5:: ds 1 ; cfb5
@@ -3777,8 +3777,7 @@ wd0e9:: ds 1 ; d0e9
 wd0ea:: ds 1 ; d0ea
 wd0eb:: ds 1 ; d0eb
 wd0ec:: ds 1 ; d0ec
-wd0ed:: ds 1 ; d0ed
-wd0ee:: ds 1 ; d0ee
+wItemListPointer:: ds 2 ; d0ed
 wd0ef:: ds 1 ; d0ef
 wd0f0:: ds 1 ; d0f0
 wd0f1:: ds 1 ; d0f1
@@ -4273,7 +4272,7 @@ wd2d9:: ds 1 ; d2d9
 wd2da:: ds 1 ; d2da
 wd2db:: ds 1 ; d2db
 wMapPalOffset:: ds 1 ; d2dc
-wd2dd:: ds 1 ; d2dd
+wCurMap:: ds 1 ; d2dd
 wd2de:: ds 1 ; d2de
 wd2df:: ds 1 ; d2df
 wd2e0:: ds 1 ; d2e0
@@ -4287,7 +4286,7 @@ wd2e7:: ds 1 ; d2e7
 wd2e8:: ds 1 ; d2e8
 wd2e9:: ds 1 ; d2e9
 wd2ea:: ds 1 ; d2ea
-wd2eb:: ds 1 ; d2eb
+wMapTextPtr:: ds 1 ; d2eb
 wd2ec:: ds 1 ; d2ec
 wd2ed:: ds 1 ; d2ed
 wd2ee:: ds 1 ; d2ee
@@ -4660,41 +4659,19 @@ wd45c:: ds 1 ; d45c
 wd45d:: ds 1 ; d45d
 wd45e:: ds 1 ; d45e
 wd45f:: ds 1 ; d45f
-wd460:: ds 1 ; d460
-wd461:: ds 1 ; d461
-wd462:: ds 1 ; d462
-wd463:: ds 1 ; d463
-wd464:: ds 1 ; d464
-wd465:: ds 1 ; d465
-wd466:: ds 1 ; d466
-wd467:: ds 1 ; d467
-wd468:: ds 1 ; d468
-wd469:: ds 1 ; d469
-wd46a:: ds 1 ; d46a
-wd46b:: ds 1 ; d46b
-wd46c:: ds 1 ; d46c
-wd46d:: ds 1 ; d46d
-wd46e:: ds 1 ; d46e
-wd46f:: ds 1 ; d46f
-wd470:: ds 1 ; d470
-wd471:: ds 1 ; d471
-wd472:: ds 1 ; d472
-wd473:: ds 1 ; d473
-wd474:: ds 1 ; d474
-wd475:: ds 1 ; d475
-wd476:: ds 1 ; d476
-wd477:: ds 1 ; d477
-wd478:: ds 1 ; d478
-wd479:: ds 1 ; d479
-wd47a:: ds 1 ; d47a
-wd47b:: ds 1 ; d47b
-wd47c:: ds 1 ; d47c
-wd47d:: ds 1 ; d47d
-wd47e:: ds 1 ; d47e
-wd47f:: ds 1 ; d47f
-wd480:: ds 1 ; d480
-wd481:: ds 1 ; d481
-wd482:: ds 1 ; d482
+wNumSprites::
+; number of sprites on the current map
+	ds 1
+
+; these two variables track the X and Y offset in blocks from the last special warp used
+; they don't seem to be used for anything
+wYOffsetSinceLastSpecialWarp:: ds 1
+wXOffsetSinceLastSpecialWarp:: ds 1
+
+wMapSpriteData::
+; two bytes per sprite (movement byte 2, text ID)
+	ds 32
+
 wd483:: ds 1 ; d483
 wd484:: ds 1 ; d484
 wd485:: ds 1 ; d485

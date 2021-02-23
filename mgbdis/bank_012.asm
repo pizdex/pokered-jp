@@ -3576,7 +3576,7 @@ jr_012_5164:
 	ld de, $522f
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $04
@@ -4412,7 +4412,7 @@ Jump_012_547f:
 	ld [c], a
 	or e
 	cp h
-	jp nz, wd47f
+	jp nz, $d47f
 
 	rst $18
 	jp $b6d9
@@ -6056,7 +6056,7 @@ jr_012_5c7c:
 	ld de, $5d04
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	xor a
@@ -7219,7 +7219,7 @@ jr_012_61c1:
 	xor b
 	xor h
 	sub e
-	jp z, wd47f
+	jp z, $d47f
 
 	rst $10
 	sbc $e7
@@ -11692,7 +11692,7 @@ jr_012_773b:
 	ld de, $7798
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $03

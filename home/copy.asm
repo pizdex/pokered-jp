@@ -5,11 +5,11 @@ CopyFarBytes::
 	push af
 	ld a, [wcee4]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call CopyBytes
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 CopyBytes::

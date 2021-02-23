@@ -170,7 +170,7 @@ jr_000_0e77:
 	ldh [$b9], a
 	ld a, [wAudioROMBank]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	cp $02
 	jr nz, jr_000_0e91
 
@@ -193,7 +193,7 @@ jr_000_0e9b:
 jr_000_0e9f:
 	ldh a, [hSavedROMBank]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	jr jr_000_0eb9
 
 jr_000_0ea8:

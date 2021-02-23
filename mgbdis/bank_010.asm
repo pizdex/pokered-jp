@@ -2226,7 +2226,7 @@ jr_010_4ad6:
 	jp z, $b24e
 
 	ld h, $b2
-	call nz, wd47f
+	call nz, $d47f
 	call c, $b6d7
 	or d
 	add sp, $50
@@ -6386,7 +6386,7 @@ jr_010_5c47:
 	or [hl]
 	ret nc
 
-	jp z, wd47f
+	jp z, $d47f
 
 	call c, $b6d7
 	or d
@@ -9273,7 +9273,7 @@ Call_010_690c:
 	call $372a
 	call $0188
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld hl, wd6af
 	set 6, [hl]
 	ld a, [wcf15]

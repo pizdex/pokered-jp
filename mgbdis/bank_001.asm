@@ -977,14 +977,14 @@ jr_001_424c:
 	xor e
 	sub e
 
-	ld a, [wcfb2]
+	ld a, [wUpdateSpritesEnabled]
 	dec a
 	jr z, jr_001_4681
 
 	cp $ff
 	ret nz
 
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	jp $0193
 
 
@@ -1890,14 +1890,14 @@ jr_001_4b8c:
 	ld [wd0ec], a
 	xor a
 	ld [wcc49], a
-	ld [wd2dd], a
+	ld [wCurMap], a
 	call $3971
 	ld a, $01
 	ld [wd036], a
 	ld a, $2c
 	call $3e9d
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ldh [$ba], a
 	jr jr_001_4b8c
 
@@ -2035,7 +2035,7 @@ jr_001_4c78:
 
 jr_001_4c81:
 	ld [$c109], a
-	ld a, [wcfab]
+	ld a, [wFontLoaded]
 	bit 0, a
 	jr nz, jr_001_4c78
 
@@ -2099,7 +2099,7 @@ Jump_001_4ccc:
 	swap a
 	dec a
 	add a
-	ld hl, wd463
+	ld hl, wMapSpriteData
 	add l
 	ld l, a
 	ld a, [hl]
@@ -2124,7 +2124,7 @@ Jump_001_4ccc:
 	jp nz, Jump_001_4e7a
 
 	ld b, a
-	ld a, [wcfab]
+	ld a, [wFontLoaded]
 	bit 0, a
 	jp nz, Jump_001_4e6e
 
@@ -3723,7 +3723,7 @@ jr_001_558b:
 
 Jump_001_559f:
 	call $3e04
-	ld hl, wcfab
+	ld hl, wFontLoaded
 	ld a, [hl]
 	push af
 	push hl
@@ -4328,7 +4328,7 @@ jr_001_59fc:
 	and a
 	jp z, Jump_001_5bb6
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $76
 	jp nz, Jump_001_5bb6
 
@@ -4510,7 +4510,7 @@ jr_001_5b27:
 	ld [wcc42], a
 	inc a
 	ld [wd0f0], a
-	ld [wcc47], a
+	ld [wEnteringCableClub], a
 	jr jr_001_5bb6
 
 jr_001_5b58:
@@ -4599,7 +4599,7 @@ jr_001_5bb6:
 	call $1377
 	ld c, $14
 	call $3781
-	ld a, [wcc47]
+	ld a, [wEnteringCableClub]
 	and a
 	ret nz
 
@@ -5145,7 +5145,7 @@ jr_001_601e:
 	call $0e45
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld c, $04
 	call $3781
 	ld de, $4180
@@ -5173,7 +5173,7 @@ jr_001_601e:
 	call $0e45
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld c, $14
 	call $3781
 	ld hl, wc40a
@@ -5182,7 +5182,7 @@ jr_001_601e:
 	call $0374
 	call $36ea
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld c, $32
 	call $3781
 	call $0b5a
@@ -5348,7 +5348,7 @@ jr_001_62b8:
 	ld hl, $63b2
 
 jr_001_62c6:
-	ld de, wd2dd
+	ld de, wCurMap
 	ld c, $07
 
 jr_001_62cb:
@@ -5381,7 +5381,7 @@ jr_001_62ed:
 	res 4, [hl]
 	ld a, [wd69c]
 	ld b, a
-	ld [wd2dd], a
+	ld [wCurMap], a
 	ld a, [wd69d]
 	ld c, a
 	ld hl, $6351
@@ -5418,7 +5418,7 @@ jr_001_6320:
 
 jr_001_6323:
 	ld b, a
-	ld [wd2dd], a
+	ld [wCurMap], a
 	ld hl, $63da
 
 jr_001_632a:
@@ -5451,8 +5451,8 @@ jr_001_633b:
 	ld [wd2e6], a
 
 jr_001_6345:
-	ld [wd461], a
-	ld [wd462], a
+	ld [wYOffsetSinceLastSpecialWarp], a
+	ld [wXOffsetSinceLastSpecialWarp], a
 	ld a, $ff
 	ld [wd3ae], a
 	ret
@@ -5710,10 +5710,10 @@ Call_001_6478:
 	and a
 	jr nz, jr_001_64da
 
-	ld a, [wcfb2]
+	ld a, [wUpdateSpritesEnabled]
 	push af
 	xor a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	push hl
 	ld a, $02
 	ld [wd05a], a
@@ -5728,7 +5728,7 @@ jr_001_64cc:
 	call $376d
 	pop hl
 	pop af
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, [wcf45]
 	cp $50
 	ret nz
@@ -5746,7 +5746,7 @@ jr_001_64da:
 
 	ld hl, wcee4
 	xor a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, $02
 	ld [wd05a], a
 	call Call_001_6534
@@ -6700,7 +6700,7 @@ jr_001_6a86:
 	ret
 
 
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $03
 	jp c, $1765
 
@@ -6865,7 +6865,7 @@ jr_001_6bb2:
 	pop hl
 	jp $1765
 
-
+DisplayPokemartDialogue_::
 	ld a, [wcc36]
 	push af
 	call $0ebd
@@ -6885,7 +6885,7 @@ Jump_001_6bc6:
 	ld a, $15
 	ld [wd0ea], a
 	call $3130
-	ld hl, wd0ed
+	ld hl, wItemListPointer
 	ld a, [hli]
 	ld l, [hl]
 	ld h, a
@@ -6934,7 +6934,7 @@ jr_001_6c22:
 	ld [wcf7a], a
 	ld [wcc26], a
 	ld a, $03
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	call $16f7
 	jp c, Jump_001_6d5e
 
@@ -6948,7 +6948,7 @@ jr_001_6c22:
 	jr c, jr_001_6ca2
 
 	ld a, $02
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ldh [$8e], a
 	call $186a
 	inc a
@@ -7014,7 +7014,7 @@ jr_001_6ccf:
 	ld a, $13
 	ld [wd0ea], a
 	call $3130
-	ld hl, wcf62
+	ld hl, wItemList
 	ld a, l
 	ld [wcf72], a
 	ld a, h
@@ -7024,7 +7024,7 @@ jr_001_6ccf:
 	inc a
 	ld [wcf7a], a
 	inc a
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	call $16f7
 	jr c, jr_001_6d5e
 
@@ -7111,7 +7111,7 @@ Jump_001_6d8d:
 	ld hl, $6e80
 	call $3c79
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $0ebd
 	pop af
 	ld [wcc36], a
@@ -7706,6 +7706,7 @@ jr_001_7086:
 	sbc $e7
 	ld e, b
 
+DisplayPokemonCenterDialogue_::
 	call $3761
 	ld hl, $7198
 	call $3c79
@@ -7775,7 +7776,7 @@ jr_001_718f:
 Call_001_722d:
 	push hl
 	ld hl, $7247
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, a
 
 jr_001_7235:
@@ -7799,8 +7800,9 @@ jr_001_7245:
 
 	db $df, $e0, $e1, $ff
 
+DisplayTextIDInit::
 	xor a
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, [wcf07]
 	bit 0, a
 	jr nz, jr_001_727c
@@ -7830,7 +7832,7 @@ jr_001_7279:
 	call $03d2
 
 jr_001_727c:
-	ld hl, wcfab
+	ld hl, wFontLoaded
 	set 0, [hl]
 	ld hl, wcd5b
 	bit 4, [hl]
@@ -7961,7 +7963,7 @@ Call_001_7361:
 	add hl, de
 	ret
 
-
+CableClubNPC::
 	ld hl, $7496
 	call $3c79
 	ld a, [wd6ca]
@@ -7981,7 +7983,7 @@ Jump_001_7387:
 	ld a, $10
 	ld [wcce0], a
 	ld a, $5a
-	ld [wcc47], a
+	ld [wEnteringCableClub], a
 
 jr_001_7396:
 	ldh a, [$aa]
@@ -7999,9 +8001,9 @@ jr_001_7396:
 	ldh [$ad], a
 	ld a, $80
 	ldh [rSC], a
-	ld a, [wcc47]
+	ld a, [wEnteringCableClub]
 	dec a
-	ld [wcc47], a
+	ld [wEnteringCableClub], a
 	jr z, jr_001_7432
 
 	ld a, $01
@@ -8036,7 +8038,7 @@ jr_001_73c5:
 	call $3788
 	ld hl, $74d2
 	call $3c79
-	ld hl, wcc47
+	ld hl, wEnteringCableClub
 	ld a, $03
 	ld [hli], a
 	xor a
@@ -8044,7 +8046,7 @@ jr_001_73c5:
 	ldh [$a9], a
 	ld [wcc42], a
 	call $0c66
-	ld hl, wcc47
+	ld hl, wEnteringCableClub
 	ld a, [hli]
 	inc a
 	jr nz, jr_001_7453
@@ -8079,7 +8081,7 @@ jr_001_743a:
 Jump_001_7443:
 jr_001_7443:
 	xor a
-	ld hl, wcc47
+	ld hl, wEnteringCableClub
 	ld [hli], a
 	ld [hl], a
 	ld hl, wd6ad
@@ -9488,7 +9490,7 @@ jr_001_7b98:
 	xor a
 
 jr_001_7ba6:
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 	ld a, $00
@@ -9666,7 +9668,7 @@ jr_001_7cbd:
 	xor a
 	ld [wcf7a], a
 	ld a, $03
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	call $16f7
 	jp c, Jump_001_7c1e
 
@@ -9730,7 +9732,7 @@ jr_001_7d3a:
 	xor a
 	ld [wcf7a], a
 	ld a, $03
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	call $16f7
 	jp c, Jump_001_7c1e
 
@@ -9794,7 +9796,7 @@ jr_001_7db7:
 	xor a
 	ld [wcf7a], a
 	ld a, $03
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	push hl
 	call $16f7
 	pop hl
@@ -9888,7 +9890,7 @@ jr_001_7e62:
 	ld c, a
 	db $d3
 	rst $18
-	jp wcfb2
+	jp wUpdateSpritesEnabled
 
 
 	cp [hl]

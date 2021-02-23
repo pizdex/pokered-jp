@@ -334,7 +334,7 @@ jr_007_4129:
 	and $57
 	ld hl, $42be
 	call $3c79
-	ld hl, wcf62
+	ld hl, wItemList
 	ld a, l
 	ld [wcf72], a
 	ld a, h
@@ -346,7 +346,7 @@ jr_007_4129:
 	ld [wcc36], a
 	ld [wcf7a], a
 	ld a, $04
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	call $16f7
 	pop bc
 	ld a, b
@@ -1338,7 +1338,7 @@ jr_007_4815:
 jr_007_4817:
 	ld [wd03a], a
 	ld a, $01
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $3337
 	ld hl, $52e4
 	ld de, $5304
@@ -1361,7 +1361,7 @@ jr_007_4817:
 	ld [wd4a7], a
 	call $0ebd
 	ld a, $01
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $3341
 	ld a, $01
 	ldh [$8c], a
@@ -1679,7 +1679,7 @@ jr_007_4aa6:
 	ld a, b
 	ldh [$ed], a
 	ld a, $01
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $3341
 	ret
 
@@ -1687,7 +1687,7 @@ jr_007_4aa6:
 Call_007_4ab4:
 	ld hl, $4af6
 	ld a, l
-	ld [wd2eb], a
+	ld [wMapTextPtr], a
 	ld a, h
 	ld [wd2ec], a
 	ret
@@ -1811,7 +1811,7 @@ jr_007_4b2e:
 	rst $10
 	ld a, [hld]
 	cp [hl]
-	jp wd47f
+	jp $d47f
 
 
 	reti
@@ -1873,7 +1873,7 @@ jr_007_4bcc:
 	ld [wcf78], a
 	ld [wd0e3], a
 	ld a, b
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	ld a, [wd6ca]
 	bit 2, a
 	jp nz, Jump_007_4d3e
@@ -1932,7 +1932,7 @@ jr_007_4c05:
 	call $1b86
 	ld c, $0a
 	call $3781
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	cp $02
 	jr z, jr_007_4c43
 
@@ -2015,7 +2015,7 @@ jr_007_4c9f:
 	ld [wd696], a
 	ld [wd0e3], a
 	call $1aab
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	cp $02
 	jr nz, jr_007_4cc7
 
@@ -2998,7 +2998,7 @@ jr_007_5625:
 
 jr_007_5628:
 	ld a, l
-	ld [wd2eb], a
+	ld [wMapTextPtr], a
 	ld a, h
 	ld [wd2ec], a
 	ret
@@ -5643,7 +5643,7 @@ jr_007_6295:
 	call $3c79
 	xor a
 	ld [wd05a], a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $2df3
 	push af
 	call $3e04
@@ -6292,7 +6292,7 @@ Jump_007_6570:
 	ld a, $a9
 	call $3788
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld d, $00
 	ld e, $08
 
@@ -6334,7 +6334,7 @@ jr_007_65eb:
 	ld a, $90
 	ldh [$b0], a
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	pop hl
 	pop bc
 	ld [hl], b
@@ -9638,7 +9638,7 @@ jr_007_7593:
 	ld a, $f0
 	ld [wcd66], a
 	ld a, $02
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	ld a, $0c
 	ldh [$eb], a
 	ld a, $40
@@ -10062,7 +10062,7 @@ jr_007_77a1:
 	ld d, [hl]
 	ld a, a
 	cp d
-	jp c, wd47f
+	jp c, $d47f
 
 	reti
 
@@ -10597,7 +10597,7 @@ jr_007_7a6e:
 	ld [wd982], a
 	ret
 
-
+PrintSafariGameOverText::
 	xor a
 	ld [wcd66], a
 	ld hl, $7aa3

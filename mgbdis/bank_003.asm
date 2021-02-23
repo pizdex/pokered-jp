@@ -1491,7 +1491,7 @@ jr_003_41ec:
 	bit 5, a
 	jr nz, jr_003_45a7
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $a2
 	ret nz
 
@@ -1561,7 +1561,7 @@ jr_003_45a7:
 
 	ret c
 
-	jp z, wd47f
+	jp z, $d47f
 
 	jp nc, $bac4
 
@@ -2464,7 +2464,7 @@ jr_003_49ca:
 	ld b, a
 	ld a, [wd2e1]
 	ld c, a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld d, a
 
 jr_003_49e6:
@@ -2483,13 +2483,13 @@ jr_003_49e6:
 	cp c
 	jr nz, jr_003_49e6
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $a1
 	ld a, $02
 	ld [wd5e5], a
 	jr z, jr_003_4a21
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $a2
 	ld a, $02
 	ld [wd5e7], a
@@ -2635,7 +2635,7 @@ jr_003_4a92:
 	push de
 	push bc
 	call Call_003_4bc2
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $63
 	jr z, jr_003_4ad6
 
@@ -2794,7 +2794,7 @@ jr_003_4b0e:
 	dec sp
 	rst $38
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $d9
 
 jr_003_4b7a:
@@ -2979,7 +2979,7 @@ Call_003_4c6f:
 	ldh [$dc], a
 	ld a, [hl]
 	ldh [$dd], a
-	ld a, [wd460]
+	ld a, [wNumSprites]
 	ld c, a
 	ld de, $000f
 	ld hl, $c214
@@ -3468,7 +3468,7 @@ Call_003_4f17:
 
 
 	ld hl, $4f61
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -5322,7 +5322,7 @@ jr_003_5726:
 
 
 jr_003_5759:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $93
 	jr nz, jr_003_576a
 
@@ -6030,7 +6030,7 @@ jr_003_5b48:
 	ld a, $05
 	ld [wd05a], a
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $2df3
 	pop bc
 	jr c, jr_003_5bca
@@ -6079,7 +6079,7 @@ jr_003_5bd7:
 	ld a, $01
 	ld [wd05a], a
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, [wd117]
 	and a
 	jr z, jr_003_5bf4
@@ -6343,7 +6343,7 @@ jr_003_5d1c:
 	ld a, $8d
 	call $3788
 	ld a, $02
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 	pop af
@@ -6518,7 +6518,7 @@ jr_003_5e6a:
 	ld a, $8d
 	call $3788
 	ld a, $02
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 	ld a, $f7
@@ -6543,7 +6543,7 @@ jr_003_5ea0:
 	ld [$ffba], a
 	call $03bf
 	dec a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $2ed0
 	ld a, $01
 	ld [$ffba], a
@@ -6754,7 +6754,7 @@ Jump_003_5f5f:
 	ld b, $0e
 	call $3620
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	pop af
 	ld [wcf78], a
 	pop af
@@ -6924,7 +6924,7 @@ jr_003_6099:
 	and a
 	jr nz, jr_003_6109
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $f7
 	jr z, jr_003_6109
 
@@ -7016,7 +7016,7 @@ jr_003_614d:
 	ld hl, $61d3
 
 jr_003_6155:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, a
 
 jr_003_6159:
@@ -7210,7 +7210,7 @@ jr_003_6222:
 	jr nz, jr_003_629f
 
 	call Call_003_6cd0
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $17
 	jr nz, jr_003_627a
 
@@ -7652,7 +7652,7 @@ jr_003_6459:
 
 jr_003_64ad:
 	xor a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, $01
 	ld [wd05a], a
 	call $2df3
@@ -7973,7 +7973,7 @@ jr_003_6694:
 	ld bc, $0008
 	call $01bb
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, $03
 	ld [wd05a], a
 	call $2df3
@@ -8949,7 +8949,7 @@ jr_003_6be9:
 	rst $38
 
 Call_003_6bf5:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld de, $0003
 	ld hl, $6c24
 	call $3ddb
@@ -9532,7 +9532,7 @@ jr_003_72a4:
 	ld hl, wd6af
 	res 6, [hl]
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call Call_003_7329
 	ld de, $7432
 	call Call_003_73d1
@@ -9541,7 +9541,7 @@ jr_003_72a4:
 	ld hl, $5ec2
 	call $3620
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld a, $ac
 	call $0e45
 	ld a, $90
@@ -9793,7 +9793,7 @@ jr_003_7425:
 	dec a
 	ld [hl], $ff
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $0c
 	jr nc, jr_003_7457
 
@@ -9805,7 +9805,7 @@ jr_003_7425:
 
 jr_003_7457:
 	ld hl, $4085
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, $00
 	ld c, a
 	add hl, bc
@@ -9837,7 +9837,7 @@ jr_003_746e:
 	ldh [$99], a
 	ld b, $02
 	call $3902
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, a
 	ldh a, [$98]
 	ld c, a
@@ -11626,7 +11626,7 @@ jr_003_7e30:
 Call_003_7e3a:
 	push af
 	push de
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	and a
 	jr z, jr_003_7e67
 

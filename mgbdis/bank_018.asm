@@ -1301,7 +1301,7 @@ jr_018_4770:
 	call nz, $bf7f
 	jr nc, jr_018_4742
 
-	jp wd47f
+	jp $d47f
 
 
 	jp c, Jump_018_58d6
@@ -2770,7 +2770,7 @@ jr_018_4e25:
 	call nz, Call_018_547f
 	jp z, wcb4f
 
-	call nz, wd47f
+	call nz, $d47f
 	cp l
 	ret nc
 
@@ -3608,7 +3608,7 @@ Jump_018_525e:
 	call $32bd
 	ld a, $f0
 	ld [wcd66], a
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	call $13f1
 	call Call_018_52fc
@@ -3623,7 +3623,7 @@ Jump_018_525e:
 	ret nz
 
 	ld hl, wd54d
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ld b, a
 
 jr_018_52a9:
@@ -3637,7 +3637,7 @@ jr_018_52a9:
 	call $3e9d
 	xor a
 	ld [wcd66], a
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	ld [wcc55], a
 	ld [wd97b], a
 	ld a, $00
@@ -3670,7 +3670,7 @@ jr_018_52a9:
 
 Call_018_52fc:
 	ld hl, $5329
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	dec a
 	swap a
 	ld d, $00
@@ -3693,7 +3693,7 @@ jr_018_5311:
 	ld a, [hli]
 	ld d, [hl]
 	ld e, a
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	jp $3684
 
@@ -3886,7 +3886,7 @@ jr_018_5390:
 	ld a, a
 	or l
 	ld a, $b4
-	jp wd47f
+	jp $d47f
 
 
 	ld h, $da
@@ -11869,7 +11869,7 @@ jr_018_7807:
 	ld de, $7a51
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	xor a
@@ -12768,7 +12768,7 @@ jr_018_7bfd:
 	ret nz
 
 	ld hl, $7c4a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, a
 
 jr_018_7c31:
@@ -12856,7 +12856,7 @@ jr_018_7c47:
 	ld d, a
 	call $3c6c
 	ld hl, $7cb2
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, a
 
 jr_018_7c9b:

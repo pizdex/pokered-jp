@@ -28,7 +28,7 @@ VBlank:
 	call $ff80
 	ld a, $01
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $4672
 
 	; VBlank-sensitive operations end here.
@@ -52,7 +52,7 @@ VBlank:
 
 	ld a, [wAudioROMBank]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 
 ; checkForAudio1
 	cp $02
@@ -79,7 +79,7 @@ VBlank:
 
 	ld a, [wd0e7]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 
 	pop hl
 	pop de

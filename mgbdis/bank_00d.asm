@@ -10691,7 +10691,7 @@ jr_00d_7327:
 	jr c, jr_00d_7327
 
 	xor b
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	and [hl]
 	xor d
 	ld e, a
@@ -10770,7 +10770,7 @@ Call_00d_73ae:
 	jr nz, jr_00d_7420
 
 	dec a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld hl, wcd4f
 	xor a
 	ld [hli], a
@@ -10799,7 +10799,7 @@ Call_00d_73ae:
 	ld [wd073], a
 	call $3e04
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $3e1d
 	call $3e38
 	call $1ba5
@@ -12687,7 +12687,7 @@ jr_00d_7d47:
 	ld [hli], a
 	ld [hl], $6a
 	xor a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	ld hl, $6cdb
 	ld b, $0e
 	call $3620

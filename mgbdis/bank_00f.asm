@@ -63,7 +63,7 @@ jr_00f_408e:
 	ldh [$d7], a
 	ldh [$af], a
 	dec a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $3e07
 	xor a
 	ldh [$ba], a
@@ -897,7 +897,7 @@ Call_00f_455f:
 
 jr_00f_456d:
 	push bc
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 	pop bc
@@ -1407,7 +1407,7 @@ Jump_00f_48e3:
 	call $3781
 	ld hl, $4928
 	call $3c79
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $28
 	ret z
 
@@ -2401,7 +2401,7 @@ jr_00f_4fc6:
 
 Jump_00f_4fdb:
 	xor a
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld hl, wc3ca
 	call $2d2c
 	ld a, $01
@@ -2664,7 +2664,7 @@ jr_00f_5183:
 	xor a
 	ld [wcf7a], a
 	ld a, $03
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, [wcc2c]
 	ld [wcc26], a
 	call $16f7
@@ -2924,7 +2924,7 @@ Jump_00f_5310:
 	jp z, $b3d3
 
 	inc sp
-	jp wcfb2
+	jp wUpdateSpritesEnabled
 
 
 	cp l
@@ -3991,7 +3991,7 @@ Call_00f_59a0:
 	dec a
 	ret nz
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $8e
 	jr c, jr_00f_59b6
 
@@ -5922,7 +5922,7 @@ jr_00f_6414:
 	ld [wcee8], a
 	ld hl, wc3ca
 	xor a
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 
@@ -6053,7 +6053,7 @@ jr_00f_64dc:
 	ld [wcee4], a
 	ld hl, wc45e
 	ld a, $01
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 
@@ -7998,7 +7998,7 @@ Call_00f_6f22:
 	ld b, $0d
 	call $3620
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $03bf
 
 jr_00f_6f3d:
@@ -8011,7 +8011,7 @@ jr_00f_6f3d:
 	ld a, $01
 	ldh [$ba], a
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $0188
 	call $03bf
 	xor a

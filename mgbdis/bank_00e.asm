@@ -252,7 +252,7 @@ jr_00e_6a89:
 	call Call_00e_6bb4
 	ld hl, wc3ca
 	xor a
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 	jp Jump_00e_6a06
@@ -815,7 +815,7 @@ jr_00e_7149:
 	ld a, $01
 	ldh [$ba], a
 	ld a, $ff
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $0188
 	ld hl, $7e15
 	ld b, $1e
@@ -1394,7 +1394,7 @@ jr_00e_7e3a:
 	xor a
 
 jr_00e_7e4e:
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 	ld hl, $4eb8

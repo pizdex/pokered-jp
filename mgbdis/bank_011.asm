@@ -6375,7 +6375,7 @@ Jump_011_5d64:
 	ld de, $5eaa
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	xor a
@@ -9798,7 +9798,7 @@ jr_011_6d6e:
 	add l
 	add d
 	sub e
-	jp z, wd47f
+	jp z, $d47f
 
 	rst $08
 	inc sp
@@ -11984,7 +11984,7 @@ jr_011_78d3:
 	cp $ff
 	jr z, jr_011_7921
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp b
 	jr z, jr_011_78e3
 

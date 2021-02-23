@@ -2723,7 +2723,7 @@ Jump_006_4f26:
 	ld a, $ff
 	ld [wcd66], a
 	ld a, $01
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	xor a
 	ld [wcf0b], a
 	ld a, $01
@@ -4100,7 +4100,7 @@ Call_006_56fb:
 	ld a, $11
 	ldh [$ee], a
 	ld a, $03
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $3341
 	ld a, $03
 	ldh [$8c], a
@@ -4130,7 +4130,7 @@ Call_006_56fb:
 
 
 	ld a, $03
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $3346
 	ld a, $03
 	ld [wcc4d], a
@@ -4172,7 +4172,7 @@ Call_006_56fb:
 Call_006_57d6:
 	ldh [$ee], a
 	ld a, $05
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $3341
 	ld a, $05
 	ldh [$8c], a
@@ -4211,7 +4211,7 @@ Jump_006_57e7:
 
 
 	ld a, $05
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $3346
 	ld a, $04
 	ld [wcc4d], a
@@ -4408,7 +4408,7 @@ jr_006_58e2:
 	ldh a, [hLoadedROMBank]
 	ld [wcc58], a
 	ld a, $03
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $333c
 	ld a, $01
 	ld [wd576], a
@@ -4644,7 +4644,7 @@ jr_006_5a10:
 	ldh a, [hLoadedROMBank]
 	ld [wcc58], a
 	ld a, $05
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $333c
 	ld a, $04
 	ld [wd576], a
@@ -5600,7 +5600,7 @@ Jump_006_5e7f:
 	ld de, $5fb9
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	ld a, $04
@@ -11391,7 +11391,7 @@ Call_006_790d:
 	rst $10
 	cp e
 	ld a, d
-	jp c, wd47a
+	jp c, $d47a
 
 	ld a, d
 	call nc, $077a
@@ -12232,7 +12232,7 @@ jr_006_7cbe:
 	ld a, $80
 	call $372a
 	ld [hl], $ff
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	ld de, wcc97
 	call $3684
@@ -12273,7 +12273,7 @@ jr_006_7d32:
 
 	xor a
 	ld [wcd3b], a
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	swap a
 	ld [wcf12], a
 	xor a
@@ -12321,7 +12321,7 @@ jr_006_7d32:
 	ld a, $e1
 	ld [wNewSoundID], a
 	call $0e45
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	swap a
 	ld [wcf12], a
 	call $34d0
@@ -12381,7 +12381,7 @@ jr_006_7e24:
 	ld a, $e1
 	ld [wNewSoundID], a
 	call $0e45
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	swap a
 	ld [wcf12], a
 	xor a
@@ -12435,7 +12435,7 @@ jr_006_7e98:
 	inc bc
 	rst $38
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $94
 	ret z
 
@@ -12454,7 +12454,7 @@ jr_006_7eac:
 	jr jr_006_7eac
 
 jr_006_7eb5:
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
 	jp $358b
 

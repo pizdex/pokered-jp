@@ -4526,7 +4526,7 @@ jr_016_53b2:
 	ld e, b
 	nop
 	ld a, $b8
-	jp z, wd47f
+	jp z, $d47f
 
 	rst $18
 	ld b, h
@@ -9093,7 +9093,7 @@ jr_016_67a9:
 	or [hl]
 	call c, $26b2
 	rst $18
-	jp wd47f
+	jp $d47f
 
 
 	db $db
@@ -9339,7 +9339,7 @@ jr_016_687e:
 	cp a
 	sbc $33
 	rst $18
-	jp wd47f
+	jp $d47f
 
 
 	reti
@@ -9429,7 +9429,7 @@ jr_016_687e:
 	add $7f
 	ret z
 
-	jp wcfb2
+	jp wUpdateSpritesEnabled
 
 
 	cp l
@@ -14012,7 +14012,7 @@ jr_016_7c28:
 	dec a
 	jr nz, jr_016_7dac
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $90
 
 jr_016_7d92:

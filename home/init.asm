@@ -107,7 +107,7 @@ LCDC_DEFAULT EQU %11100011
 	xor a
 	ld [$ffbc], a
 	dec a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 
 	ld a, $32
 	call Predef

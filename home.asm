@@ -10,16 +10,16 @@ SECTION "Home", ROM0
 _Start:
 	jp Init
 
-Call_000_0153:
+Joypad:
 	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $4000
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 INCLUDE "home/lcd.asm"
@@ -46,292 +46,12 @@ INCLUDE "home/overworld_text.asm"
 INCLUDE "home/decompress.asm"
 INCLUDE "home/reset_player_sprite.asm"
 INCLUDE "home/fade_audio.asm"
+INCLUDE "home/text_script.asm"
 
-Call_000_13f1:
-	ldh a, [hLoadedROMBank]
-	push af
-	ld b, $01
-	ld hl, $724b
-	call Bankswitch
-	ld hl, wcf0c
-	bit 0, [hl]
-	res 0, [hl]
-	jr nz, jr_000_140b
-
-	ld a, [wd2dd]
-	call Call_000_2ccd
-
-jr_000_140b:
-	ld a, $1e
-	ld [$ffd5], a
-	ld hl, wd2eb
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld d, $00
-	ldh a, [$8c]
-	ld [wcf0e], a
-	and a
-	jp z, Jump_000_15de
-
-	cp $d3
-	jp z, Jump_000_156f
-
-	cp $d0
-	jp z, Jump_000_157a
-
-	cp $d1
-	jp z, Jump_000_1590
-
-	cp $d2
-	jp z, Jump_000_15c6
-
-	ld a, [wd460]
-	ld e, a
-	ldh a, [$8c]
-	cp e
-	jr z, jr_000_1440
-
-	jr nc, jr_000_145c
-
-jr_000_1440:
-	push hl
-	push de
-	push bc
-	ld b, $04
-	ld hl, $5ad7
-	call Bankswitch
-	pop bc
-	pop de
-	ld hl, wd463
-	ldh a, [$8c]
-	dec a
-	add a
-	add l
-	ld l, a
-	jr nc, jr_000_1459
-
-	inc h
-
-jr_000_1459:
-	inc hl
-	ld a, [hl]
-	pop hl
-
-jr_000_145c:
-	dec a
-	ld e, a
-	sla e
-	add hl, de
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld a, [hl]
-	cp $fe
-	jp z, Jump_000_1500
-
-	cp $ff
-	jp z, Jump_000_1551
-
-	cp $fc
-	jp z, Jump_000_34aa
-
-	cp $fd
-	jp z, Jump_000_34b4
-
-	cp $f9
-	jp z, Jump_000_34c9
-
-	cp $f5
-	jr nz, jr_000_148c
-
-	ld b, $1d
-	ld hl, $4e36
-	call Bankswitch
-	jr jr_000_14a8
-
-jr_000_148c:
-	cp $f7
-	jp z, Jump_000_34be
-
-	cp $f6
-	jr nz, jr_000_149f
-
-	ld hl, $736b
-	ld b, $01
-	call Bankswitch
-	jr jr_000_14a8
-
-jr_000_149f:
-	call Call_000_3c89
-	ld a, [wcc3c]
-	and a
-	jr nz, jr_000_14b1
-
-Jump_000_14a8:
-jr_000_14a8:
-	ld a, [wcc47]
-	and a
-	jr nz, jr_000_14b1
-
-	call Call_000_38ae
-
-Jump_000_14b1:
-jr_000_14b1:
-	call Call_000_0153
-	ldh a, [$b4]
-	bit 0, a
-	jr nz, jr_000_14b1
-
-Jump_000_14ba:
-	ld a, [wd2dd]
-	call Call_000_2ccd
-	ld a, $90
-	ldh [$b0], a
-	call DelayFrame
-	call LoadGBPal
-	xor a
-	ldh [$ba], a
-	ld hl, $c219
-	ld c, $0f
-	ld de, $0010
-
-jr_000_14d5:
-	ld a, [hl]
-	dec h
-	ld [hl], a
-	inc h
-	add hl, de
-	dec c
-	jr nz, jr_000_14d5
-
-	ld a, $05
-	ldh [hLoadedROMBank], a
-	ld [$2000], a
-	call $7840
-	ld hl, wcfab
-	res 0, [hl]
-	ld a, [wd6b1]
-	bit 3, a
-	call z, Call_000_23ae
-	call Call_000_26bb
-	pop af
-	ldh [hLoadedROMBank], a
-	ld [$2000], a
-	jp UpdateSprites
-
-
-Jump_000_1500:
-	push hl
-	ld hl, $1527
-	call Call_000_3c79
-	pop hl
-	inc hl
-	call Call_000_1539
-	ld a, $02
-	ld [wcf7b], a
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, $01
-	ldh [hLoadedROMBank], a
-	ld [$2000], a
-	call $6bbb
-	pop af
-	ldh [hLoadedROMBank], a
-	ld [$2000], a
-	jp Jump_000_14a8
-
-
-	db $00, $d6, $b3, $ba, $bf, $e7, $4e, $b5, $bb, $26, $bc, $d3, $c9, $33, $bd, $b6
-	db $e6, $57
-
-Call_000_1539:
-	ld a, $01
-	ld [wcfb2], a
-	ld a, h
-	ld [wd0ed], a
-	ld a, l
-	ld [wd0ee], a
-	ld de, wcf62
-
-jr_000_1549:
-	ld a, [hli]
-	ld [de], a
-	inc de
-	cp $ff
-	jr nz, jr_000_1549
-
-	ret
-
-
-Jump_000_1551:
-	xor a
-	ldh [$8b], a
-	ldh [$8c], a
-	ldh [$8d], a
-	inc hl
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, $01
-	ldh [hLoadedROMBank], a
-	ld [$2000], a
-	call $7121
-	pop af
-	ldh [hLoadedROMBank], a
-	ld [$2000], a
-	jp Jump_000_14a8
-
-
-Jump_000_156f:
-	ld hl, $7a99
-	ld b, $07
-	call Bankswitch
-	jp Jump_000_14a8
-
-
-Jump_000_157a:
-	ld hl, $1583
-	call Call_000_3c79
-	jp Jump_000_14a8
-
-
-	db $01, $68, $cd, $00, $ca, $7f, $c1, $b6, $d7, $c2, $b7, $c0, $57
-
-Jump_000_1590:
-	ld hl, $1599
-	call Call_000_3c79
-	jp Jump_000_14b1
-
-
-	db $00, $52, $c9, $7f, $c3, $d3, $c4, $c6, $ca, $4f, $c0, $c0, $b6, $b4, $d9, $54
-	db $26, $7f, $d3, $b3, $b2, $c5, $b2, $e7, $51, $52, $ca, $4f, $d2, $c9, $cf, $b4
-	db $26, $7f, $cf, $df, $b8, $d7, $c6, $7f, $c5, $df, $c0, $e7, $58
-
-Jump_000_15c6:
-	ld hl, $15cf
-	call Call_000_3c79
-	jp Jump_000_14a8
-
-
-	nop
-	adc h
-	ld b, d
-	and a
-	db $e3
-	ret
-
-
-	ld a, a
-	cp d
-	or e
-	or [hl]
-	ld h, $b7
-	jp c, $57c0
-
-Jump_000_15de:
+DisplayStartMenu:
 	ld a, $04
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld a, [wd67f]
 	ld [wd0df], a
 	ld a, $8f
@@ -428,13 +148,13 @@ jr_000_1663:
 
 Jump_000_1681:
 jr_000_1681:
-	call Call_000_0153
+	call Joypad
 	ldh a, [$b3]
 	bit 0, a
 	jr nz, jr_000_1681
 
 	call Call_000_36ea
-	jp Jump_000_14ba
+	jp CloseTextDisplay
 
 
 	ld c, $00
@@ -482,11 +202,11 @@ jr_000_1696:
 	push af
 	ld a, $03
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $4652
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -496,12 +216,12 @@ Call_000_16e0:
 	push af
 	ld a, $03
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $45e2
 	pop bc
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	pop bc
 	ret
 
@@ -539,7 +259,7 @@ jr_000_170b:
 	call UpdateSprites
 	ld hl, wc3cc
 	ld de, $090e
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	and a
 	jr nz, jr_000_1740
 
@@ -621,7 +341,7 @@ jr_000_17a3:
 
 	ld a, c
 	ld [wcf79], a
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $03
 	jr nz, jr_000_17d7
 
@@ -637,14 +357,14 @@ jr_000_17d7:
 	add hl, bc
 	ld a, [hl]
 	ld [wcf78], a
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	and a
 	jr z, jr_000_180e
 
 	push hl
 	call Call_000_3827
 	pop hl
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $03
 	jr nz, jr_000_17fe
 
@@ -722,7 +442,7 @@ jr_000_1861:
 	ld hl, wc463
 	ld b, $01
 	ld c, $03
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $02
 	jr nz, jr_000_187f
 
@@ -733,7 +453,7 @@ jr_000_1861:
 jr_000_187f:
 	call TextBoxBorder
 	ld hl, wc478
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $02
 	jr nz, jr_000_1894
 
@@ -792,7 +512,7 @@ jr_000_18cc:
 
 jr_000_18d6:
 	ld hl, wc479
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $02
 	jr nz, jr_000_1930
 
@@ -888,7 +608,7 @@ Call_000_1968:
 	inc de
 	ld a, [wcc36]
 	ld c, a
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $03
 	ld a, c
 	jr nz, jr_000_198b
@@ -920,7 +640,7 @@ Jump_000_1995:
 	push hl
 	push hl
 	push de
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	and a
 	jr z, jr_000_19b6
 
@@ -976,7 +696,7 @@ jr_000_19db:
 	ld [hl], $f0
 
 jr_000_19fd:
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	and a
 	jr nz, jr_000_1a41
 
@@ -1022,7 +742,7 @@ jr_000_1a41:
 	pop hl
 	pop de
 	inc de
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $03
 	jr nz, jr_000_1a8f
 
@@ -1098,7 +818,7 @@ Call_000_1aab:
 	push af
 	ld a, $0e
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld a, [wd0e3]
 	dec a
 	ld hl, $5068
@@ -1118,7 +838,7 @@ Call_000_1aab:
 	pop de
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	pop hl
 	ret
 
@@ -1251,29 +971,29 @@ Call_000_1b6d:
 
 	ldh a, [hLoadedROMBank]
 	push af
-	ld a, [wd2dd]
-	call Call_000_2ccd
+	ld a, [wCurMap]
+	call SwitchToMapRomBank
 	call DisableLCD
 	call Call_000_36ea
-	call Call_000_26bb
+	call LoadCurrentMapView
 	call Call_000_23ff
 	call EnableLCD
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
 	ldh a, [hLoadedROMBank]
 	push af
-	ld a, [wd2dd]
-	call Call_000_2ccd
+	ld a, [wCurMap]
+	call SwitchToMapRomBank
 	call DisableLCD
 	call Call_000_23ff
 	call EnableLCD
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -1902,23 +1622,23 @@ Jump_000_1e9a:
 	bit 0, a
 	jr nz, jr_000_1eda
 
-	call Call_000_13f1
-	ld a, [wcc47]
+	call DisplayTextID
+	ld a, [wEnteringCableClub]
 	and a
 	jr z, jr_000_1eda
 
 	dec a
 	ld a, $00
-	ld [wcc47], a
+	ld [wEnteringCableClub], a
 	jr z, jr_000_1ed7
 
 	ld a, $52
 	call Predef
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld [wd699], a
 	call $6260
-	ld a, [wd2dd]
-	call Call_000_2ccd
+	ld a, [wCurMap]
+	call SwitchToMapRomBank
 	ld hl, wd2e6
 	set 7, [hl]
 
@@ -2170,7 +1890,7 @@ Jump_000_204e:
 	set 6, [hl]
 	xor a
 	ldh [$b4], a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $a6
 	jr nz, jr_000_206e
 
@@ -2180,7 +1900,7 @@ Jump_000_204e:
 jr_000_206e:
 	ld hl, wd6ad
 	set 5, [hl]
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $28
 	jp z, Jump_000_2087
 
@@ -2231,7 +1951,7 @@ Call_000_20b7:
 	and a
 	ret nz
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $1c
 	jr nz, jr_000_20c8
 
@@ -2290,7 +2010,7 @@ Jump_000_20e3:
 
 	push de
 	push bc
-	call Call_000_0153
+	call Joypad
 	pop bc
 	pop de
 	ldh a, [$b4]
@@ -2355,17 +2075,17 @@ jr_000_2153:
 	ld a, [wd32d]
 	sub c
 	ld [wd6ba], a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld [wd6bb], a
 	call Call_000_22f8
 	jr nz, jr_000_2187
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld [wd2e4], a
 	ld a, [wd2e8]
 	ld [wd2e5], a
 	ldh a, [$8b]
-	ld [wd2dd], a
+	ld [wCurMap], a
 	cp $52
 	jr nz, jr_000_2182
 
@@ -2382,7 +2102,7 @@ jr_000_2187:
 	cp $ff
 	jr z, jr_000_21b4
 
-	ld [wd2dd], a
+	ld [wCurMap], a
 	ld b, $1c
 	ld hl, $4cd8
 	call Bankswitch
@@ -2406,7 +2126,7 @@ jr_000_21ab:
 
 jr_000_21b4:
 	ld a, [wd2e4]
-	ld [wd2dd], a
+	ld [wCurMap], a
 	call Call_000_22e0
 	xor a
 	ld [wMapPalOffset], a
@@ -2429,7 +2149,7 @@ Jump_000_21d1:
 	jr nz, jr_000_2215
 
 	ld a, [wd306]
-	ld [wd2dd], a
+	ld [wCurMap], a
 	ld a, [wd30e]
 	ld [wd2e1], a
 	ld a, [wd2e0]
@@ -2470,7 +2190,7 @@ jr_000_2215:
 	jr nz, jr_000_2259
 
 	ld a, [wd311]
-	ld [wd2dd], a
+	ld [wCurMap], a
 	ld a, [wd319]
 	ld [wd2e1], a
 	ld a, [wd2e0]
@@ -2510,7 +2230,7 @@ jr_000_2259:
 	jr nz, jr_000_2290
 
 	ld a, [wd2f0]
-	ld [wd2dd], a
+	ld [wCurMap], a
 	ld a, [wd2f7]
 	ld [wd2e0], a
 	ld a, [wd2e1]
@@ -2540,7 +2260,7 @@ jr_000_2290:
 	jr nz, jr_000_22dd
 
 	ld a, [wd2fb]
-	ld [wd2dd], a
+	ld [wCurMap], a
 	ld a, [wd302]
 	ld [wd2e0], a
 	ld a, [wd2e1]
@@ -2607,7 +2327,7 @@ Call_000_22f8:
 
 
 Call_000_2300:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $61
 	jr z, jr_000_2329
 
@@ -2667,7 +2387,7 @@ Jump_000_2348:
 	res 5, [hl]
 	ld a, $01
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $755f
 	call $6260
 	call PlayDefaultMusicFadeOutCurrent
@@ -2702,7 +2422,7 @@ Jump_000_237c:
 	call Call_000_23a6
 	ld a, $01
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $6260
 	jp $5bb6
 
@@ -2713,7 +2433,7 @@ Call_000_23a6:
 	jp Jump_000_3620
 
 
-Call_000_23ae:
+LoadPlayerSpriteGraphics:
 	ld a, [wd67f]
 	dec a
 	jr z, jr_000_23bb
@@ -2750,7 +2470,7 @@ jr_000_23ca:
 
 
 Call_000_23dc:
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $22
 	jr z, jr_000_23f7
 
@@ -2856,7 +2576,7 @@ jr_000_2457:
 	cp $ff
 	jr z, jr_000_2481
 
-	call Call_000_2ccd
+	call SwitchToMapRomBank
 	ld a, [wd2f1]
 	ld l, a
 	ld a, [wd2f2]
@@ -2876,7 +2596,7 @@ jr_000_2481:
 	cp $ff
 	jr z, jr_000_24a8
 
-	call Call_000_2ccd
+	call SwitchToMapRomBank
 	ld a, [wd2fc]
 	ld l, a
 	ld a, [wd2fd]
@@ -2896,7 +2616,7 @@ jr_000_24a8:
 	cp $ff
 	jr z, jr_000_24ce
 
-	call Call_000_2ccd
+	call SwitchToMapRomBank
 	ld a, [wd307]
 	ld l, a
 	ld a, [wd308]
@@ -2916,7 +2636,7 @@ jr_000_24ce:
 	cp $ff
 	jr z, jr_000_24f4
 
-	call Call_000_2ccd
+	call SwitchToMapRomBank
 	ld a, [wd312]
 	ld l, a
 	ld a, [wd313]
@@ -3117,7 +2837,7 @@ jr_000_25ab:
 
 jr_000_25b0:
 	ld [wd4a9], a
-	ld a, [wd460]
+	ld a, [wNumSprites]
 	and a
 	ret z
 
@@ -3359,12 +3079,12 @@ jr_000_268d:
 	dec b
 	rst $38
 
-Call_000_26bb:
+LoadCurrentMapView:
 	ldh a, [hLoadedROMBank]
 	push af
 	ld a, [wd4aa]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld a, [wd2de]
 	ld e, a
 	ld a, [wd2df]
@@ -3461,7 +3181,7 @@ jr_000_272e:
 
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -3564,7 +3284,7 @@ jr_000_27c2:
 
 	xor a
 	ld [hl], a
-	ld hl, wd462
+	ld hl, wXOffsetSinceLastSpecialWarp
 	inc [hl]
 	ld de, wd2de
 	call Call_000_2876
@@ -3576,7 +3296,7 @@ jr_000_27da:
 
 	ld a, $01
 	ld [hl], a
-	ld hl, wd462
+	ld hl, wXOffsetSinceLastSpecialWarp
 	dec [hl]
 	ld de, wd2de
 	call Call_000_2880
@@ -3592,7 +3312,7 @@ jr_000_27ed:
 
 	xor a
 	ld [hl], a
-	ld hl, wd461
+	ld hl, wYOffsetSinceLastSpecialWarp
 	inc [hl]
 	ld de, wd2de
 	ld a, [wd2e8]
@@ -3605,14 +3325,14 @@ jr_000_2808:
 
 	ld a, $01
 	ld [hl], a
-	ld hl, wd461
+	ld hl, wYOffsetSinceLastSpecialWarp
 	dec [hl]
 	ld de, wd2de
 	ld a, [wd2e8]
 	call Call_000_2896
 
 jr_000_281c:
-	call Call_000_26bb
+	call LoadCurrentMapView
 	ld a, [$c103]
 	cp $01
 	jr nz, jr_000_282b
@@ -3656,7 +3376,7 @@ jr_000_2847:
 	add c
 	ldh [$ae], a
 	ld hl, $c114
-	ld a, [wd460]
+	ld a, [wNumSprites]
 	and a
 	jr z, jr_000_2875
 
@@ -3886,12 +3606,12 @@ Call_000_295e:
 	ld [$c103], a
 	ld [$c105], a
 	call Call_000_2a2c
-	call Call_000_0153
+	call Joypad
 	ld a, [wd6b2]
 	bit 3, a
 	jr nz, jr_000_2983
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $1c
 	jr nz, jr_000_2983
 
@@ -4019,7 +3739,7 @@ jr_000_2a16:
 jr_000_2a17:
 	xor a
 	ld [wd67f], a
-	call Call_000_23ae
+	call LoadPlayerSpriteGraphics
 	call PlayDefaultMusic
 	jr jr_000_2a15
 
@@ -4050,8 +3770,8 @@ jr_000_2a46:
 	pop de
 	pop hl
 	call Call_000_3156
-	ld a, [wd2dd]
-	call Call_000_2ccd
+	ld a, [wCurMap]
+	call SwitchToMapRomBank
 	ld hl, wd2ed
 	ld a, [hli]
 	ld h, [hl]
@@ -4104,8 +3824,8 @@ Call_000_2a8d:
 	call Bankswitch
 	ld a, [wd2e6]
 	ld [wd0de], a
-	ld a, [wd2dd]
-	call Call_000_2ccd
+	ld a, [wCurMap]
+	call SwitchToMapRomBank
 	ld a, [wd2e6]
 	ld b, a
 	res 7, a
@@ -4115,7 +3835,7 @@ Call_000_2a8d:
 	ret nz
 
 	ld hl, $1bcb
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	sla a
 	jr nc, jr_000_2aba
 
@@ -4253,7 +3973,7 @@ jr_000_2b61:
 	jp nz, Jump_000_2c09
 
 	ld a, [hli]
-	ld [wd460], a
+	ld [wNumSprites], a
 	push hl
 	ld hl, $c110
 	ld de, $c210
@@ -4279,7 +3999,7 @@ jr_000_2b85:
 
 	pop hl
 	ld de, $c110
-	ld a, [wd460]
+	ld a, [wNumSprites]
 	and a
 	jp z, Jump_000_2c09
 
@@ -4308,7 +4028,7 @@ Jump_000_2b99:
 	push bc
 	push hl
 	ld b, $00
-	ld hl, wd463
+	ld hl, wMapSpriteData
 	add hl, bc
 	ldh a, [$8d]
 	ld [hli], a
@@ -4389,14 +4109,14 @@ Jump_000_2c09:
 	ld a, [wd2e8]
 	add a
 	ld [wd4a4], a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld c, a
 	ld b, $00
 	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $03
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld hl, $4693
 	add hl, bc
 	add hl, bc
@@ -4406,7 +4126,7 @@ Jump_000_2c09:
 	ld [wd2db], a
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -4444,7 +4164,7 @@ Call_000_2c52:
 	call Bankswitch
 	call Call_000_2413
 	call Call_000_23ff
-	call Call_000_26bb
+	call LoadCurrentMapView
 	ld hl, wc3a0
 	ld de, $9800
 	ld b, $12
@@ -4471,11 +4191,11 @@ jr_000_2c9f:
 	jr nz, jr_000_2c90
 
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call EnableLCD
 	ld b, $09
 	call Call_000_3e1f
-	call Call_000_23ae
+	call LoadPlayerSpriteGraphics
 	ld a, [wd6b1]
 	and $18
 	jr nz, jr_000_2cc6
@@ -4490,11 +4210,11 @@ jr_000_2c9f:
 jr_000_2cc6:
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
-Call_000_2ccd:
+SwitchToMapRomBank:
 	push hl
 	push bc
 	ld c, a
@@ -4508,7 +4228,7 @@ Call_000_2ccd:
 	call Call_000_3617
 	ldh a, [$e8]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	pop bc
 	pop hl
 	ret
@@ -4541,7 +4261,7 @@ Call_000_2cf8:
 	push af
 	ld a, [wcf0d]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld a, b
 	add a
 	add a
@@ -4553,7 +4273,7 @@ Call_000_2cf8:
 	call CopyBytes
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 DrawHPBar::
@@ -4572,7 +4292,7 @@ jr_000_2d38:
 	dec d
 	jr nz, jr_000_2d38
 
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	dec a
 	ld a, $6d
 	jr z, jr_000_2d45
@@ -4668,7 +4388,7 @@ jr_000_2da3:
 	push af
 	ld a, $0f
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	xor a
 	ld [$ffe1], a
 	call $73c5
@@ -4676,7 +4396,7 @@ jr_000_2da3:
 	ld [wSpriteFlipped], a
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -4878,12 +4598,12 @@ jr_000_2eed:
 	push af
 	ld a, $1e
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $4000
 	pop bc
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -4923,7 +4643,7 @@ jr_000_2f1a:
 	push af
 	ld a, $0e
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	push bc
 	push de
 	push hl
@@ -4986,7 +4706,7 @@ jr_000_2f97:
 	pop bc
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -5267,12 +4987,12 @@ jr_000_30f2:
 	push af
 	ld a, $03
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $69c4
 	pop de
 	ld a, d
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -5295,12 +5015,12 @@ Jump_000_3130:
 	push af
 	ld a, $01
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $766c
 	pop bc
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -5341,12 +5061,12 @@ Call_000_3156:
 	push af
 	ld a, [wcc58]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld a, [wcf0b]
 	call Call_000_3dc7
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -5486,7 +5206,7 @@ Call_000_320f:
 jr_000_3235:
 	ld a, $04
 	call Call_000_31db
-	call Call_000_3c79
+	call PrintText
 
 	ld a, $0a
 	call Call_000_31db
@@ -5508,12 +5228,12 @@ jr_000_3235:
 
 
 	call Call_000_334e
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	cp $ff
 	jr nz, jr_000_3273
 
 	xor a
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	ld [wcc55], a
 	ret
 
@@ -5541,9 +5261,9 @@ jr_000_3273:
 	ret nz
 
 	ld [wcd66], a
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	ldh [$8c], a
-	call Call_000_13f1
+	call DisplayTextID
 
 Jump_000_32a5:
 	xor a
@@ -5582,7 +5302,7 @@ Jump_000_32a5:
 
 	ld hl, wd54d
 	ld de, $0002
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	call Call_000_3ddb
 	inc hl
 	ld a, [hl]
@@ -5654,7 +5374,7 @@ Call_000_334e:
 jr_000_3354:
 	call Call_000_319f
 	ld a, [de]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	ld [wcc55], a
 	cp $ff
 	ret z
@@ -5678,7 +5398,7 @@ jr_000_3354:
 	ld a, [hl]
 	pop hl
 	ld [wcd3e], a
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	swap a
 	ld [wcd3d], a
 	ld a, $39
@@ -5713,7 +5433,7 @@ Call_000_339c:
 Call_000_33b2:
 	ld hl, wd483
 	ld d, $00
-	ld a, [wcf0e]
+	ld a, [wSpriteIndex]
 	dec a
 	add a
 	ld e, a
@@ -5736,17 +5456,17 @@ Call_000_33b2:
 	push af
 	ld a, [wd06f]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	push hl
 	ld b, $09
 	ld hl, $7eb2
 	call Bankswitch
 	ld hl, $3417
-	call Call_000_3c79
+	call PrintText
 	pop hl
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld b, $06
 	ld hl, $7e9f
 	call Bankswitch
@@ -5880,28 +5600,28 @@ jr_000_34a6:
 	inc hl
 	jr jr_000_348c
 
-Jump_000_34aa:
+TextScript_ItemStoragePC:
 	call Call_000_373e
 	ld b, $01
 	ld hl, $7bf8
 	jr jr_000_34c3
 
-Jump_000_34b4:
+TextScript_BillsPC:
 	call Call_000_373e
 	ld b, $08
 	ld hl, $40ef
 	jr jr_000_34c3
 
-Jump_000_34be:
+TextScript_GameCornerPrizeMenu:
 	ld b, $14
 	ld hl, $7ab3
 
 jr_000_34c3:
 	call Bankswitch
-	jp Jump_000_14b1
+	jp HoldTextDisplayOpen
 
 
-Jump_000_34c9:
+TextScript_PokemonCenterPC:
 	ld b, $05
 	ld hl, $7e34
 	jr jr_000_34c3
@@ -6079,7 +5799,7 @@ Call_000_3598:
 
 Call_000_35a2:
 	push de
-	ld hl, wd463
+	ld hl, wMapSpriteData
 	ldh a, [$8c]
 	dec a
 	add a
@@ -6150,7 +5870,7 @@ Call_000_3606:
 	ld [wcf03], a
 	ld a, [wcf04]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -6158,7 +5878,7 @@ Call_000_3617:
 Jump_000_3617:
 	ld a, [wcf03]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -6168,7 +5888,7 @@ Jump_000_3620:
 	push af
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld bc, $362e
 	push bc
 	jp hl
@@ -6177,7 +5897,7 @@ Jump_000_3620:
 	pop bc
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -6485,7 +6205,7 @@ Call_000_37b3:
 jr_000_37d5:
 	ld a, [wd094]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld a, [wd093]
 	dec a
 	add a
@@ -6540,14 +6260,14 @@ jr_000_3815:
 	pop hl
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
 Call_000_3827:
 	ldh a, [hLoadedROMBank]
 	push af
-	ld a, [wcf7b]
+	ld a, [wListMenuID]
 	cp $01
 	ld a, $01
 	jr nz, jr_000_3835
@@ -6556,7 +6276,7 @@ Call_000_3827:
 
 jr_000_3835:
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld hl, wcf76
 	ld a, [hli]
 	ld h, [hl]
@@ -6584,14 +6304,14 @@ jr_000_384a:
 jr_000_385a:
 	ld a, $1e
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $7fb2
 
 jr_000_3864:
 	ld de, $ff8b
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -6609,7 +6329,7 @@ jr_000_3871:
 
 
 Call_000_3879:
-	call Call_000_0153
+	call Joypad
 	ld a, [$ffb7]
 	and a
 	ldh a, [$b3]
@@ -6656,7 +6376,7 @@ jr_000_38a9:
 	ret
 
 
-Call_000_38ae:
+WaitForTextScrollButtonPress:
 	ldh a, [$8b]
 	push af
 	ldh a, [$8c]
@@ -6697,7 +6417,7 @@ Call_000_38e1:
 	cp $04
 	jr z, jr_000_38f0
 
-	call Call_000_38ae
+	call WaitForTextScrollButtonPress
 	ld a, $90
 	jp PlaySound
 
@@ -6726,11 +6446,11 @@ Call_000_3902:
 	push af
 	ld a, $0d
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $7ed7
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	pop bc
 	pop de
 	pop hl
@@ -6764,7 +6484,7 @@ jr_000_393c:
 	ldh [$d5], a
 
 jr_000_3940:
-	call Call_000_0153
+	call Joypad
 	ldh a, [$b4]
 	bit 0, a
 	jr z, jr_000_394b
@@ -7051,12 +6771,12 @@ jr_000_3a99:
 	push af
 	ld a, $03
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $77d3
 	pop bc
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -7064,12 +6784,12 @@ jr_000_3a99:
 	push af
 	ld a, $03
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $7854
 	pop bc
 	ld a, b
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -7436,7 +7156,7 @@ jr_000_3c71:
 	ret
 
 
-Call_000_3c79:
+PrintText:
 Jump_000_3c79:
 	push hl
 	ld a, $01
@@ -7446,7 +7166,7 @@ Jump_000_3c79:
 	call Call_000_3e07
 	pop hl
 
-Call_000_3c89:
+PrintText_NoCreatingTextBox:
 	ld bc, wc4b9
 	jp Jump_000_05f1
 
@@ -7755,7 +7475,7 @@ jr_000_3dec:
 
 	call ClearSprites
 	ld a, $01
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call Call_000_3e38
 	call Call_000_374a
 	call Call_000_36ea
@@ -7817,7 +7537,7 @@ jr_000_3e36:
 
 
 Call_000_3e38:
-	ld hl, wcfab
+	ld hl, wFontLoaded
 	ld a, [hl]
 	push af
 	res 0, [hl]
@@ -7832,7 +7552,7 @@ Call_000_3e38:
 	pop hl
 	pop af
 	ld [hl], a
-	call Call_000_23ae
+	call LoadPlayerSpriteGraphics
 	call Call_000_36ca
 	jp UpdateSprites
 
@@ -7886,11 +7606,11 @@ Predef::
 	push af
 	ld a, $13
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call $7ea5
 	ld a, [wd094]
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ld de, .done
 	push de
 	jp hl
@@ -7898,7 +7618,7 @@ Predef::
 .done
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ret
 
 
@@ -7930,7 +7650,7 @@ Call_000_3ee5:
 	jr z, jr_000_3f1a
 
 	ld a, $11
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ldh [hLoadedROMBank], a
 	call $78c5
 	ldh a, [$ee]
@@ -7938,7 +7658,7 @@ Call_000_3ee5:
 	jr nz, jr_000_3f0d
 
 	ld a, [wcd3e]
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ldh [hLoadedROMBank], a
 	ld de, $3f0a
 	push de
@@ -7962,7 +7682,7 @@ jr_000_3f1a:
 jr_000_3f1c:
 	ldh [$eb], a
 	pop af
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	ldh [hLoadedROMBank], a
 	ret
 
@@ -7970,10 +7690,10 @@ jr_000_3f1c:
 	ldh [$8c], a
 	ld hl, $3f52
 	call Call_000_3f3f
-	ld hl, wcf0c
+	ld hl, wTextPredefFlag
 	set 0, [hl]
-	call Call_000_13f1
-	ld hl, wd2eb
+	call DisplayTextID
+	ld hl, wMapTextPtr
 	ldh a, [$ec]
 	ld [hli], a
 	ldh a, [$ed]
@@ -7982,12 +7702,12 @@ jr_000_3f1c:
 
 
 Call_000_3f3f:
-	ld a, [wd2eb]
+	ld a, [wMapTextPtr]
 	ldh [$ec], a
 	ld a, [wd2ec]
 	ldh [$ed], a
 	ld a, l
-	ld [wd2eb], a
+	ld [wMapTextPtr], a
 	ld a, h
 	ld [wd2ec], a
 	ret

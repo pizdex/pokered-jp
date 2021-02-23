@@ -424,7 +424,7 @@ Call_008_42cf:
 	ld [wcf73], a
 	xor a
 	ld [wcf7a], a
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	inc a
 	ld [wd093], a
 	ld a, [wcc2b]
@@ -880,7 +880,7 @@ jr_008_43b5:
 	cp $0c
 	ret nz
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $ef
 	ld a, $02
 	jr z, jr_008_451a
@@ -902,7 +902,7 @@ jr_008_451a:
 	cp $08
 	ret nz
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $ef
 	ld a, $02
 	jr z, jr_008_453a
@@ -3824,7 +3824,7 @@ Call_008_53b5:
 	sub l
 	cp $00
 	add $52
-	ld [$2000], a
+	ld [MBC1RomBank], a
 	call c, wcb13
 	push hl
 	or b

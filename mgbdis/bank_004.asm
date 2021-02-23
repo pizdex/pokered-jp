@@ -3602,6 +3602,7 @@ jr_004_56ff:
 	db $85, $48, $a8, $f0, $ef, $57, $e5, $42, $0b, $f5, $4f, $1a, $a2, $6b, $e2, $68
 	db $ff, $2b, $e7, $fd, $10, $80
 
+UpdateSpriteFacingOffsetAndDelayMovement::
 	ld h, $c2
 	ldh a, [$da]
 	add $08
@@ -3645,7 +3646,7 @@ Jump_004_5b0c:
 	xor a
 	ld [wcc35], a
 	ld [wd05a], a
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	call $2df3
 	jr jr_004_5b2c
 
@@ -4150,7 +4151,7 @@ jr_004_5df4:
 	xor a
 	ld [wcf7a], a
 	ld a, $03
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, [wcc2c]
 	ld [wcc26], a
 	call $16f7
@@ -4261,7 +4262,7 @@ jr_004_5eba:
 
 
 jr_004_5ecb:
-	ld a, [wcfb2]
+	ld a, [wUpdateSpritesEnabled]
 	push af
 	call $3104
 	ld a, [wcd65]
@@ -4271,13 +4272,13 @@ jr_004_5ecb:
 	call $3e04
 	call $3dee
 	pop af
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	jp Jump_004_5de6
 
 
 Jump_004_5ee7:
 	pop af
-	ld [wcfb2], a
+	ld [wUpdateSpritesEnabled], a
 	jp Jump_004_5de0
 
 
@@ -8715,7 +8716,7 @@ Call_004_763f:
 	ld a, $02
 
 jr_004_7650:
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	push hl
 	ld a, [wcf80]
 	ld b, a
@@ -9884,7 +9885,7 @@ jr_004_7dbd:
 	ld a, [wd823]
 	jr z, jr_004_7de3
 
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $25
 	jr c, jr_004_7e31
 
@@ -10044,7 +10045,7 @@ jr_004_7ea2:
 	xor a
 
 jr_004_7eb0:
-	ld [wcf7b], a
+	ld [wListMenuID], a
 	ld a, $48
 	call $3e9d
 	ld hl, $7ebe

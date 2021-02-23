@@ -555,7 +555,7 @@ jr_000_060c:
 
 
 	push bc
-	call Call_000_0153
+	call Joypad
 	ldh a, [$b4]
 	and $03
 	jr nz, jr_000_06cf
@@ -637,7 +637,7 @@ jr_000_0721:
 	ld a, $75
 	ld [hli], a
 	push de
-	call Call_000_0153
+	call Joypad
 	pop de
 	ldh a, [$b4]
 	and $03

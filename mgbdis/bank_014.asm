@@ -3064,7 +3064,7 @@ jr_014_4c23:
 	call c, $b2d9
 	ld a, a
 	cp d
-	call nz, wd47f
+	call nz, $d47f
 	ret c
 
 	rst $08
@@ -4096,7 +4096,7 @@ jr_014_50e2:
 	pop bc
 	ld [c], a
 	rst $18
-	call nz, wd47f
+	call nz, $d47f
 	jp nc, wd6c3
 
 	ld e, b
@@ -6509,7 +6509,7 @@ Jump_014_5ba6:
 	ld de, $5dcf
 	call $339c
 	ldh a, [$8c]
-	ld [wcf0e], a
+	ld [wSpriteIndex], a
 	call $33b2
 	call $331f
 	xor a
@@ -12596,7 +12596,7 @@ jr_014_7959:
 
 	inc a
 	ld [wccd9], a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $d9
 	jr c, jr_014_7971
 
@@ -12683,7 +12683,7 @@ jr_014_79de:
 
 
 	ld hl, $7a54
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	ld b, a
 
 jr_014_79f2:
@@ -12702,7 +12702,7 @@ jr_014_79f2:
 	jr z, jr_014_7a0f
 
 	ld b, a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $eb
 	ret nz
 
@@ -12727,7 +12727,7 @@ jr_014_7a0f:
 	ld a, e
 	ld c, a
 	ld [wd6bf], a
-	ld a, [wd2dd]
+	ld a, [wCurMap]
 	cp $eb
 	jr nz, jr_014_7a39
 
@@ -13582,7 +13582,7 @@ jr_014_7e93:
 	ld d, l
 	inc [hl]
 	cp b
-	call nc, wd47f
+	call nc, $d47f
 	cp c
 	inc [hl]
 	inc sp
