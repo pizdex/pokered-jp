@@ -10678,7 +10678,7 @@ jr_015_6dbd:
 	ld hl, $6ed1
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_015_6ec3
 
@@ -10975,7 +10975,7 @@ jr_015_6fe4:
 	ld b, d
 	and a
 	db $e3
-	jp z, wd67f
+	jp z, wWalkBikeSurfState
 
 	call c, $4fb2
 	ld d, h
@@ -11163,7 +11163,7 @@ jr_015_6fe4:
 	ld hl, $7119
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_015_710b
 
@@ -11481,7 +11481,7 @@ jr_015_7244:
 	ld hl, $7411
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ld hl, $752a
 	jp nz, Jump_015_740b
@@ -11617,7 +11617,7 @@ jr_015_7359:
 	call $3130
 	call $3636
 	ld hl, $751f
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jp nz, Jump_015_7405
 
@@ -12116,7 +12116,7 @@ jr_015_7528:
 	ld hl, $760c
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_015_75fe
 
@@ -13167,7 +13167,7 @@ jr_015_7ab5:
 	add hl, bc
 	ld a, [hl]
 	ld [wd092], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $2f2e
 	ld bc, $0023
 	add hl, bc
@@ -13227,7 +13227,7 @@ jr_015_7ab5:
 
 jr_015_7b4f:
 	xor a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld hl, $708a
 	ld b, $0f
 	call $3620
@@ -13260,7 +13260,7 @@ jr_015_7b7e:
 	xor a
 	ld [wcc49], a
 	ld a, [wd092]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $1a
 	call $3e9d
 	ld hl, wccd3
@@ -13324,7 +13324,7 @@ jr_015_7bfc:
 	cp $02
 	ret c
 
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld hl, wcfe9
 	ld c, $07
 
@@ -13333,7 +13333,7 @@ jr_015_7c0f:
 	ldh [$95], a
 	ld a, [hl]
 	ldh [$96], a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ldh [$99], a
 	ld b, $02
 	call $3902

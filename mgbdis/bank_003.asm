@@ -66,7 +66,7 @@ jr_003_403a:
 	ldh a, [$b4]
 	and b
 	ldh [$b4], a
-	ldh a, [$b3]
+	ldh a, [hJoyPressed]
 	and b
 	ldh [$b3], a
 	ret
@@ -1703,7 +1703,7 @@ jr_003_4670:
 
 	xor a
 	ld [wcc36], a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld [wcc2c], a
 	pop hl
 	ld a, [hl]
@@ -2498,8 +2498,8 @@ jr_003_49e6:
 	ld hl, wd6b1
 	set 5, [hl]
 	ld a, $01
-	ld [wd67f], a
-	ld [wd0df], a
+	ld [wWalkBikeSurfState], a
+	ld [wWalkBikeSurfStateCopy], a
 	jp $2cfe
 
 
@@ -2512,8 +2512,8 @@ jr_003_4a1e:
 
 jr_003_4a21:
 	ld a, $02
-	ld [wd67f], a
-	ld [wd0df], a
+	ld [wWalkBikeSurfState], a
+	ld [wWalkBikeSurfStateCopy], a
 	jp $2cfe
 
 
@@ -2794,6 +2794,7 @@ jr_003_4b0e:
 	dec sp
 	rst $38
 
+PrintSafariZoneSteps::
 	ld a, [wCurMap]
 	cp $d9
 
@@ -3110,7 +3111,7 @@ jr_003_4d0e:
 	inc hl
 	ld [hl], a
 	ld a, [de]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	push de
 	ld a, [wcf79]
 	ld hl, wd257
@@ -5300,7 +5301,7 @@ jr_003_5717:
 jr_003_5726:
 	call $3e1d
 	ld a, $43
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $376d
 	ld hl, $68a9
 	call $3c79
@@ -5441,7 +5442,7 @@ jr_003_57fb:
 
 jr_003_57fd:
 	ldh a, [$98]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	xor a
 	ldh [$96], a
 	ldh [$97], a
@@ -5473,7 +5474,7 @@ jr_003_5828:
 	ld b, $63
 	jr nz, jr_003_5871
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ldh [$99], a
 	call $38f5
 	ld a, $ff
@@ -5514,7 +5515,7 @@ jr_003_585b:
 Jump_003_5871:
 jr_003_5871:
 	ld a, b
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 
 jr_003_5875:
 	ld c, $14
@@ -5535,7 +5536,7 @@ jr_003_5875:
 	ld [wcf78], a
 	pop af
 	ld [wcf79], a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp $10
 	ld hl, $59a7
 	jp z, Jump_003_5992
@@ -5604,7 +5605,7 @@ jr_003_58ee:
 	ld a, [wcfcc]
 	ld [wd0e1], a
 	ld [wcf78], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, [wd037]
 	dec a
 	jr z, jr_003_598f
@@ -5613,7 +5614,7 @@ jr_003_58ee:
 	call $3c79
 	ld a, $3a
 	call $3e9d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld c, a
 	ld b, $02
@@ -5622,7 +5623,7 @@ jr_003_58ee:
 	call $3e9d
 	ld a, c
 	push af
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld c, a
 	ld b, $01
@@ -5636,7 +5637,7 @@ jr_003_58ee:
 	call $3c79
 	call $0188
 	ld a, [wcfcc]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $3d
 	call $3e9d
 
@@ -5869,8 +5870,8 @@ jr_003_5998:
 	and a
 	jp nz, Jump_003_679f
 
-	ld a, [wd67f]
-	ld [wd0df], a
+	ld a, [wWalkBikeSurfState]
+	ld [wWalkBikeSurfStateCopy], a
 	cp $02
 	jp z, Jump_003_679f
 
@@ -5879,7 +5880,7 @@ jr_003_5998:
 
 	call Call_003_6cd0
 	xor a
-	ld [wd67f], a
+	ld [wWalkBikeSurfState], a
 	call $0d9b
 	ld hl, $68c9
 	jr jr_003_5acb
@@ -5892,7 +5893,7 @@ jr_003_5ab5:
 	xor a
 	ldh [$b4], a
 	inc a
-	ld [wd67f], a
+	ld [wWalkBikeSurfState], a
 	ld hl, $68ba
 	call $0d9b
 
@@ -5900,8 +5901,8 @@ jr_003_5acb:
 	jp $3c79
 
 
-	ld a, [wd67f]
-	ld [wd0df], a
+	ld a, [wWalkBikeSurfState]
+	ld [wWalkBikeSurfStateCopy], a
 	cp $02
 	jr z, jr_003_5af4
 
@@ -5912,7 +5913,7 @@ jr_003_5acb:
 	ld hl, wd6af
 	set 7, [hl]
 	ld a, $02
-	ld [wd67f], a
+	ld [wWalkBikeSurfState], a
 	call $0d9b
 	ld hl, $5b55
 	jp $3c79
@@ -5953,7 +5954,7 @@ jr_003_5b1b:
 	ld hl, wd6af
 	set 7, [hl]
 	xor a
-	ld [wd67f], a
+	ld [wWalkBikeSurfState], a
 	dec a
 	ld [wcd66], a
 	call $0d9b
@@ -6577,7 +6578,7 @@ Jump_003_5ed6:
 	push hl
 	ld a, [hl]
 	ld [wd092], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld bc, $0021
 	add hl, bc
 	ld a, [hl]
@@ -6735,7 +6736,7 @@ Jump_003_5f5f:
 	ld a, d
 	ld [wcf79], a
 	ld a, e
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	xor a
 	ld [wcc49], a
 	call $2d68
@@ -7508,7 +7509,7 @@ jr_003_63dc:
 	ld [wd036], a
 
 jr_003_63ef:
-	ld hl, wd67f
+	ld hl, wWalkBikeSurfState
 	ld a, [hl]
 	push af
 	push hl
@@ -7535,7 +7536,7 @@ jr_003_640b:
 	call Call_003_6bc3
 	ret c
 
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	cp $02
 	jr z, jr_003_642b
 
@@ -7687,7 +7688,7 @@ jr_003_64d8:
 	call Call_003_69b6
 	push hl
 	ld a, [hl]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1b6d
 	call $386e
 	pop hl
@@ -7710,7 +7711,7 @@ jr_003_6512:
 	add $40
 	ld [hl], a
 	ld a, $01
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call Call_003_68d9
 	ld hl, $6613
 	call $3c79
@@ -7761,7 +7762,7 @@ Call_003_6562:
 	call Call_003_69b6
 	ld bc, $0015
 	add hl, bc
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld b, a
 	ld a, [wcd3d]
 	cp $51
@@ -7798,7 +7799,7 @@ Jump_003_6597:
 	dec [hl]
 	dec [hl]
 	xor a
-	ld hl, wcc26
+	ld hl, wCurrentMenuItem
 	ld [hli], a
 	ld [hl], a
 	ld b, $04
@@ -7819,7 +7820,7 @@ jr_003_65a4:
 	inc [hl]
 
 jr_003_65bb:
-	ld hl, wcc26
+	ld hl, wCurrentMenuItem
 	inc [hl]
 	pop bc
 	dec b
@@ -7930,10 +7931,10 @@ Jump_003_663a:
 
 jr_003_664b:
 	inc a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $44
 	call $3e9d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [wd0bd], a
 	call $1b6d
 	call $386e
@@ -7952,7 +7953,7 @@ jr_003_6669:
 	ld a, $14
 	ld [wd0ea], a
 	call $3130
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr z, jr_003_668c
 
@@ -8434,11 +8435,11 @@ jr_003_68f9:
 	cp $05
 	ret z
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	jr nz, jr_003_690b
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	inc a
 	cp b
 	jr nz, jr_003_6911
@@ -8483,7 +8484,7 @@ jr_003_6934:
 jr_003_693c:
 	add b
 	ld b, a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	jr z, jr_003_6947
 
@@ -8558,11 +8559,11 @@ jr_003_699e:
 	inc hl
 	ld [hl], a
 	xor a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call Call_003_6915
 	ld a, [hl]
 	and $3f
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ret
 
 
@@ -8571,7 +8572,7 @@ Call_003_69b6:
 	call $3ad1
 
 Call_003_69bc:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -8593,7 +8594,7 @@ Call_003_69bc:
 
 	push hl
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	call $386e
 	ld hl, $6a35
@@ -8613,7 +8614,7 @@ Call_003_69bc:
 	ld a, [wcf79]
 	call $16cc
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	call $386e
 	ld hl, $6a28
@@ -9196,7 +9197,7 @@ Call_003_6cfb:
 	ld b, $0a
 
 jr_003_6cfe:
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp [hl]
 	jr nz, jr_003_6d07
 
@@ -10230,12 +10231,12 @@ jr_003_7681:
 	jr nz, jr_003_76e9
 
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	push de
 	ld a, $3a
 	call $3e9d
 	pop de
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld c, a
 	ld b, $02
@@ -10243,7 +10244,7 @@ jr_003_7681:
 	call Call_003_799f
 	ld a, c
 	ld [wd118], a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld c, a
 	ld b, $01
@@ -10485,10 +10486,10 @@ jr_003_77cd:
 	ld bc, $0006
 	call $01bb
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $3a
 	call $3e9d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld c, a
 	ld b, $01
@@ -10858,7 +10859,7 @@ jr_003_7a21:
 jr_003_7a3c:
 	xor a
 	ld [wcf79], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, [wd123]
 	ld b, a
 

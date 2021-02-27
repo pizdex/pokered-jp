@@ -4691,7 +4691,7 @@ Jump_018_56de:
 	xor a
 	sub $cb
 	or $af
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld a, $03
 	ld [wcc29], a
 	ld a, [wcd37]
@@ -4720,7 +4720,7 @@ Jump_018_56de:
 	jr nz, jr_018_581a
 
 	ld hl, wcc5b
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld d, $00
 	ld e, a
 	add hl, de
@@ -4753,7 +4753,7 @@ Jump_018_57e7:
 	ld hl, $5821
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_018_581a
 
@@ -4937,7 +4937,7 @@ Jump_018_58b8:
 	jp wd9b8
 
 
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	db $db
 	cp h
 	db $e3
@@ -4975,7 +4975,7 @@ jr_018_58ef:
 	ret z
 
 	push hl
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ld hl, wc3ca
 	ldh a, [$db]
@@ -4990,11 +4990,11 @@ jr_018_58ef:
 
 Call_018_5912:
 	ld a, [wd68f]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	call $386e
 	ld a, [wd68e]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ret
 
@@ -7726,7 +7726,7 @@ jr_018_6571:
 	ret nz
 
 	dec a
-	jp wd67f
+	jp wWalkBikeSurfState
 
 
 	cp b

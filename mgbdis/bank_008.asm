@@ -103,8 +103,8 @@ jr_008_40a5:
 	ld a, $01
 	ld [wcc25], a
 	xor a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld a, $01
 	ldh [$ba], a
 
@@ -191,7 +191,7 @@ Call_008_40d2:
 Jump_008_4115:
 jr_008_4115:
 	ld a, [wccd3]
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld hl, $9780
 	ld de, $6d11
 	ld bc, $0e01
@@ -243,7 +243,7 @@ jr_008_4115:
 	jp nz, Jump_008_41a6
 
 	call $3c1c
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wccd3], a
 	and a
 	jp z, Jump_008_4229
@@ -393,7 +393,7 @@ jr_008_4293:
 	ld hl, $44c7
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_008_4293
 
@@ -428,9 +428,9 @@ Call_008_42cf:
 	inc a
 	ld [wd093], a
 	ld a, [wcc2b]
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	call $16f7
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wcc2b], a
 	ret
 
@@ -565,7 +565,7 @@ jr_008_4394:
 	bit 1, a
 	jr nz, jr_008_43a4
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr z, jr_008_43a6
 

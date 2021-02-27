@@ -4,6 +4,7 @@ INCLUDE "macros/data.asm"
 INCLUDE "macros/code.asm"
 
 INCLUDE "macros/scripts/text.asm"
+INCLUDE "macros/scripts/events.asm"
 
 
 dr: MACRO

@@ -5133,13 +5133,13 @@ jr_01c_5bb5:
 
 
 	xor a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld b, a
 	inc a
 	jr jr_01c_5bce
 
 	ld hl, wcf19
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -5188,7 +5188,7 @@ jr_01c_5c01:
 	push bc
 	ld hl, wOAMBuffer + $02
 	ld bc, $0010
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	call $3ad1
 	ld c, $40
 	ld a, [hl]
@@ -5393,10 +5393,10 @@ jr_01c_5da1:
 
 
 Call_01c_5dad:
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $3a
 	call $3e9d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld c, a
 	dec a
 	srl a
@@ -5552,7 +5552,7 @@ jr_01c_5e00:
 	ld a, $01
 	ld [wcd12], a
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_01c_6020
 
@@ -5581,7 +5581,7 @@ jr_01c_6020:
 
 Call_01c_6032:
 	push de
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld hl, wcd68
 	pop de
@@ -6512,7 +6512,7 @@ Call_01c_6577:
 	ld a, [hl]
 
 Call_01c_657d:
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	and a
 	jr z, jr_01c_658d
 
@@ -6520,7 +6520,7 @@ Call_01c_657d:
 	ld a, $3a
 	call $3e9d
 	pop bc
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 
 jr_01c_658d:
 	ld e, a
@@ -11368,7 +11368,7 @@ Call_01c_7bb1:
 	ld a, $14
 	ld [wd0ea], a
 	call $3130
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ret
 
 
@@ -11511,7 +11511,7 @@ jr_01c_7d0a:
 	ld hl, $7d79
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ret nz
 
@@ -11532,7 +11532,7 @@ jr_01c_7d0a:
 	ld d, h
 	ld hl, wd9b2
 	call Call_01c_7da6
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	set 7, a
 	ld [wd51f], a
 	call Call_01c_7cf9
@@ -11633,8 +11633,8 @@ Call_01c_7dd4:
 	ld [wcc37], a
 	ld a, [wd51f]
 	and $7f
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld hl, wc3a0
 	ld b, $02
 	ld c, $09

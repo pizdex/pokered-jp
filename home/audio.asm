@@ -19,7 +19,7 @@ PlayDefaultMusicFadeOutCurrent:
 	ld d, c
 
 PlayDefaultMusicCommon:
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	and a
 	jr z, jr_000_0dd7
 

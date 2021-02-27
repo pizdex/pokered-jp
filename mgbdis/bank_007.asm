@@ -294,7 +294,7 @@ jr_007_4129:
 	ld a, $14
 	ld [wd0ea], a
 	call $3130
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jp z, $09da
 
@@ -342,7 +342,7 @@ jr_007_4129:
 	ld a, [wcc36]
 	push af
 	xor a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld [wcc36], a
 	ld [wcf7a], a
 	ld a, $04
@@ -1253,7 +1253,7 @@ jr_007_4770:
 	ld a, [wcd3d]
 	ld [wd694], a
 	ld [wcf78], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld a, $01
 	ldh [$8c], a
@@ -1871,7 +1871,7 @@ jr_007_4bc8:
 
 jr_007_4bcc:
 	ld [wcf78], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, b
 	ld [wSpriteIndex], a
 	ld a, [wd6ca]
@@ -2007,13 +2007,13 @@ jr_007_4c9f:
 	ld a, $01
 	ld [wcc3c], a
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_007_4d0b
 
 	ld a, [wcf78]
 	ld [wd696], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld a, [wSpriteIndex]
 	cp $02
@@ -2047,7 +2047,7 @@ jr_007_4cd1:
 	ld a, $05
 	ld [wd0ec], a
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $3971
 	ld hl, wd6ad
 	set 3, [hl]
@@ -2114,7 +2114,7 @@ Jump_007_4d3e:
 	ld hl, wd27b
 	ld b, $13
 	call $1690
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp $02
 	jr c, jr_007_4d97
 
@@ -2136,7 +2136,7 @@ jr_007_4d97:
 	ld hl, wd27b
 	ld b, $13
 	call $1690
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp $02
 	jr nc, jr_007_4e14
 
@@ -4220,8 +4220,8 @@ jr_007_5c3d:
 	ld hl, $5cb4
 	call $3c79
 	xor a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld a, $03
 	ld [wcc29], a
 	ld a, $01
@@ -4248,7 +4248,7 @@ jr_007_5c3d:
 
 	ld hl, wd6af
 	res 6, [hl]
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_007_5c97
 
@@ -5589,7 +5589,7 @@ jr_007_61ea:
 Call_007_6258:
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ret
 
@@ -8264,7 +8264,7 @@ jr_007_6ec6:
 	push bc
 	ret nz
 
-	jp z, wd67f
+	jp z, wWalkBikeSurfState
 
 jr_007_6f40:
 	cp b
@@ -9708,7 +9708,7 @@ jr_007_7593:
 	db $76
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_007_765e
 
@@ -10294,7 +10294,7 @@ jr_007_77a1:
 	ld hl, $7937
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_007_792e
 
@@ -10460,7 +10460,7 @@ jr_007_7966:
 	ld hl, wd27b
 	ld b, $13
 	call $1690
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp $02
 	ld a, $06
 	jr c, jr_007_79ee
@@ -11056,7 +11056,7 @@ Call_007_7c84:
 	call $3636
 	ldh a, [$dc]
 	ld c, a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp c
 	jr nz, jr_007_7caa
 
@@ -11382,8 +11382,8 @@ jr_007_7df6:
 	call $3c79
 	xor a
 	ld [wd059], a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld a, $03
 	ld [wcc29], a
 	ld a, $04
@@ -11410,7 +11410,7 @@ jr_007_7e80:
 	bit 1, a
 	jr nz, jr_007_7ec7
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	add $66
 	cp $66
 	jr z, jr_007_7ebf

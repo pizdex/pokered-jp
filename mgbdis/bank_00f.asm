@@ -1315,7 +1315,7 @@ jr_00f_484e:
 
 
 jr_00f_4865:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr z, jr_00f_484e
 
@@ -1660,7 +1660,7 @@ jr_00f_4a72:
 	ld a, [hl]
 	ld [wcce4], a
 	ld a, $01
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld a, [wd0e2]
 	dec a
 	jr z, jr_00f_4b10
@@ -1684,7 +1684,7 @@ jr_00f_4a72:
 	ld a, $14
 	ld [wd0ea], a
 	call $3130
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_00f_4b10
 
@@ -1694,7 +1694,7 @@ jr_00f_4a72:
 
 jr_00f_4ae3:
 	ld a, $01
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	jr c, jr_00f_4b07
 
 	ld hl, wcc2f
@@ -1714,7 +1714,7 @@ jr_00f_4afe:
 	jr z, jr_00f_4af9
 
 	xor a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 
 jr_00f_4b07:
 	call $3e15
@@ -1745,7 +1745,7 @@ jr_00f_4b10:
 	ld a, [wcfbf]
 	call $2dc7
 	call Call_00f_4f49
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ret nz
 
@@ -2153,7 +2153,7 @@ Jump_00f_4e00:
 	xor a
 	ld [$ffe1], a
 	ld [wcc2e], a
-	ld [wcc2d], a
+	ld [wBattleAndStartSavedMenuItem], a
 	ld [wcc5b], a
 	ld [wd038], a
 	ld [wcfb9], a
@@ -2496,16 +2496,16 @@ jr_00f_502c:
 	db $b5, $2c, $b2, $bb, $de, $50
 
 Jump_00f_5074:
-	ld a, [wcc2d]
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld a, [wBattleAndStartSavedMenuItem]
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	sub $02
 
 Jump_00f_507f:
 	jr c, jr_00f_5089
 
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	jr jr_00f_50c8
 
 jr_00f_5089:
@@ -2581,14 +2581,14 @@ jr_00f_50ef:
 	bit 5, a
 	jr nz, jr_00f_5089
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	add $02
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 
 jr_00f_510e:
 	call $3c1c
-	ld a, [wcc26]
-	ld [wcc2d], a
+	ld a, [wCurrentMenuItem]
+	ld [wBattleAndStartSavedMenuItem], a
 	and a
 	jr nz, jr_00f_512f
 
@@ -2666,9 +2666,9 @@ jr_00f_5183:
 	ld a, $03
 	ld [wListMenuID], a
 	ld a, [wcc2c]
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	call $16f7
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wcc2c], a
 	ld a, $00
 	ld [wcc37], a
@@ -2677,7 +2677,7 @@ jr_00f_5183:
 Jump_00f_51a3:
 jr_00f_51a3:
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	call $386e
 	xor a
@@ -2686,7 +2686,7 @@ jr_00f_51a3:
 	call Call_00f_714c
 	call $0188
 	xor a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld a, [wd037]
 	cp $02
 	jr z, jr_00f_51e0
@@ -2825,7 +2825,7 @@ Jump_00f_526d:
 	jr nz, jr_00f_5259
 
 	call $3c1c
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp $02
 	jr z, jr_00f_5244
 
@@ -2914,7 +2914,7 @@ Jump_00f_5310:
 	call Call_00f_4ded
 	call $3761
 	ld a, $02
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	and a
 	ret
 
@@ -2933,7 +2933,7 @@ Jump_00f_5310:
 Jump_00f_5358:
 	call $376d
 	ld a, $03
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld hl, wd010
 	ld de, wcfe1
 	call Call_00f_4be4
@@ -3104,9 +3104,9 @@ jr_00f_5457:
 	push af
 	xor a
 	ld [wcc35], a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	dec a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld b, a
 	ld a, [wccdb]
 	dec a
@@ -3131,7 +3131,7 @@ jr_00f_5489:
 	ret nz
 
 	ld hl, wd014
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -3151,7 +3151,7 @@ jr_00f_5489:
 	jr nz, jr_00f_54ac
 
 jr_00f_54ac:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld hl, wd003
 	ld c, a
 	ld b, $00
@@ -3225,19 +3225,19 @@ jr_00f_54c4:
 	and $50
 
 Jump_00f_54fc:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jp nz, Jump_00f_5427
 
 	call $3c29
 	ld a, [wcd67]
 	inc a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	jp Jump_00f_5427
 
 
 Jump_00f_5510:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld b, a
 	ld a, [wcd67]
 	inc a
@@ -3247,7 +3247,7 @@ Jump_00f_5510:
 
 	call $3c29
 	ld a, $01
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	jp Jump_00f_5427
 
 
@@ -3335,7 +3335,7 @@ Jump_00f_5579:
 	swap a
 	and $0f
 	ld b, a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp b
 	jr nz, jr_00f_55a7
 
@@ -3356,7 +3356,7 @@ jr_00f_55a7:
 	ld a, [hl]
 	and $0f
 	ld b, a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	swap a
 	add b
 	ld [hl], a
@@ -3387,7 +3387,7 @@ Call_00f_55d7:
 	ld d, h
 	ld e, l
 	pop hl
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	dec a
 	ld c, a
 	ld b, $00
@@ -3401,7 +3401,7 @@ Call_00f_55d7:
 
 
 jr_00f_55f1:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wcc35], a
 	jp Jump_00f_5377
 
@@ -3420,7 +3420,7 @@ Call_00f_55fa:
 	swap a
 	and $0f
 	ld b, a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp b
 	jr nz, jr_00f_5623
 
@@ -3430,12 +3430,12 @@ Call_00f_55fa:
 	jr jr_00f_5692
 
 jr_00f_5623:
-	ld hl, wcc26
+	ld hl, wCurrentMenuItem
 	dec [hl]
 	xor a
 	ldh [$f3], a
 	ld hl, wd003
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -3448,7 +3448,7 @@ jr_00f_5623:
 	ld hl, $694a
 	ld b, $03
 	call $3620
-	ld hl, wcc26
+	ld hl, wCurrentMenuItem
 	ld c, [hl]
 	inc [hl]
 	ld b, $00
@@ -3469,7 +3469,7 @@ jr_00f_5623:
 	ld bc, $0102
 	call $3c8f
 	ld hl, wc4b5
-	ld de, wd0e3
+	ld de, wNumSetBits
 	ld bc, $0102
 	call $3c8f
 	call Call_00f_6dae
@@ -4292,7 +4292,7 @@ Jump_00f_5b82:
 	jp z, Jump_00f_5ba1
 
 	ld a, $63
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1b6d
 	call $386e
 	xor a
@@ -4553,7 +4553,7 @@ jr_00f_5ca8:
 	res 4, a
 	ld [de], a
 	ld a, [hl]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1b6d
 	ld hl, $5cb9
 	jp $3c79
@@ -4644,14 +4644,14 @@ Call_00f_5d18:
 
 jr_00f_5d33:
 	ld [hl], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call Call_00f_5db7
 	ld a, [wcced]
 	and a
 	ld hl, $5d56
 	ret nz
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp $03
 	ld hl, $5d56
 	ret c
@@ -4697,7 +4697,7 @@ jr_00f_5d71:
 	db $00, $4f, $50, $01, $45, $cf, $08
 
 	ld hl, $5d8d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	add a
 	push bc
 	ld b, $00
@@ -4747,7 +4747,7 @@ jr_00f_5d71:
 
 Call_00f_5db7:
 	push bc
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld c, a
 	ld b, $00
 	ld hl, $5dd5
@@ -4768,7 +4768,7 @@ jr_00f_5dc1:
 
 jr_00f_5dcf:
 	ld a, b
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	pop bc
 	ret
 
@@ -5094,7 +5094,7 @@ jr_00f_5fbe:
 	add b
 	pop hl
 	push af
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -5107,7 +5107,7 @@ jr_00f_5fbe:
 	ld [wcced], a
 	ld a, [wcc28]
 	ld b, a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 
 jr_00f_5fec:
@@ -5119,7 +5119,7 @@ jr_00f_5fec:
 	cp c
 	jr z, jr_00f_5fec
 
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld hl, wd014
 	ld e, a
 	ld d, $00
@@ -5128,7 +5128,7 @@ jr_00f_5fec:
 	and a
 	jr z, jr_00f_5fec
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $00
 	ld hl, wd003
@@ -6274,7 +6274,7 @@ jr_00f_65eb:
 	ld e, b
 
 jr_00f_660b:
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	dec a
 	ld hl, $5658
 	ld bc, $0006
@@ -6361,7 +6361,7 @@ Call_00f_6687:
 	ld d, a
 	ld e, [hl]
 	ld a, [wcfbc]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ldh a, [$f3]
 	and a
 	jr z, jr_00f_66b0
@@ -6375,10 +6375,10 @@ Call_00f_6687:
 	ld d, a
 	ld e, [hl]
 	ld a, [wcfb6]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 
 jr_00f_66b0:
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp b
 	jr z, jr_00f_66bb
 
@@ -6405,7 +6405,7 @@ jr_00f_66bb:
 	set 7, [hl]
 
 jr_00f_66d5:
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld b, a
 	ld hl, $6756
 
@@ -6481,7 +6481,7 @@ jr_00f_672a:
 	inc hl
 	ld c, [hl]
 	ld a, $10
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld hl, $6756
 
 jr_00f_673d:
@@ -6510,7 +6510,7 @@ jr_00f_674e:
 
 jr_00f_6751:
 	ld a, [hl]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ret
 
 
@@ -7759,7 +7759,7 @@ Jump_00f_6d8b:
 	jp z, Jump_00f_6daa
 
 	ld a, $63
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1b6d
 	call $386e
 	xor a
@@ -7954,17 +7954,17 @@ jr_00f_6ecd:
 	ld a, [hl]
 	ld [de], a
 	ld a, [wcfbf]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld hl, wcd68
 	ld de, wcfc1
 	ld bc, $0006
 	call $01bb
 	ld a, [wcfbf]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $3a
 	call $3e9d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld c, a
 	ld b, $01
@@ -8253,7 +8253,7 @@ jr_00f_708c:
 Call_00f_7096:
 	push bc
 	push bc
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	and a
 	ld a, c
 	ld hl, wd00c
@@ -10688,14 +10688,14 @@ jr_00f_7e07:
 	bit 6, a
 	jr nz, jr_00f_7e41
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	push af
 	ld a, $01
 	ld [wccdb], a
 	call Call_00f_5377
 	call $376d
 	ld hl, wcfd4
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld b, $00
 	add hl, bc
@@ -10709,7 +10709,7 @@ jr_00f_7e2c:
 	add hl, bc
 	ld a, d
 	ld [hl], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1b6d
 	call Call_00f_7fdb
 	ld hl, $7e44
@@ -10774,7 +10774,7 @@ jr_00f_7e81:
 	and a
 	jr z, jr_00f_7e81
 
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	push hl
 	ldh a, [$f3]
 	and a
@@ -10824,7 +10824,7 @@ jr_00f_7eba:
 	inc hl
 
 jr_00f_7ed1:
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [hl], a
 	call $1b6d
 	ld hl, $7ee2

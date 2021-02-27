@@ -272,7 +272,7 @@ jr_017_4174:
 	ld hl, $4223
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_017_41db
 
@@ -333,7 +333,7 @@ Jump_017_41fa:
 	ld hl, $4270
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp $00
 	jr nz, jr_017_4212
 
@@ -2309,7 +2309,7 @@ jr_017_49b4:
 	ld hl, $4acd
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_017_4ab6
 
@@ -2934,7 +2934,7 @@ jr_017_4d67:
 	sbc l
 	sub l
 	add b
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	sbc $33
 	reti
 
@@ -6267,7 +6267,7 @@ jr_017_5ba5:
 	sbc l
 	sub b
 	adc h
-	jp z, wd67f
+	jp z, wWalkBikeSurfState
 
 	or e
 	inc l
@@ -7881,7 +7881,7 @@ jr_017_632f:
 	ld hl, $6362
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_017_635f
 
@@ -7941,7 +7941,7 @@ jr_017_638f:
 	ld hl, $63c2
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_017_63bf
 
@@ -8001,7 +8001,7 @@ jr_017_63bf:
 	ret
 
 
-	jp z, wd67f
+	jp z, wWalkBikeSurfState
 
 	cp a
 	or e
@@ -10796,7 +10796,7 @@ jr_017_6fa2:
 	ldh [$db], a
 	ld a, $c8
 	ldh [$dc], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ld hl, wcd68
 	ld de, wcc5b
@@ -12630,7 +12630,7 @@ jr_017_78b5:
 	call $3ec4
 	ld bc, $0005
 	add hl, bc
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [wd092], a
 	push hl
 	call $2f2e
@@ -12866,8 +12866,8 @@ Jump_017_79a9:
 	call $3c79
 	xor a
 	ld [wd059], a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld a, $03
 	ld [wcc29], a
 	ld a, $03
@@ -12893,7 +12893,7 @@ Jump_017_7a21:
 	bit 1, a
 	jr nz, jr_017_7a63
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp $03
 	jr z, jr_017_7a63
 
@@ -13145,8 +13145,8 @@ jr_017_7ac1:
 	call $3c79
 	xor a
 	ld [wd059], a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld a, $33
 	ld [wcc29], a
 	ld a, $02
@@ -13203,7 +13203,7 @@ jr_017_7bcc:
 	jr jr_017_7b85
 
 jr_017_7be5:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld b, a
 	ld a, [wd059]
 	add b

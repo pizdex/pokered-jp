@@ -2536,14 +2536,14 @@ wcc22:: ds 1 ; cc22
 wcc23:: ds 1 ; cc23
 wcc24:: ds 1 ; cc24
 wcc25:: ds 1 ; cc25
-wcc26:: ds 1 ; cc26
+wCurrentMenuItem:: ds 1 ; cc26
 wcc27:: ds 1 ; cc27
 wcc28:: ds 1 ; cc28
 wcc29:: ds 1 ; cc29
-wcc2a:: ds 1 ; cc2a
+wLastMenuItem:: ds 1 ; cc2a
 wcc2b:: ds 1 ; cc2b
 wcc2c:: ds 1 ; cc2c
-wcc2d:: ds 1 ; cc2d
+wBattleAndStartSavedMenuItem:: ds 1 ; cc2d
 wcc2e:: ds 1 ; cc2e
 wcc2f:: ds 1 ; cc2f
 wcc30:: ds 1 ; cc30
@@ -3763,11 +3763,11 @@ wd0db:: ds 1 ; d0db
 wd0dc:: ds 1 ; d0dc
 wd0dd:: ds 1 ; d0dd
 wd0de:: ds 1 ; d0de
-wd0df:: ds 1 ; d0df
+wWalkBikeSurfStateCopy:: ds 1 ; d0df
 wd0e0:: ds 1 ; d0e0
 wd0e1:: ds 1 ; d0e1
 wd0e2:: ds 1 ; d0e2
-wd0e3:: ds 1 ; d0e3
+wNumSetBits:: ds 1 ; d0e3
 wd0e4:: ds 1 ; d0e4
 wd0e5:: ds 1 ; d0e5
 wd0e6:: ds 1 ; d0e6
@@ -5180,7 +5180,7 @@ wd67b:: ds 1 ; d67b
 wd67c:: ds 1 ; d67c
 wd67d:: ds 1 ; d67d
 wd67e:: ds 1 ; d67e
-wd67f:: ds 1 ; d67f
+wWalkBikeSurfState:: ds 1 ; d67f
 wd680:: ds 1 ; d680
 wd681:: ds 1 ; d681
 wd682:: ds 1 ; d682
@@ -5251,6 +5251,11 @@ wd6c2:: ds 1 ; d6c2
 wd6c3:: ds 1 ; d6c3
 wd6c4:: ds 1 ; d6c4
 wd6c5:: ds 1 ; d6c5
+UNION
+wEventFlags::
+	flag_array NUM_EVENTS
+
+NEXTU
 wd6c6:: ds 1 ; d6c6
 wd6c7:: ds 1 ; d6c7
 wd6c8:: ds 1 ; d6c8
@@ -5645,6 +5650,8 @@ wd84c:: ds 1 ; d84c
 wd84d:: ds 1 ; d84d
 wd84e:: ds 1 ; d84e
 wd84f:: ds 1 ; d84f
+ENDU
+
 wd850:: ds 1 ; d850
 wd851:: ds 1 ; d851
 wd852:: ds 1 ; d852

@@ -3160,14 +3160,14 @@ jr_016_4d93:
 	ld hl, $4df5
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_016_4dea
 
 	ld hl, wd27b
 	ld b, $13
 	call $1690
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ldh [$dd], a
 	ld b, a
 	ldh a, [$db]
@@ -10206,7 +10206,7 @@ jr_016_6c84:
 	ld hl, $6ccd
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_016_6cbc
 
@@ -13888,7 +13888,7 @@ jr_016_7c28:
 	ret c
 
 	ld a, a
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	sbc $33
 	ld a, a
 	or d

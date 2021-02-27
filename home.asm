@@ -47,144 +47,15 @@ INCLUDE "home/decompress.asm"
 INCLUDE "home/reset_player_sprite.asm"
 INCLUDE "home/fade_audio.asm"
 INCLUDE "home/text_script.asm"
+INCLUDE "home/start_menu.asm"
+INCLUDE "home/count_set_bits.asm"
 
-DisplayStartMenu:
-	ld a, $04
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	ld a, [wd67f]
-	ld [wd0df], a
-	ld a, $8f
-	call PlaySound
-	ld b, $01
-	ld hl, $72c0
-	call Bankswitch
-	ld b, $03
-	ld hl, $4b75
-	call Bankswitch
-	call UpdateSprites
-
-jr_000_1603:
-	call Call_000_3b08
-	ld b, a
-	bit 6, a
-	jr z, jr_000_1629
-
-	ld a, [wcc26]
-	and a
-	jr nz, jr_000_1603
-
-	ld a, [wcc2a]
-	and a
-	jr nz, jr_000_1603
-
-	ld a, [wd6ca]
-	bit 5, a
-	ld a, $06
-	jr nz, jr_000_1621
-
-	dec a
-
-jr_000_1621:
-	ld [wcc26], a
-	call Call_000_3c29
-	jr jr_000_1603
-
-jr_000_1629:
-	bit 7, a
-	jr z, jr_000_1646
-
-	ld a, [wd6ca]
-	bit 5, a
-	ld a, [wcc26]
-	ld c, $07
-	jr nz, jr_000_163a
-
-	dec c
-
-jr_000_163a:
-	cp c
-	jr nz, jr_000_1603
-
-	xor a
-	ld [wcc26], a
-	call Call_000_3c29
-	jr jr_000_1603
-
-jr_000_1646:
-	call Call_000_3c1c
-	ld a, [wcc26]
-	ld [wcc2d], a
-	ld a, b
-	and $0a
-	jp nz, Jump_000_1681
-
-	call Call_000_373e
-	ld a, [wd6ca]
-	bit 5, a
-	ld a, [wcc26]
-	jr nz, jr_000_1663
-
-	inc a
-
-jr_000_1663:
-	cp $00
-	jp z, $5af8
-
-	cp $01
-	jp z, $5b0c
-
-	cp $02
-	jp z, $5de6
-
-	cp $03
-	jp z, $5f60
-
-	cp $04
-	jp z, $60e6
-
-	cp $05
-	jp z, $60f9
-
-Jump_000_1681:
-jr_000_1681:
-	call Joypad
-	ldh a, [$b3]
-	bit 0, a
-	jr nz, jr_000_1681
-
-	call Call_000_36ea
-	jp CloseTextDisplay
-
-
-	ld c, $00
-
-jr_000_1692:
-	ld a, [hli]
-	ld e, a
-	ld d, $08
-
-jr_000_1696:
-	srl e
-	ld a, $00
-	adc c
-	ld c, a
-	dec d
-	jr nz, jr_000_1696
-
-	dec b
-	jr nz, jr_000_1692
-
-	ld a, c
-	ld [wd0e3], a
-	ret
-
-
+SubtractAmountPaidFromMoney::
 	ld b, $01
 	ld hl, $6abc
 	jp Jump_000_3620
 
-
+AddAmountSoldToMoney::
 	ld de, wd2cd
 	ld hl, $ffa1
 	ld c, $03
@@ -301,7 +172,7 @@ Jump_000_1765:
 	ld c, $50
 	call DelayFrames
 	xor a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld hl, wc3f5
 	ld a, l
 	ld [wcc30], a
@@ -311,7 +182,7 @@ Jump_000_1765:
 
 jr_000_1793:
 	call LoadGBPal
-	call Call_000_3b08
+	call HandleMenuInput
 	push af
 	call Call_000_3bc6
 	pop af
@@ -319,14 +190,14 @@ jr_000_1793:
 	jp z, Jump_000_1840
 
 jr_000_17a3:
-	ld a, [wcc26]
-	call Call_000_3c1c
+	ld a, [wCurrentMenuItem]
+	call PlaceUnfilledArrowMenuCursor
 	ld a, $01
 	ld [wd0f3], a
 	ld [wd0f2], a
 	xor a
 	ld [wcc37], a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld c, a
 	ld a, [wcc36]
 	add c
@@ -398,7 +269,7 @@ jr_000_1823:
 	call Call_000_386e
 	ld a, $01
 	ld [wd0f3], a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wd0f2], a
 	xor a
 	ld [$ffb7], a
@@ -472,7 +343,7 @@ jr_000_1894:
 Jump_000_18a1:
 jr_000_18a1:
 	call Call_000_3879
-	ldh a, [$b3]
+	ldh a, [hJoyPressed]
 	bit 0, a
 	jp nz, Jump_000_193c
 
@@ -582,7 +453,7 @@ Jump_000_193e:
 	db $f1, $f6, $f7, $50, $7f, $7f, $7f, $7f, $7f, $7f, $50
 
 Jump_000_194c:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wd0f2], a
 	ld a, $02
 	ld [wd0f3], a
@@ -631,7 +502,7 @@ Jump_000_1995:
 	ld a, b
 	ld [wcf79], a
 	ld a, [de]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	cp $ff
 	jp z, Jump_000_1aa1
 
@@ -700,7 +571,7 @@ jr_000_19fd:
 	and a
 	jr nz, jr_000_1a41
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	push af
 	push hl
 	ld hl, wd123
@@ -736,7 +607,7 @@ jr_000_1a35:
 	add hl, bc
 	call Call_000_2f02
 	pop af
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 
 jr_000_1a41:
 	pop hl
@@ -746,7 +617,7 @@ jr_000_1a41:
 	cp $03
 	jr nz, jr_000_1a8f
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [wcf78], a
 	call Call_000_3121
 	ld a, [wd0e9]
@@ -758,18 +629,18 @@ jr_000_1a41:
 	add hl, bc
 	ld a, $f1
 	ld [hli], a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	push af
 	ld a, [de]
 	ld [wcf7e], a
 	push de
-	ld de, wd0e3
+	ld de, wNumSetBits
 	ld [de], a
 	ld bc, $0102
 	call Call_000_3c8f
 	pop de
 	pop af
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	pop hl
 
 jr_000_1a7b:
@@ -819,7 +690,7 @@ Call_000_1aab:
 	ld a, $0e
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld hl, $5068
 	ld e, a
@@ -846,7 +717,7 @@ Call_000_1aab:
 Call_000_1add:
 	push hl
 	push bc
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp $c4
 	jr nc, jr_000_1af8
 
@@ -873,13 +744,13 @@ Jump_000_1b01:
 	push hl
 	push de
 	push bc
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	push af
 	cp $c9
 	jr nc, jr_000_1b19
 
 	add $05
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld hl, $1b4f
 	ld bc, $0006
 	jr jr_000_1b1f
@@ -891,7 +762,7 @@ jr_000_1b19:
 jr_000_1b1f:
 	ld de, wcd68
 	call CopyBytes
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	sub $c8
 	ld b, $f6
 
@@ -916,7 +787,7 @@ jr_000_1b33:
 	ld a, $50
 	ld [de], a
 	pop af
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	pop bc
 	pop de
 	pop hl
@@ -959,7 +830,7 @@ Call_000_1b6d:
 	push hl
 	ld a, $02
 	ld [wd093], a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [wd092], a
 	ld a, $04
 	ld [wd094], a
@@ -974,7 +845,7 @@ Call_000_1b6d:
 	ld a, [wCurMap]
 	call SwitchToMapRomBank
 	call DisableLCD
-	call Call_000_36ea
+	call LoadTextBoxTilePatterns
 	call LoadCurrentMapView
 	call Call_000_23ff
 	call EnableLCD
@@ -1579,7 +1450,7 @@ Jump_000_1e1f:
 	jr jr_000_1e6c
 
 jr_000_1e6a:
-	ldh a, [$b3]
+	ldh a, [hJoyPressed]
 
 jr_000_1e6c:
 	bit 3, a
@@ -1773,7 +1644,7 @@ jr_000_1f95:
 	ld a, [wd4a9]
 	ld [wd4a7], a
 	call UpdateSprites
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	cp $02
 	jr z, jr_000_1fbf
 
@@ -1818,7 +1689,7 @@ jr_000_1fdb:
 jr_000_1fde:
 	ld hl, wcd5b
 	res 2, [hl]
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	dec a
 	jr nz, jr_000_1ff3
 
@@ -2413,7 +2284,7 @@ Jump_000_237c:
 	call Call_000_3e07
 	xor a
 	ld [wcf06], a
-	ld [wd67f], a
+	ld [wWalkBikeSurfState], a
 	ld [wd034], a
 	ld [wMapPalOffset], a
 	ld hl, wd6b1
@@ -2434,7 +2305,7 @@ Call_000_23a6:
 
 
 LoadPlayerSpriteGraphics:
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	dec a
 	jr z, jr_000_23bb
 
@@ -2450,13 +2321,13 @@ jr_000_23bb:
 
 jr_000_23c0:
 	xor a
-	ld [wd67f], a
-	ld [wd0df], a
+	ld [wWalkBikeSurfState], a
+	ld [wWalkBikeSurfStateCopy], a
 	jp Jump_000_2a5e
 
 
 jr_000_23ca:
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	and a
 	jp z, Jump_000_2a5e
 
@@ -3738,7 +3609,7 @@ jr_000_2a16:
 
 jr_000_2a17:
 	xor a
-	ld [wd67f], a
+	ld [wWalkBikeSurfState], a
 	call LoadPlayerSpriteGraphics
 	call PlayDefaultMusic
 	jr jr_000_2a15
@@ -4155,9 +4026,9 @@ Call_000_2c52:
 	ldh [$ae], a
 	ld [wcfac], a
 	ld [wd0de], a
-	ld [wd0df], a
+	ld [wWalkBikeSurfStateCopy], a
 	ld [wd327], a
-	call Call_000_36ea
+	call LoadTextBoxTilePatterns
 	call Call_000_2a8d
 	ld b, $05
 	ld hl, $7840
@@ -4356,13 +4227,13 @@ OverwriteMoves::
 	ld a, $01
 	ld [wSpriteFlipped], a
 	push hl
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	push af
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $3a
 	call Predef
-	ld hl, wd0e3
+	ld hl, wNumSetBits
 	ld a, [hl]
 	pop bc
 	ld [hl], b
@@ -4499,11 +4370,11 @@ jr_000_2e51:
 	ld a, $40
 	ld [wd078], a
 	call Call_000_3b0c
-	call Call_000_3c1c
+	call PlaceUnfilledArrowMenuCursor
 	ld b, a
 	xor a
 	ld [wd078], a
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wcc2b], a
 	ld hl, wd6af
 	res 6, [hl]
@@ -4520,7 +4391,7 @@ jr_000_2e51:
 	and a
 	jr z, jr_000_2e9e
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wcf79], a
 	ld hl, wd124
 	ld b, $00
@@ -4554,7 +4425,7 @@ Jump_000_2ea3:
 	jr jr_000_2e51
 
 jr_000_2ebb:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wcf79], a
 	ld b, $04
 	ld hl, $6116
@@ -4625,8 +4496,8 @@ Call_000_2f02:
 	ld a, [wcfa0]
 
 jr_000_2f1a:
-	ld [wd0e3], a
-	ld de, wd0e3
+	ld [wNumSetBits], a
+	ld de, wNumSetBits
 	ld b, $41
 	jp Jump_000_3c8f
 
@@ -4647,10 +4518,10 @@ jr_000_2f1a:
 	push bc
 	push de
 	push hl
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	push af
 	ld a, [wd092]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld de, $64c7
 	ld b, $66
 	cp $b6
@@ -4670,7 +4541,7 @@ jr_000_2f1a:
 
 	ld a, $3a
 	call Predef
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld bc, $001c
 	ld hl, $4000
@@ -4700,7 +4571,7 @@ jr_000_2f97:
 	ld a, [wd092]
 	ld [wd095], a
 	pop af
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	pop hl
 	pop de
 	pop bc
@@ -5601,13 +5472,13 @@ jr_000_34a6:
 	jr jr_000_348c
 
 TextScript_ItemStoragePC:
-	call Call_000_373e
+	call SaveScreenTilesToBuffer2
 	ld b, $01
 	ld hl, $7bf8
 	jr jr_000_34c3
 
 TextScript_BillsPC:
-	call Call_000_373e
+	call SaveScreenTilesToBuffer2
 	ld b, $08
 	ld hl, $40ef
 	jr jr_000_34c3
@@ -5641,7 +5512,7 @@ TextScript_PokemonCenterPC:
 	ret
 
 
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld b, $01
 	ld hl, $7fc9
 	jp Jump_000_3620
@@ -6023,7 +5894,7 @@ jr_000_36de:
 	jp CopyVideoDataDouble
 
 
-Call_000_36ea:
+LoadTextBoxTilePatterns:
 	ldh a, [rLCDC]
 	bit 7, a
 	jr nz, jr_000_36fe
@@ -6084,7 +5955,7 @@ UncompressSpriteFromDE::
 	jp DecompressSpriteData
 
 
-Call_000_373e:
+SaveScreenTilesToBuffer2:
 	ld hl, wc3a0
 	ld de, wcd7c
 	ld bc, $0168
@@ -6182,7 +6053,7 @@ jr_000_3797:
 
 Call_000_37b3:
 	ld a, [wd092]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	cp $c4
 	jp nc, Jump_000_1b01
 
@@ -6332,14 +6203,14 @@ Call_000_3879:
 	call Joypad
 	ld a, [$ffb7]
 	and a
-	ldh a, [$b3]
+	ldh a, [hJoyPressed]
 	jr z, jr_000_3886
 
 	ldh a, [$b4]
 
 jr_000_3886:
 	ldh [$b5], a
-	ldh a, [$b3]
+	ldh a, [hJoyPressed]
 	and a
 	jr z, jr_000_3892
 
@@ -6865,7 +6736,7 @@ Call_000_3afd:
 	ret
 
 
-Call_000_3b08:
+HandleMenuInput:
 	xor a
 	ld [wd078], a
 
@@ -6930,12 +6801,12 @@ jr_000_3b56:
 	bit 6, a
 	jr z, jr_000_3b7b
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr z, jr_000_3b6d
 
 	dec a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	jr jr_000_3b96
 
 jr_000_3b6d:
@@ -6944,14 +6815,14 @@ jr_000_3b6d:
 	jr z, jr_000_3bbe
 
 	ld a, [wcc28]
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	jr jr_000_3b96
 
 jr_000_3b7b:
 	bit 7, a
 	jr z, jr_000_3b96
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	inc a
 	ld c, a
 	ld a, [wcc28]
@@ -6966,7 +6837,7 @@ jr_000_3b7b:
 
 jr_000_3b92:
 	ld a, c
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 
 jr_000_3b96:
 	ld a, [wcc29]
@@ -7024,7 +6895,7 @@ jr_000_3bd6:
 	ld c, a
 	add hl, bc
 	push hl
-	ld a, [wcc2a]
+	ld a, [wLastMenuItem]
 	and a
 	jr z, jr_000_3beb
 
@@ -7045,7 +6916,7 @@ jr_000_3beb:
 
 jr_000_3bf4:
 	pop hl
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr z, jr_000_3c02
 
@@ -7070,12 +6941,12 @@ jr_000_3c0a:
 	ld [wcc30], a
 	ld a, h
 	ld [wcc31], a
-	ld a, [wcc26]
-	ld [wcc2a], a
+	ld a, [wCurrentMenuItem]
+	ld [wLastMenuItem], a
 	ret
 
 
-Call_000_3c1c:
+PlaceUnfilledArrowMenuCursor:
 	ld b, a
 	ld a, [wcc30]
 	ld l, a
@@ -7086,7 +6957,7 @@ Call_000_3c1c:
 	ret
 
 
-Call_000_3c29:
+EraseMenuCursor:
 	ld a, [wcc30]
 	ld l, a
 	ld a, [wcc31]
@@ -7478,7 +7349,7 @@ jr_000_3dec:
 	ld [wUpdateSpritesEnabled], a
 	call Call_000_3e38
 	call Call_000_374a
-	call Call_000_36ea
+	call LoadTextBoxTilePatterns
 	call Call_000_3e1d
 	jr jr_000_3e07
 
@@ -7558,7 +7429,7 @@ Call_000_3e38:
 
 
 	ld a, b
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld [wcf78], a
 	ld a, c
 	ld [wcf7d], a

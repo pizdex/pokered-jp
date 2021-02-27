@@ -10765,7 +10765,7 @@ Call_00d_73ae:
 	ld hl, $7430
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_00d_7420
 
@@ -10861,8 +10861,8 @@ jr_00d_745c:
 	ld a, $0f
 	ld [wcc25], a
 	xor a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld [wcc37], a
 	ld hl, wc48a
 	ld b, $05
@@ -10875,7 +10875,7 @@ jr_00d_745c:
 	and $02
 	jp nz, $376d
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld b, a
 	ld a, $03
 	sub b
@@ -10932,7 +10932,7 @@ jr_00d_74ed:
 	ld a, $14
 	ld [wd0ea], a
 	call $3130
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ret nz
 

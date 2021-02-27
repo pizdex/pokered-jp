@@ -863,7 +863,7 @@ jr_01e_4f92:
 	cp $02
 	jr z, jr_01e_4fc6
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	cp $10
 	ret nz
 
@@ -3674,7 +3674,7 @@ Jump_01e_5e42:
 	cp $02
 	jr z, jr_01e_5e81
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld b, a
 	and $f0
 	swap a

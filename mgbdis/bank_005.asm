@@ -11655,7 +11655,7 @@ Jump_005_7e50:
 	cp $02
 	jr nz, jr_005_7e7a
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jp z, Jump_005_7eec
 
@@ -11669,7 +11669,7 @@ jr_005_7e7a:
 	cp $03
 	jr nz, jr_005_7e91
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jp z, Jump_005_7eec
 
@@ -11683,7 +11683,7 @@ jr_005_7e7a:
 
 
 jr_005_7e91:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jp z, Jump_005_7eec
 

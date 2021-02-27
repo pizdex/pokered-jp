@@ -449,7 +449,7 @@ Jump_00e_6bab:
 
 Call_00e_6bb4:
 	ld a, [wcf00]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ld hl, $6bc3
 	jp $3c79
@@ -844,13 +844,13 @@ jr_00e_7149:
 	call $3781
 	call $03bf
 	call Call_00e_728a
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	push af
 	ld a, [wd092]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, $3a
 	call $3e9d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld hl, $4000
 	ld bc, $001c
@@ -860,7 +860,7 @@ jr_00e_7149:
 	ld a, [wd092]
 	ld [wd095], a
 	pop af
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld hl, wcf8f
 	ld de, wcfa1
 	ld b, $01
@@ -896,7 +896,7 @@ jr_00e_7149:
 	pop bc
 	call $01bb
 	ld a, [wd092]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	xor a
 	ld [wcc49], a
 	call Call_00e_7326
@@ -908,7 +908,7 @@ jr_00e_7149:
 	call z, Call_00e_731d
 	ld a, $3a
 	call $3e9d
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	dec a
 	ld c, a
 	ld b, $01
@@ -1068,7 +1068,7 @@ Call_00e_731d:
 
 Call_00e_7326:
 	ld hl, $7427
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [wcf78], a
 	dec a
 	ld bc, $0000
@@ -1120,7 +1120,7 @@ jr_00e_7363:
 
 	ld a, d
 	ld [wd0bd], a
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1b6d
 	call $386e
 	ld a, $1b
@@ -1128,7 +1128,7 @@ jr_00e_7363:
 
 jr_00e_737c:
 	ld a, [wcf78]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ret
 
 
@@ -1573,7 +1573,7 @@ jr_00e_7f3c:
 jr_00e_7f47:
 	pop hl
 	ld a, [hl]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld hl, wcd26
 	ld de, wcd12

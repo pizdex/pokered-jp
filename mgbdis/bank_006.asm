@@ -3314,7 +3314,7 @@ Jump_006_527f:
 	ld d, d
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_006_52d0
 
@@ -3781,7 +3781,7 @@ jr_006_54b7:
 	ld c, $02
 	call $3781
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr z, jr_006_5506
 
@@ -4388,7 +4388,7 @@ jr_006_5867:
 	ld e, c
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_006_58e2
 
@@ -4542,7 +4542,7 @@ jr_006_5936:
 	ld e, c
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp $00
 	jr nz, jr_006_59a0
 
@@ -5019,7 +5019,7 @@ jr_006_5bcc:
 	call $3509
 	ret nc
 
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	and a
 	jr z, jr_006_5be7
 
@@ -7442,7 +7442,7 @@ jr_006_6716:
 	cp c
 	or d
 	cp e
-	jp nz, wd67f
+	jp nz, wWalkBikeSurfState
 
 	ret c
 

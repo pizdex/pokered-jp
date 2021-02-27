@@ -257,7 +257,7 @@ jr_011_4120:
 	ld b, c
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ld hl, $4166
 	jr nz, jr_011_4136
@@ -610,12 +610,12 @@ jr_011_4209:
 	ld hl, wd28e
 	ld b, $13
 	call $1690
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ldh [$db], a
 	ld hl, wd27b
 	ld b, $13
 	call $1690
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ldh [$dc], a
 	ld hl, $4339
 
@@ -1707,7 +1707,7 @@ jr_011_4716:
 	ld b, a
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_011_47b5
 
@@ -11702,8 +11702,8 @@ jr_011_774c:
 
 Call_011_7775:
 	xor a
-	ld [wd67f], a
-	ld [wd0df], a
+	ld [wWalkBikeSurfState], a
+	ld [wWalkBikeSurfStateCopy], a
 	jp $2cfe
 
 

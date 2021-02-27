@@ -4614,7 +4614,7 @@ jr_014_52e6:
 	ld d, h
 	ld a, a
 	call nc, $b7bc
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	ld a, [hld]
 	jp c, wd9c3
 
@@ -4823,7 +4823,7 @@ jr_014_5420:
 	ld [wcd50], a
 	ld a, $4c
 	call $3e9d
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	and a
 	jr z, jr_014_543c
 
@@ -5010,7 +5010,7 @@ Jump_014_553c:
 	ld [wcd50], a
 	ld a, $4c
 	call $3e9d
-	ld a, [wd67f]
+	ld a, [wWalkBikeSurfState]
 	and a
 	jr z, jr_014_5558
 
@@ -11311,7 +11311,7 @@ Call_014_71af:
 	ld [hl], d
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_014_72d8
 
@@ -11902,7 +11902,7 @@ jr_014_74db:
 	add d
 	sub c
 	db $e3
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	inc a
 	cp d
 	call nz, Call_014_56c6
@@ -12857,8 +12857,8 @@ jr_014_7ac0:
 	ld hl, $7b29
 	call $3c79
 	xor a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld a, $03
 	ld [wcc29], a
 	ld a, $03
@@ -12880,7 +12880,7 @@ jr_014_7ac0:
 	bit 1, a
 	jr nz, jr_014_7b10
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp $03
 	jr z, jr_014_7b10
 
@@ -12970,17 +12970,17 @@ Call_014_7b4a:
 	jr nz, jr_014_7ba8
 
 	ld a, [wd102]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ld hl, wc3f2
 	call $0405
 	ld a, [wd103]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ld hl, wc41a
 	call $0405
 	ld a, [wd104]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ld hl, wc442
 	call $0405
@@ -12988,17 +12988,17 @@ Call_014_7b4a:
 
 jr_014_7ba8:
 	ld a, [wd102]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld hl, wc3f2
 	call $0405
 	ld a, [wd103]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld hl, wc41a
 	call $0405
 	ld a, [wd104]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1aab
 	ld hl, wc442
 	call $0405
@@ -13117,14 +13117,14 @@ Call_014_7c67:
 
 
 Call_014_7c7c:
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	ld [wd0fe], a
 	ld d, $00
 	ld e, a
 	ld hl, wd102
 	add hl, de
 	ld a, [hl]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld a, [wd0f4]
 	cp $02
 	jr nz, jr_014_7c99
@@ -13139,7 +13139,7 @@ jr_014_7c9c:
 	ld hl, $7d1a
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, jr_014_7d01
 
@@ -13151,7 +13151,7 @@ jr_014_7c9c:
 	cp $02
 	jr nz, jr_014_7cc8
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld b, a
 	ld a, $01
 	ld c, a
@@ -13161,7 +13161,7 @@ jr_014_7c9c:
 	jr jr_014_7ce2
 
 jr_014_7cc8:
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [wcf78], a
 	push af
 	call Call_014_7d57
@@ -13424,7 +13424,7 @@ Call_014_7e0d:
 
 jr_014_7e13:
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ret
 

@@ -2450,7 +2450,7 @@ jr_01d_4aec:
 	ld hl, $4b60
 	call $3c79
 	xor a
-	ld [wcc26], a
+	ld [wCurrentMenuItem], a
 	ld [wcc36], a
 
 jr_01d_4b0f:
@@ -3203,8 +3203,8 @@ VendingMachineMenu::
 	ld [wd0ea], a
 	call $3130
 	xor a
-	ld [wcc26], a
-	ld [wcc2a], a
+	ld [wCurrentMenuItem], a
+	ld [wLastMenuItem], a
 	ld a, $03
 	ld [wcc29], a
 	ld a, $03
@@ -3229,7 +3229,7 @@ VendingMachineMenu::
 	bit 1, a
 	jr nz, jr_01d_4ee0
 
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	cp $03
 	jr z, jr_01d_4ee0
 
@@ -3406,7 +3406,7 @@ Jump_01d_4f3a:
 
 Call_01d_4f5d:
 	ld hl, $4f76
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	add a
 	add a
 	ld d, $00
@@ -3915,7 +3915,7 @@ Jump_01d_5156:
 	ld hl, $51c5
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ld hl, $5215
 	jr nz, jr_01d_517d
@@ -4714,7 +4714,7 @@ Jump_01d_5556:
 	ld [wd0ea], a
 	call $3130
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	jp nz, Jump_01d_55d9
 
@@ -5105,7 +5105,7 @@ jr_01d_56f6:
 	ld d, a
 	call $3c79
 	call $3636
-	ld a, [wcc26]
+	ld a, [wCurrentMenuItem]
 	and a
 	ld hl, $57fb
 	jr nz, jr_01d_575e
@@ -6412,7 +6412,7 @@ jr_01d_5cce:
 	ld a, a
 	or [hl]
 	dec a
-	jp z, wd67f
+	jp z, wWalkBikeSurfState
 
 	cp b
 	ld a, a
@@ -7553,7 +7553,7 @@ jr_01d_6278:
 	db $d3
 	sbc $2c
 	call nc, Call_01d_7fb7
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	sbc $33
 	reti
 
@@ -7769,7 +7769,7 @@ jr_01d_62ea:
 	reti
 
 
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	or d
 	cpl
 	rst $20
@@ -9651,7 +9651,7 @@ jr_01d_6bd0:
 
 	push hl
 	push de
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	ld b, a
 	ld a, $1c
 	call $3e9d
@@ -9661,7 +9661,7 @@ jr_01d_6bd0:
 	and a
 	jr z, jr_01d_6bd0
 
-	ld a, [wd0e3]
+	ld a, [wNumSetBits]
 	ld [de], a
 	inc de
 	push hl
@@ -9836,7 +9836,7 @@ jr_01d_6c30:
 	jp wd9b8
 
 
-	call nz, wd67f
+	call nz, wWalkBikeSurfState
 	db $db
 	cp h
 	db $e3
@@ -11898,7 +11898,7 @@ jr_01d_7603:
 
 	db $e3
 	rlca
-	call wd67f
+	call wWalkBikeSurfState
 	or e
 	cp d
 	cp a
@@ -13393,7 +13393,7 @@ jr_01d_7d41:
 	ld a, $01
 	ld [wcc3c], a
 	ld a, [wcd3d]
-	ld [wd0e3], a
+	ld [wNumSetBits], a
 	call $1add
 	ld a, $24
 	jp $3f25
