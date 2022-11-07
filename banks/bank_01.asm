@@ -23,4 +23,10 @@ CableClubNPC::
 	dr $736b, $75c1
 
 LoadMonData_::
-	dr $75c1, $8000
+	dr $75c1, $766c
+
+DisplayTextBoxID_::
+	dr $766c, $7f19
+
+_RemovePokemon::
+	dr $7f19, $8000

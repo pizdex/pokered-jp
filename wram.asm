@@ -3335,7 +3335,7 @@ wcf41:: ds 1 ; cf41
 wcf42:: ds 1 ; cf42
 wcf43:: ds 1 ; cf43
 wcf44:: ds 1 ; cf44
-wcf45:: ds 1 ; cf45
+wStringBuffer:: ds 1 ; cf45
 wcf46:: ds 1 ; cf46
 wcf47:: ds 1 ; cf47
 wcf48:: ds 1 ; cf48
@@ -5978,7 +5978,7 @@ wd978:: ds 1 ; d978
 wd979:: ds 1 ; d979
 wd97a:: ds 1 ; d97a
 wd97b:: ds 1 ; d97b
-wd97c:: ds 1 ; d97c
+wCurMapScript:: ds 1 ; d97c
 wd97d:: ds 1 ; d97d
 wd97e:: ds 1 ; d97e
 wd97f:: ds 1 ; d97f

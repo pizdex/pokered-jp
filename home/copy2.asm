@@ -156,7 +156,7 @@ Function_0359::
 .asm_0359
 	call DelayFrame
 	push bc
-	call Call_3879
+	call JoypadLowSensitivity
 	pop bc
 	ldh a, [hJoyHeld]
 	cp $46

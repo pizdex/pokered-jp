@@ -791,7 +791,7 @@ Jump_22c4:
 	call LoadMapHeader
 	call PlayDefaultMusicFadeOutCurrent
 	ld b, $09
-	call Call_3e1f
+	call RunPaletteCommand
 	ld b, $05
 	ld hl, $7840
 	call Bankswitch
@@ -916,7 +916,7 @@ jr_2373:
 
 HandleFlyWarpOrDungeonWarp:
 	call UpdateSprites
-	call Call_3e07
+	call Delay3
 	xor a
 	ld [wcf06], a
 	ld [wWalkBikeSurfState], a
@@ -2274,7 +2274,7 @@ jr_2a46:
 	pop bc
 	pop de
 	pop hl
-	call Call_3156
+	call RunNPCMovementScript
 	ld a, [wCurMap]
 	call SwitchToMapRomBank
 	ld hl, wd2ed
@@ -2699,7 +2699,7 @@ jr_2c9f:
 	ld [wUpdateSpritesEnabled], a
 	call EnableLCD
 	ld b, $09
-	call Call_3e1f
+	call RunPaletteCommand
 	call LoadPlayerSpriteGraphics
 	ld a, [wd6b1]
 	and $18
@@ -2725,12 +2725,12 @@ SwitchToMapRomBank:
 	ld c, a
 	ld b, $00
 	ld a, $03
-	call BankswitchHome
+	call PushBank
 	ld hl, $4883
 	add hl, bc
 	ld a, [hl]
 	ldh [hffe8], a
-	call BankswitchBack
+	call PopBank
 	ldh a, [hffe8]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a

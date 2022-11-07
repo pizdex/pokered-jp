@@ -138,9 +138,9 @@ AutoBGMapTransfer:
 
 	ld hl, wc490
 	ld sp, hl
-	ld a, [$ffbd]
+	ld a, [hffbd]
 	ld h, a
-	ld a, [$ffbc]
+	ld a, [hffbc]
 	ld l, a
 	ld de, $0180
 	add hl, de
@@ -150,9 +150,9 @@ AutoBGMapTransfer:
 .asm_0815:
 	ld hl, wc3a0
 	ld sp, hl
-	ld a, [$ffbd]
+	ld a, [hffbd]
 	ld h, a
-	ld a, [$ffbc]
+	ld a, [hffbc]
 	ld l, a
 	ld a, $01
 	jr .asm_0837
@@ -160,9 +160,9 @@ AutoBGMapTransfer:
 .asm_0825:
 	ld hl, wc418
 	ld sp, hl
-	ld a, [$ffbd]
+	ld a, [hffbd]
 	ld h, a
-	ld a, [$ffbc]
+	ld a, [hffbc]
 	ld l, a
 	ld de, $00c0
 	add hl, de

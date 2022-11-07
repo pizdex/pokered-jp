@@ -8,7 +8,7 @@ SubtractAmountPaidFromMoney::
 ; adds the amount the player sold to their money
 AddAmountSoldToMoney::
 	ld de, wd2cd
-	ld hl, $ffa1
+	ld hl, hffa1
 	ld c, $03
 	ld a, $0b
 	call Predef

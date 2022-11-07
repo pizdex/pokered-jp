@@ -133,7 +133,7 @@ GetCryData::
 	add hl, bc
 	add hl, bc
 	ld a, BANK(CryData)
-	call BankswitchHome
+	call PushBank
 
 	ld a, [hli]
 	ld b, a ; cry id
@@ -141,7 +141,7 @@ GetCryData::
 	ld [wc0f1], a
 	ld a, [hl]
 	ld [wc0f2], a
-	call BankswitchBack
+	call PopBank
 	ld a, b
 	ld c, $14
 	rlca
@@ -171,7 +171,7 @@ GoBackToPartyMenu::
 
 PartyMenuInit:
 	ld a, $01
-	call BankswitchHome
+	call PushBank
 	call LoadHpBarAndStatusTilePatterns
 	ld hl, wd6af
 	set 6, [hl]
@@ -245,12 +245,12 @@ HandlePartyMenuInput:
 	ld a, [hl]
 	ld [wcf78], a
 	ld [wcfc0], a
-	call BankswitchBack
+	call PopBank
 	and a
 	ret
 
 .noPokemonChosen
-	call BankswitchBack
+	call PopBank
 	scf
 	ret
 
@@ -342,7 +342,7 @@ jr_2f1a:
 	ld [wd0e3], a
 	ld de, wd0e3
 	ld b, $41
-	jp Jump_3c8f
+	jp PrintNumber
 
 GetwMoves:
 	ld hl, wMoves
@@ -431,7 +431,7 @@ GetPartyMonName2:
 GetPartyMonName:
 	push hl
 	push bc
-	call Call_3ac7
+	call SkipFixedLengthTextEntries
 	ld de, wcd68
 	push de
 	ld bc, NAME_LENGTH

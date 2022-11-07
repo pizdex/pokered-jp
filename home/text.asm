@@ -113,7 +113,7 @@ PlaceNextChar::
 
 jr_0484:
 	push hl
-	ld bc, $ffec
+	ld bc, hffec
 	add hl, bc
 	ld [hl], a
 	pop hl
@@ -137,7 +137,7 @@ jr_049f:
 	push af
 	ld a, $e5
 	push hl
-	ld bc, $ffec
+	ld bc, hffec
 	add hl, bc
 	ld [hl], a
 	pop hl
@@ -158,7 +158,7 @@ jr_04b6:
 	push af
 	ld a, $e4
 	push hl
-	ld bc, $ffec
+	ld bc, hffec
 	add hl, bc
 	ld [hl], a
 	pop hl
@@ -166,7 +166,7 @@ jr_04b6:
 
 jr_04c1:
 	ld [hli], a
-	call Call_391d
+	call PrintLetterDelay
 
 Jump_04c5:
 jr_04c5:
@@ -287,7 +287,7 @@ Jump_0555:
 	ld b, h
 	ld c, l
 	ld hl, $0565
-	call Call_05f1
+	call TextCommandProcessor
 	ld h, b
 	ld l, c
 	pop de
@@ -307,7 +307,7 @@ Jump_0569:
 
 Jump_0576:
 	call Call_05eb
-	call Call_38e1
+	call ManualTextScroll
 	ld a, $7f
 	ld [wc4f2], a
 
@@ -325,7 +325,7 @@ Jump_0588:
 	ld a, $ee
 	ld [wc4f2], a
 	call Call_05eb
-	call Call_38e1
+	call ManualTextScroll
 	ld hl, wc4a5
 	ld bc, $0412
 	call ClearScreenArea
@@ -341,7 +341,7 @@ Jump_05a9:
 	ld [wc4f2], a
 	call Call_05eb
 	push de
-	call Call_38e1
+	call ManualTextScroll
 	pop de
 	ld a, $7f
 	ld [wc4f2], a
@@ -388,12 +388,12 @@ jr_05e4:
 
 Call_05eb:
 	push bc
-	call Call_3e07
+	call Delay3
 	pop bc
 	ret
 
 
-Call_05f1:
+TextCommandProcessor:
 Jump_05f1:
 	ld a, [wd2d7]
 	push af
@@ -507,7 +507,7 @@ jr_060c:
 	ld a, $ee
 	ld [wc4f2], a
 	push bc
-	call Call_38e1
+	call ManualTextScroll
 	pop bc
 	ld a, $7f
 	ld [wc4f2], a
@@ -547,7 +547,7 @@ jr_060c:
 	swap a
 	set 6, a
 	ld b, a
-	call Call_3c8f
+	call PrintNumber
 	ld b, h
 	ld c, l
 	pop hl
@@ -657,7 +657,7 @@ jr_0734:
 
 TextCommand_WAIT_BUTTON:
 	push bc
-	call Call_38e1
+	call ManualTextScroll
 	pop bc
 	pop hl
 	jp NextTextCommand

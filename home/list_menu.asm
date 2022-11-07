@@ -2,7 +2,7 @@ DisplayListMenuID::
 	xor a
 	ldh [hffba], a
 	ld a, $01
-	ld [$ffb7], a
+	ld [hffb7], a
 	ld a, [wd037]
 	and a
 	jr nz, jr_1709
@@ -14,7 +14,7 @@ jr_1709:
 	ld a, $0f
 
 jr_170b:
-	call BankswitchHome
+	call PushBank
 	ld hl, wd6af
 	set 6, [hl]
 	xor a
@@ -64,7 +64,7 @@ Jump_1765:
 	call Call_1968
 	ld a, $01
 	ldh [hffba], a
-	call Call_3e07
+	call Delay3
 	ld a, [wd037]
 	and a
 	jr z, jr_1793
@@ -135,7 +135,7 @@ jr_17d7:
 	jr z, jr_180e
 
 	push hl
-	call Call_3827
+	call GetItemPrice
 	pop hl
 	ld a, [wListMenuID]
 	cp $03
@@ -168,16 +168,16 @@ jr_181d:
 
 jr_1823:
 	ld de, wcd68
-	call Call_386e
+	call CopyToStringBuffer
 	ld a, $01
 	ld [wd0f3], a
 	ld a, [wCurrentMenuItem]
 	ld [wd0f2], a
 	xor a
-	ld [$ffb7], a
+	ld [hffb7], a
 	ld hl, wd6af
 	res 6, [hl]
-	jp BankswitchBack
+	jp PopBank
 
 
 Jump_1840:
@@ -244,7 +244,7 @@ jr_1894:
 
 Jump_18a1:
 jr_18a1:
-	call Call_3879
+	call JoypadLowSensitivity
 	ldh a, [hJoyPressed]
 	bit 0, a
 	jp nz, Jump_193c
@@ -292,15 +292,15 @@ jr_18d6:
 	ld c, $03
 	ld a, [wcf7d]
 	ld b, a
-	ld hl, $ff9f
+	ld hl, hff9f
 	xor a
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
 
 jr_18ed:
-	ld de, $ffa1
-	ld hl, $ff8d
+	ld de, hffa1
+	ld hl, hff8d
 	push bc
 	ld a, $0b
 	call Predef
@@ -330,7 +330,7 @@ jr_191c:
 	ld hl, wc474
 	ld de, $1945
 	call PlaceString
-	ld de, $ff9f
+	ld de, hff9f
 	ld c, $83
 	call PrintBCDNumber
 	ld hl, wc471
@@ -338,7 +338,7 @@ jr_191c:
 jr_1930:
 	ld de, wcf7d
 	ld bc, $8102
-	call Call_3c8f
+	call PrintNumber
 	jp Jump_18a1
 
 
@@ -361,10 +361,10 @@ Jump_194c:
 	ld [wd0f3], a
 	ld [wcc37], a
 	xor a
-	ld [$ffb7], a
+	ld [hffb7], a
 	ld hl, wd6af
 	res 6, [hl]
-	call BankswitchBack
+	call PopBank
 	scf
 	ret
 
@@ -460,7 +460,7 @@ jr_19db:
 	ld a, [de]
 	ld de, $421c
 	ld [wcf78], a
-	call Call_3827
+	call GetItemPrice
 	pop hl
 	ld bc, $0006
 	add hl, bc
@@ -521,7 +521,7 @@ jr_1a41:
 
 	ld a, [wd0e3]
 	ld [wcf78], a
-	call Call_3121
+	call IsKeyItem
 	ld a, [wd0e9]
 	and a
 	jr nz, jr_1a7b
@@ -539,7 +539,7 @@ jr_1a41:
 	ld de, wd0e3
 	ld [de], a
 	ld bc, $0102
-	call Call_3c8f
+	call PrintNumber
 	pop de
 	pop af
 	ld [wd0e3], a
@@ -571,7 +571,7 @@ jr_1a8f:
 	dec b
 	jp nz, Jump_1995
 
-	ld bc, $fff8
+	ld bc, hfff8
 	add hl, bc
 	ld a, $ee
 	ld [hl], a

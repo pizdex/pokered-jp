@@ -103,9 +103,9 @@ LCDC_DEFAULT EQU %11100011
 	ld [wAudioROMBank], a
 	ld [wAudioSavedROMBank], a
 	ld a, $9c
-	ld [$ffbd], a
+	ld [hffbd], a
 	xor a
-	ld [$ffbc], a
+	ld [hffbc], a
 	dec a
 	ld [wUpdateSpritesEnabled], a
 
