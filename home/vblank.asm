@@ -7,15 +7,15 @@ VBlank:
 	ldh a, [hLoadedROMBank]
 	ld [wd0e7], a
 
-	ldh a, [$ae]
+	ldh a, [hSCX]
 	ldh [rSCX], a
-	ldh a, [$af]
+	ldh a, [hSCY]
 	ldh [rSCY], a
 
 	ld a, [wd07d]
 	and a
 	jr nz, .asm_0ac7
-	ldh a, [$b0]
+	ldh a, [hWY]
 	ldh [rWY], a
 
 .asm_0ac7
@@ -34,18 +34,18 @@ VBlank:
 	; VBlank-sensitive operations end here.
 	call Random
 
-	ldh a, [$d6]
+	ldh a, [hffd6]
 	and a
 	jr z, .asm_0af1
 	xor a
-	ldh [$d6], a
+	ldh [hffd6], a
 
 .asm_0af1
-	ldh a, [$d5]
+	ldh a, [hFrameCounter]
 	and a
 	jr z, .asm_0af9
 	dec a
-	ldh [$d5], a
+	ldh [hFrameCounter], a
 
 .asm_0af9
 	call FadeOutAudio
@@ -94,10 +94,10 @@ DelayFrame::
 ; Wait for the next vblank interrupt.
 ; As a bonus, this saves battery.
 	ld a, NOT_VBLANKED
-	ldh [$d6], a
+	ldh [hffd6], a
 .halt
 	halt
-	ldh a, [$d6]
+	ldh a, [hffd6]
 	and a
 	jr nz, .halt
 	ret

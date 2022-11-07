@@ -21,42 +21,42 @@ PlayDefaultMusicFadeOutCurrent:
 PlayDefaultMusicCommon:
 	ld a, [wWalkBikeSurfState]
 	and a
-	jr z, jr_000_0dd7
+	jr z, jr_0dd7
 
 	cp $02
-	jr z, jr_000_0dc6
+	jr z, jr_0dc6
 
 	ld a, $d2
-	jr jr_000_0dc8
+	jr jr_0dc8
 
-jr_000_0dc6:
+jr_0dc6:
 	ld a, $d6
 
-jr_000_0dc8:
+jr_0dc8:
 	ld b, a
 	ld a, d
 	and a
 	ld a, $1f
-	jr nz, jr_000_0dd2
+	jr nz, jr_0dd2
 
 	ld [wAudioROMBank], a
 
-jr_000_0dd2:
+jr_0dd2:
 	ld [wAudioSavedROMBank], a
-	jr jr_000_0de0
+	jr jr_0de0
 
-jr_000_0dd7:
+jr_0dd7:
 	ld a, [wd2da]
 	ld b, a
 	call CompareMapMusicBankWithCurrentBank
-	jr c, jr_000_0de5
+	jr c, jr_0de5
 
-jr_000_0de0:
+jr_0de0:
 	ld a, [wcfb1]
 	cp b
 	ret z
 
-jr_000_0de5:
+jr_0de5:
 	ld a, c
 	ld [wAudioFadeOutControl], a
 	ld a, b
@@ -68,32 +68,32 @@ UpdateMusic6Times::
 	ld a, [wAudioROMBank]
 	ld b, a
 	cp $02
-	jr nz, jr_000_0e00
+	jr nz, jr_0e00
 
 	ld hl, $4000
-	jr jr_000_0e0c
+	jr jr_0e0c
 
-jr_000_0e00:
+jr_0e00:
 	cp $08
-	jr nz, jr_000_0e09
+	jr nz, jr_0e09
 
 	ld hl, $455f
-	jr jr_000_0e0c
+	jr jr_0e0c
 
-jr_000_0e09:
+jr_0e09:
 	ld hl, $4417
 
-jr_000_0e0c:
+jr_0e0c:
 	ld c, $06
 
-jr_000_0e0e:
+jr_0e0e:
 	push bc
 	push hl
 	call Bankswitch
 	pop hl
 	pop bc
 	dec c
-	jr nz, jr_000_0e0e
+	jr nz, jr_0e0e
 	ret
 
 CompareMapMusicBankWithCurrentBank::
@@ -101,21 +101,21 @@ CompareMapMusicBankWithCurrentBank::
 	ld e, a
 	ld a, [wAudioROMBank]
 	cp e
-	jr nz, jr_000_0e28
+	jr nz, jr_0e28
 
 	ld [wAudioSavedROMBank], a
 	and a
 	ret
 
-jr_000_0e28:
+jr_0e28:
 	ld a, c
 	and a
 	ld a, e
-	jr nz, jr_000_0e30
+	jr nz, jr_0e30
 
 	ld [wAudioROMBank], a
 
-jr_000_0e30:
+jr_0e30:
 	ld [wAudioSavedROMBank], a
 	scf
 	ret
@@ -137,7 +137,7 @@ PlaySound::
 	ld b, a
 	ld a, [wNewSoundID]
 	and a
-	jr z, jr_000_0e5c
+	jr z, jr_0e5c
 
 	xor a
 	ld [wc02a], a
@@ -145,58 +145,58 @@ PlaySound::
 	ld [wc02c], a
 	ld [wc02d], a
 
-jr_000_0e5c:
+jr_0e5c:
 	ld a, [wAudioFadeOutControl]
 	and a
-	jr z, jr_000_0e77
+	jr z, jr_0e77
 
 	ld a, [wNewSoundID]
 	and a
-	jr z, jr_000_0eb9
+	jr z, jr_0eb9
 
 	xor a
 	ld [wNewSoundID], a
 	ld a, [wcfb1]
 	cp $ff
-	jr nz, jr_000_0ea8
+	jr nz, jr_0ea8
 
 	xor a
 	ld [wAudioFadeOutControl], a
 
-jr_000_0e77:
+jr_0e77:
 	xor a
 	ld [wNewSoundID], a
 	ldh a, [hLoadedROMBank]
-	ldh [$b9], a
+	ldh [hSavedROMBank], a
 	ld a, [wAudioROMBank]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	cp $02
-	jr nz, jr_000_0e91
+	jr nz, jr_0e91
 
 	ld a, b
 	call $4773
-	jr jr_000_0e9f
+	jr jr_0e9f
 
-jr_000_0e91:
+jr_0e91:
 	cp $08
-	jr nz, jr_000_0e9b
+	jr nz, jr_0e9b
 
 	ld a, b
 	call $4d1b
-	jr jr_000_0e9f
+	jr jr_0e9f
 
-jr_000_0e9b:
+jr_0e9b:
 	ld a, b
 	call $4b8a
 
-jr_000_0e9f:
+jr_0e9f:
 	ldh a, [hSavedROMBank]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	jr jr_000_0eb9
+	jr jr_0eb9
 
-jr_000_0ea8:
+jr_0ea8:
 	ld a, b
 	ld [wcfb1], a
 	ld a, [wAudioFadeOutControl]
@@ -205,7 +205,7 @@ jr_000_0ea8:
 	ld a, b
 	ld [wAudioFadeOutControl], a
 
-jr_000_0eb9:
+jr_0eb9:
 	pop bc
 	pop de
 	pop hl

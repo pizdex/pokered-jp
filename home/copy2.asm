@@ -1,10 +1,10 @@
 CopyFarBytes2::
 ; Identical to FarCopyData, but uses hROMBankTemp
 ; as temp space instead of wcee4.
-	ldh [$8b], a
+	ldh [hff8b], a
 	ldh a, [hLoadedROMBank]
 	push af
-	ldh a, [$8b]
+	ldh a, [hff8b]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	call CopyBytes
@@ -15,10 +15,10 @@ CopyFarBytes2::
 
 CopyFarBytes3::
 ; Copy bc bytes from a:de to hl.
-	ldh [$8b], a
+	ldh [hff8b], a
 	ldh a, [hLoadedROMBank]
 	push af
-	ldh a, [$8b]
+	ldh a, [hff8b]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	push hl
@@ -38,10 +38,10 @@ CopyFarBytes3::
 CopyFarBytesDouble::
 ; Expand bc bytes of 1bpp image data
 ; from a:hl to 2bpp data at de.
-	ldh [$8b], a
+	ldh [hff8b], a
 	ldh a, [hLoadedROMBank]
 	push af
-	ldh a, [$8b]
+	ldh a, [hff8b]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 .asm_02cc
@@ -64,44 +64,44 @@ CopyVideoData::
 ; tiles from b:de to hl, 8 tiles at a time.
 ; This takes c/8 frames.
 
-	ldh a, [$ba]
+	ldh a, [hffba]
 	push af
 	xor a
-	ldh [$ba], a
+	ldh [hffba], a
 
 	ldh a, [hLoadedROMBank]
-	ldh [$8b], a
+	ldh [hff8b], a
 
 	ld a, b
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 
 	ld a, e
-	ldh [$c7], a
+	ldh [hffc7], a
 	ld a, d
-	ldh [$c8], a
+	ldh [hffc8], a
 	ld a, l
-	ldh [$c9], a
+	ldh [hffc9], a
 	ld a, h
-	ldh [$ca], a
+	ldh [hffca], a
 
 .asm_02f9
 	ld a, c
 	cp 8
 	jr nc, .keepgoing
 
-	ldh [$c6], a
+	ldh [hffc6], a
 	call DelayFrame
-	ldh a, [$8b]
+	ldh a, [hff8b]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	pop af
-	ldh [$ba], a
+	ldh [hffba], a
 	ret
 
 .keepgoing
 	ld a, 8
-	ldh [$c6], a
+	ldh [hffc6], a
 	call DelayFrame
 	ld a, c
 	sub 8
@@ -109,43 +109,43 @@ CopyVideoData::
 	jr .asm_02f9
 
 CopyVideoDataDouble:
-	ldh a, [$ba]
+	ldh a, [hffba]
 	push af
 	xor a
-	ldh [$ba], a
+	ldh [hffba], a
 	ldh a, [hLoadedROMBank]
-	ldh [$8b], a
+	ldh [hff8b], a
 
 	ld a, b
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 
 	ld a, e
-	ldh [$cc], a
+	ldh [hffcc], a
 	ld a, d
-	ldh [$cd], a
+	ldh [hffcd], a
 	ld a, l
-	ldh [$ce], a
+	ldh [hffce], a
 	ld a, h
-	ldh [$cf], a
+	ldh [hffcf], a
 
 .asm_0337
 	ld a, c
 	cp $08
 	jr nc, .asm_034c
 
-	ldh [$cb], a
+	ldh [hffcb], a
 	call DelayFrame
-	ldh a, [$8b]
+	ldh a, [hff8b]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	pop af
-	ldh [$ba], a
+	ldh [hffba], a
 	ret
 
 .asm_034c
 	ld a, $08
-	ldh [$cb], a
+	ldh [hffcb], a
 	call DelayFrame
 	ld a, c
 	sub $08
@@ -156,12 +156,12 @@ Function_0359::
 .asm_0359
 	call DelayFrame
 	push bc
-	call Call_000_3879
+	call Call_3879
 	pop bc
-	ldh a, [$b4]
+	ldh a, [hJoyHeld]
 	cp $46
 	jr z, .asm_0372
-	ldh a, [$b5]
+	ldh a, [hffb5]
 	and $09
 	jr nz, .asm_0372
 	dec c
@@ -212,16 +212,16 @@ CopyScreenTileBufferToVRAM::
 
 .setup
 	ld a, d
-	ldh [$c2], a
+	ldh [hffc2], a
 	call GetRowColAddressBGMap
 	ld a, l
-	ldh [$c3], a
+	ldh [hffc3], a
 	ld a, h
-	ldh [$c4], a
+	ldh [hffc4], a
 	ld a, c
-	ldh [$c5], a
+	ldh [hffc5], a
 	ld a, e
-	ldh [$c1], a
+	ldh [hffc1], a
 	ret
 
 ClearScreen::

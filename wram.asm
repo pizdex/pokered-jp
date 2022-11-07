@@ -3389,7 +3389,15 @@ wcf77:: ds 1 ; cf77
 wcf78:: ds 1 ; cf78
 wcf79:: ds 1 ; cf79
 wcf7a:: ds 1 ; cf7a
+
+; type of HP bar
+; $00 = enemy HUD in battle
+; $01 = player HUD in battle / status screen
+; $02 = party menu
+wHPBarType::
+
 wListMenuID:: ds 1 ; cf7b
+
 wcf7c:: ds 1 ; cf7c
 wcf7d:: ds 1 ; cf7d
 wcf7e:: ds 1 ; cf7e
@@ -3687,8 +3695,8 @@ wSpriteDecodeTable0Ptr:: ds 2 ; d08e
 wSpriteDecodeTable1Ptr:: ds 2 ; d090
 
 wd092:: ds 1 ; d092
-wd093:: ds 1 ; d093
-wd094:: ds 1 ; d094
+wNameListType:: ds 1 ; d093
+wPredefBank:: ds 1 ; d094
 wd095:: ds 1 ; d095
 wd096:: ds 1 ; d096
 wd097:: ds 1 ; d097
@@ -3725,7 +3733,7 @@ wd0b5:: ds 1 ; d0b5
 wd0b6:: ds 1 ; d0b6
 wd0b7:: ds 1 ; d0b7
 wd0b8:: ds 1 ; d0b8
-wd0b9:: ds 1 ; d0b9
+wMoves:: ds 1 ; d0b9
 wd0ba:: ds 1 ; d0ba
 wd0bb:: ds 1 ; d0bb
 wd0bc:: ds 1 ; d0bc
@@ -3767,14 +3775,32 @@ wWalkBikeSurfStateCopy:: ds 1 ; d0df
 wd0e0:: ds 1 ; d0e0
 wd0e1:: ds 1 ; d0e1
 wd0e2:: ds 1 ; d0e2
-wNumSetBits:: ds 1 ; d0e3
+
+wPokeBallCaptureCalcTemp::
+
+; lower nybble: number of shakes
+; upper nybble: number of animations to play
+wPokeBallAnimData::
+
+wUsingPPUp::
+wMaxPP::
+
+; 0 for player, non-zero for enemy
+wCalculateWhoseStats::
+
+wTypeEffectiveness::
+wMoveType::
+wNumSetBits::
+
+wd0e3:: ds 1 ; d0e3
+
 wd0e4:: ds 1 ; d0e4
 wd0e5:: ds 1 ; d0e5
 wd0e6:: ds 1 ; d0e6
 wd0e7:: ds 1 ; d0e7
 wd0e8:: ds 1 ; d0e8
 wd0e9:: ds 1 ; d0e9
-wd0ea:: ds 1 ; d0ea
+wTextBoxID:: ds 1 ; d0ea
 wd0eb:: ds 1 ; d0eb
 wd0ec:: ds 1 ; d0ec
 wItemListPointer:: ds 2 ; d0ed

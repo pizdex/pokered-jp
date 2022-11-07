@@ -3,15 +3,15 @@ Serial:
 	push bc
 	push de
 	push hl
-	ldh a, [$aa]
+	ldh a, [hffaa]
 	inc a
 	jr z, .asm_0bc4
 
 	ldh a, [rSB]
-	ldh [$ad], a
-	ldh a, [$ac]
+	ldh [hffad], a
+	ldh a, [hffac]
 	ldh [rSB], a
-	ldh a, [$aa]
+	ldh a, [hffaa]
 	cp $02
 	jr z, .asm_0be4
 
@@ -21,8 +21,8 @@ Serial:
 
 .asm_0bc4:
 	ldh a, [rSB]
-	ldh [$ad], a
-	ldh [$aa], a
+	ldh [hffad], a
+	ldh [hffaa], a
 	cp $02
 	jr z, .asm_0be1
 
@@ -46,9 +46,9 @@ Serial:
 
 .asm_0be4:
 	ld a, $01
-	ldh [$a9], a
+	ldh [hffa9], a
 	ld a, $fe
-	ldh [$ac], a
+	ldh [hffac], a
 	pop hl
 	pop de
 	pop bc
@@ -60,11 +60,11 @@ Serial:
 ; bc = length of data
 Serial_ExchangeBytes::
 	ld a, $01
-	ldh [$ab], a
+	ldh [hffab], a
 .asm_0bf5:
 	ld a, [hl]
-	ldh [$ac], a
-	call Call_000_0caa
+	ldh [hffac], a
+	call Call_0caa
 	push bc
 	ld b, a
 	inc hl
@@ -73,7 +73,7 @@ Serial_ExchangeBytes::
 	dec a
 	jr nz, .asm_0c00
 
-	ldh a, [$ab]
+	ldh a, [hffab]
 	and a
 	ld a, b
 	pop bc
@@ -82,7 +82,7 @@ Serial_ExchangeBytes::
 	cp $fd
 	jr nz, .asm_0bf5
 	xor a
-	ldh [$ab], a
+	ldh [hffab], a
 	jr .asm_0bf5
 
 .asm_0c14:
@@ -91,7 +91,7 @@ Serial_ExchangeBytes::
 	cp $05
 	jr nz, .asm_0c25
 
-	ldh a, [$aa]
+	ldh a, [hffaa]
 	cp $02
 	jr nz, .asm_0c25
 
@@ -112,19 +112,19 @@ Function_0c2e:
 	ld de, wcc3d
 	ld c, $02
 	ld a, $01
-	ldh [$ab], a
+	ldh [hffab], a
 
 .asm_0c3a:
 	call DelayFrame
 	ld a, [hl]
-	ldh [$ac], a
-	call Call_000_0caa
+	ldh [hffac], a
+	call Call_0caa
 	ld b, a
 	inc hl
-	ldh a, [$ab]
+	ldh a, [hffab]
 	and a
 	ld a, $00
-	ldh [$ab], a
+	ldh [hffab], a
 	jr nz, .asm_0c3a
 
 	ld a, b
@@ -135,21 +135,21 @@ Function_0c2e:
 	ret
 
 Function_0c55:
-	call Call_000_3761
+	call Call_3761
 	ld hl, $49ed
 	ld b, $01
 	call Bankswitch
-	call Call_000_0c66
-	jp Jump_000_376d
+	call Call_0c66
+	jp Jump_376d
 
-Call_000_0c66:
+Call_0c66:
 	ld a, $ff
 	ld [wcc3e], a
 
 .asm_0c6b:
 	call Serial_ExchangeNybble
 	call DelayFrame
-	call Call_000_0d47
+	call Call_0d47
 	jr z, .asm_0c87
 
 	push hl
@@ -163,7 +163,7 @@ Call_000_0c66:
 
 	pop hl
 	xor a
-	jp Jump_000_0d4f
+	jp Jump_0d4f
 
 .asm_0c86:
 	pop hl
@@ -191,91 +191,91 @@ Call_000_0c66:
 	ret
 
 
-Call_000_0caa:
-Jump_000_0caa:
+Call_0caa:
+Jump_0caa:
 	xor a
-	ldh [$a9], a
-	ldh a, [$aa]
+	ldh [hffa9], a
+	ldh a, [hffaa]
 	cp $02
-	jr nz, jr_000_0cb7
+	jr nz, jr_0cb7
 
 	ld a, $81
 	ldh [rSC], a
 
-jr_000_0cb7:
-	ldh a, [$a9]
+jr_0cb7:
+	ldh a, [hffa9]
 	and a
-	jr nz, jr_000_0d01
+	jr nz, jr_0d01
 
-	ldh a, [$aa]
+	ldh a, [hffaa]
 	cp $01
-	jr nz, jr_000_0cdc
+	jr nz, jr_0cdc
 
-	call Call_000_0d47
-	jr z, jr_000_0cdc
+	call Call_0d47
+	jr z, jr_0cdc
 
-	call Call_000_0d41
+	call Call_0d41
 	push hl
 	ld hl, wcc48
 	inc [hl]
-	jr nz, jr_000_0cd3
+	jr nz, jr_0cd3
 
 	dec hl
 	inc [hl]
 
-jr_000_0cd3:
+jr_0cd3:
 	pop hl
-	call Call_000_0d47
-	jr nz, jr_000_0cb7
+	call Call_0d47
+	jr nz, jr_0cb7
 
-	jp Jump_000_0d4f
+	jp Jump_0d4f
 
 
-jr_000_0cdc:
+jr_0cdc:
 	ldh a, [rIE]
 	and $0f
 	cp $08
-	jr nz, jr_000_0cb7
+	jr nz, jr_0cb7
 
 	ld a, [wd051]
 	dec a
 	ld [wd051], a
-	jr nz, jr_000_0cb7
+	jr nz, jr_0cb7
 
 	ld a, [wd052]
 	dec a
 	ld [wd052], a
-	jr nz, jr_000_0cb7
+	jr nz, jr_0cb7
 
-	ldh a, [$aa]
+	ldh a, [hffaa]
 	cp $01
-	jr z, jr_000_0d01
+	jr z, jr_0d01
 
 	ld a, $ff
 
-jr_000_0cfe:
+jr_0cfe:
 	dec a
-	jr nz, jr_000_0cfe
+	jr nz, jr_0cfe
 
-jr_000_0d01:
+jr_0d01:
 	xor a
-	ldh [$a9], a
+	ldh [hffa9], a
 	ldh a, [rIE]
 	and $0f
 	sub $08
-	jr nz, jr_000_0d14
+	jr nz, jr_0d14
 
 	ld [wd051], a
 	ld a, $50
 	ld [wd052], a
 
-jr_000_0d14:
-	ldh a, [$ad]
+jr_0d14:
+	ldh a, [hffad]
 	cp $fe
 	ret nz
 
-	call Call_000_0d47
-	jr z, jr_000_0d2f
+	call Call_0d47
+	jr z, jr_0d2f
 
 	push hl
 	ld hl, wcc48
@@ -283,16 +283,16 @@ jr_000_0d14:
 	dec a
 	ld [hld], a
 	inc a
-	jr nz, jr_000_0d29
+	jr nz, jr_0d29
 
 	dec [hl]
 
-jr_000_0d29:
+jr_0d29:
 	pop hl
-	call Call_000_0d47
-	jr z, jr_000_0d4f
+	call Call_0d47
+	jr z, jr_0d4f
 
-jr_000_0d2f:
+jr_0d2f:
 	ldh a, [rIE]
 	and $0f
 	cp $08
@@ -300,22 +300,22 @@ jr_000_0d2f:
 	ret z
 
 	ld a, [hl]
-	ldh [$ac], a
+	ldh [hffac], a
 	call DelayFrame
-	jp Jump_000_0caa
+	jp Jump_0caa
 
 
-Call_000_0d41:
+Call_0d41:
 	ld a, $0f
 
-jr_000_0d43:
+jr_0d43:
 	dec a
-	jr nz, jr_000_0d43
+	jr nz, jr_0d43
 
 	ret
 
 
-Call_000_0d47:
+Call_0d47:
 	push hl
 	ld hl, wEnteringCableClub
 	ld a, [hli]
@@ -324,8 +324,8 @@ Call_000_0d47:
 	ret
 
 
-Jump_000_0d4f:
-jr_000_0d4f:
+Jump_0d4f:
+jr_0d4f:
 	dec a
 	ld [wEnteringCableClub], a
 	ld [wcc48], a
@@ -336,21 +336,21 @@ Serial_ExchangeNybble:
 	call .doExchange
 	ld a, [wcc42]
 	add $60
-	ldh [$ac], a
-	ldh a, [$aa]
+	ldh [hffac], a
+	ldh a, [hffaa]
 	cp $02
 	jr nz, .doExchange
 	ld a, $81
 	ldh [rSC], a
 .doExchange
-	ldh a, [$ad]
+	ldh a, [hffad]
 	ld [wcc3d], a
 	and $f0
 	cp $60
 	ret nz
 
 	xor a
-	ldh [$ad], a
+	ldh [hffad], a
 	ld a, [wcc3d]
 	and $0f
 	ld [wcc3e], a
@@ -358,8 +358,8 @@ Serial_ExchangeNybble:
 
 Serial_SendZeroByte:
 	xor a
-	ldh [$ac], a
-	ldh a, [$aa]
+	ldh [hffac], a
+	ldh a, [hffaa]
 	cp $02
 	ret nz
 	ld a, $81
@@ -370,7 +370,7 @@ Serial_TryEstablishingExternallyClockedConnection::
 	ld a, $02
 	ldh [rSB], a
 	xor a
-	ldh [$ad], a
+	ldh [hffad], a
 	ld a, $80
 	ldh [rSC], a
 	ret

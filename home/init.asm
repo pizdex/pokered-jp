@@ -65,22 +65,22 @@ LCDC_DEFAULT EQU %11100011
 	call WriteDMACodeToHRAM
 
 	xor a
-	ldh [$d7], a
+	ldh [hffd7], a
 	ldh [rSTAT], a
-	ldh [$ae], a
-	ldh [$af], a
+	ldh [hSCX], a
+	ldh [hSCY], a
 	ldh [rIF], a
 	ld a, IEF_SERIAL + IEF_TIMER + IEF_VBLANK
 	ldh [rIE], a
 
 	ld a, 144 ; move the window off-screen
-	ldh [$b0], a
+	ldh [hWY], a
 	ldh [rWY], a
 	ld a, 7
 	ldh [rWX], a
 
 	ld a, $ff
-	ldh [$aa], a
+	ldh [hffaa], a
 
 	ld h, HIGH(vBGMap0)
 	call ClearBGMap
@@ -90,7 +90,7 @@ LCDC_DEFAULT EQU %11100011
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
 	ld a, 16
-	ldh [$8a], a
+	ldh [hff8a], a
 	call StopAllSounds
 
 

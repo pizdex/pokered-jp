@@ -1,5 +1,5 @@
 ; this function is used to display sign messages, sprite dialog, etc.
-; INPUT: [hSpriteIndexOrTextID] = sprite ID or text ID
+; INPUT: [hff8c] = sprite ID or text ID
 DisplayTextID::
 	ldh a, [hLoadedROMBank]
 	push af
@@ -19,7 +19,7 @@ DisplayTextID::
 	ld h, [hl]
 	ld l, a ; hl = map text pointer
 	ld d, 0
-	ldh a, [hSpriteIndexOrTextID] ; text ID
+	ldh a, [hff8c] ; text ID
 	ld [wSpriteIndex], a
 
 	dict TEXT_START_MENU,       DisplayStartMenu
@@ -30,7 +30,7 @@ DisplayTextID::
 
 	ld a, [wNumSprites]
 	ld e, a
-	ldh a, [hSpriteIndexOrTextID]
+	ldh a, [hff8c]
 	cp e
 	jr z, .spriteHandling
 	jr nc, .skipSpriteHandling
@@ -45,7 +45,7 @@ DisplayTextID::
 	pop bc
 	pop de
 	ld hl, wMapSpriteData ; NPC text entries
-	ldh a, [hSpriteIndexOrTextID]
+	ldh a, [hff8c]
 	dec a
 	add a
 	add l
@@ -113,7 +113,7 @@ CloseTextDisplay::
 	call DelayFrame
 	call LoadGBPal
 	xor a
-	ldh [hAutoBGTransferEnabled], a ; disable continuous WRAM to VRAM transfer each V-blank
+	ldh [hffba], a ; disable continuous WRAM to VRAM transfer each V-blank
 
 ; loop to make sprites face the directions they originally faced before the dialogue
 	ld hl, wSprite01StateData2OrigFacingDirection

@@ -40,20 +40,20 @@ RedrawRowOrColumn:
 ; row or column is more efficient than redrawing the entire screen.
 ; However, this function is also called repeatedly to redraw the whole screen
 ; when necessary. It is also used in trade animation and elevator code.
-	ldh a, [$d0]
+	ldh a, [hffd0]
 	and a
 	ret z
 	ld b, a
 	xor a
-	ldh [$d0], a
+	ldh [hffd0], a
 	dec b
 	jr nz, .redrawRow
 
 ; redrawColumn
 	ld hl, wcbfc
-	ldh a, [$d1]
+	ldh a, [hffd1]
 	ld e, a
-	ldh a, [$d2]
+	ldh a, [hffd2]
 	ld d, a
 	ld c, 18
 
@@ -77,23 +77,23 @@ RedrawRowOrColumn:
 	dec c
 	jr nz, .asm_07ae
 	xor a
-	ldh [$d0], a
+	ldh [hffd0], a
 	ret
 
 .redrawRow:
 	ld hl, wcbfc
-	ldh a, [$d1]
+	ldh a, [hffd1]
 	ld e, a
-	ldh a, [$d2]
+	ldh a, [hffd2]
 	ld d, a
 	push de
-	call Call_000_07d9
+	call Call_07d9
 	pop de
 	ld a, $20
 	add e
 	ld e, a
 
-Call_000_07d9:
+Call_07d9:
 	ld c, 20 / 2
 .asm_07db:
 	ld a, [hli]
@@ -121,16 +121,16 @@ AutoBGMapTransfer:
 ; on when talking to sprites, battling, using menus, etc. This is because
 ; the above function, RedrawRowOrColumn, is used when walking to
 ; improve efficiency.
-	ldh a, [$ba]
+	ldh a, [hffba]
 	and a
 	ret z
 
 	ld hl, sp + 0
 	ld a, h
-	ldh [$bf], a
+	ldh [hffbf], a
 	ld a, l
-	ldh [$c0], a
-	ldh a, [$bb]
+	ldh [hffc0], a
+	ldh a, [hffbb]
 	and a
 	jr z, .asm_0815
 	dec a
@@ -168,7 +168,7 @@ AutoBGMapTransfer:
 	add hl, de
 	ld a, $02
 .asm_0837:
-	ldh [$bb], a
+	ldh [hffbb], a
 	ld b, $06
 
 TransferBgRows:
@@ -230,9 +230,9 @@ TransferBgRows:
 	dec b
 	jr nz, TransferBgRows
 
-	ldh a, [$bf]
+	ldh a, [hffbf]
 	ld h, a
-	ldh a, [$c0]
+	ldh a, [hffc0]
 	ld l, a
 	ld sp, hl
 	ret
@@ -240,28 +240,28 @@ TransferBgRows:
 VBlankCopyBGMap:
 ; Copies [hVBlankCopyBGNumRows] rows from hVBlankCopyBGSource to hVBlankCopyBGDest.
 ; If hVBlankCopyBGSource is XX00, the transfer is disabled.
-	ldh a, [$c1]
+	ldh a, [hffc1]
 	and a
 	ret z
 
 	ld hl, sp + 0
 	ld a, h
-	ldh [$bf], a
+	ldh [hffbf], a
 	ld a, l
-	ldh [$c0], a
-	ldh a, [$c1]
+	ldh [hffc0], a
+	ldh a, [hffc1]
 	ld l, a
-	ldh a, [$c2]
+	ldh a, [hffc2]
 	ld h, a
 	ld sp, hl
-	ldh a, [$c3]
+	ldh a, [hffc3]
 	ld l, a
-	ldh a, [$c4]
+	ldh a, [hffc4]
 	ld h, a
-	ldh a, [$c5]
+	ldh a, [hffc5]
 	ld b, a
 	xor a
-	ldh [$c1], a
+	ldh [hffc1], a
 	jr TransferBgRows
 
 VBlankCopyDouble:
@@ -271,28 +271,28 @@ VBlankCopyDouble:
 ; While we're here, convert to 2bpp.
 ; The process is straightforward:
 ; copy each byte twice.
-	ldh a, [$cb]
+	ldh a, [hffcb]
 	and a
 	ret z
 
 	ld hl, sp + 0
 	ld a, h
-	ldh [$bf], a
+	ldh [hffbf], a
 	ld a, l
-	ldh [$c0], a
-	ldh a, [$cc]
+	ldh [hffc0], a
+	ldh a, [hffcc]
 	ld l, a
-	ldh a, [$cd]
+	ldh a, [hffcd]
 	ld h, a
 	ld sp, hl
-	ldh a, [$ce]
+	ldh a, [hffce]
 	ld l, a
-	ldh a, [$cf]
+	ldh a, [hffcf]
 	ld h, a
-	ldh a, [$cb]
+	ldh a, [hffcb]
 	ld b, a
 	xor a
-	ldh [$cb], a
+	ldh [hffcb], a
 
 .asm_08be:
 	pop de
@@ -335,19 +335,19 @@ VBlankCopyDouble:
 	jr nz, .asm_08be
 
 	ld a, l
-	ldh [$ce], a
+	ldh [hffce], a
 	ld a, h
-	ldh [$cf], a
+	ldh [hffcf], a
 
 	ld hl, sp + 0
 	ld a, l
-	ldh [$cc], a
+	ldh [hffcc], a
 	ld a, h
-	ldh [$cd], a
+	ldh [hffcd], a
 
-	ldh a, [$bf]
+	ldh a, [hffbf]
 	ld h, a
-	ldh a, [$c0]
+	ldh a, [hffc0]
 	ld l, a
 	ld sp, hl
 	ret
@@ -358,31 +358,31 @@ VBlankCopy:
 
 ; Source and destination addresses are updated,
 ; so transfer can continue in subsequent calls.
-	ldh a, [$c6]
+	ldh a, [hffc6]
 	and a
 	ret z
 
 	ld hl, sp + 0
 	ld a, h
-	ldh [$bf], a
+	ldh [hffbf], a
 	ld a, l
-	ldh [$c0], a
+	ldh [hffc0], a
 
-	ldh a, [$c7]
+	ldh a, [hffc7]
 	ld l, a
-	ldh a, [$c7 + 1]
+	ldh a, [hffc7 + 1]
 	ld h, a
 	ld sp, hl
 
-	ldh a, [$c9]
+	ldh a, [hffc9]
 	ld l, a
-	ldh a, [$c9 + 1]
+	ldh a, [hffc9 + 1]
 	ld h, a
 
-	ldh a, [$c6]
+	ldh a, [hffc6]
 	ld b, a
 	xor a ; transferred
-	ldh [$c6], a
+	ldh [hffc6], a
 
 .asm_091a:
 	pop de
@@ -429,19 +429,19 @@ VBlankCopy:
 	jr nz, .asm_091a
 
 	ld a, l
-	ldh [$c9], a
+	ldh [hffc9], a
 	ld a, h
-	ldh [$ca], a
+	ldh [hffca], a
 
 	ld hl, sp + 0
 	ld a, l
-	ldh [$c7], a
+	ldh [hffc7], a
 	ld a, h
-	ldh [$c8], a
+	ldh [hffc8], a
 
-	ldh a, [$bf]
+	ldh a, [hffbf]
 	ld h, a
-	ldh a, [$c0]
+	ldh a, [hffc0]
 	ld l, a
 	ld sp, hl
 	ret
@@ -449,13 +449,13 @@ VBlankCopy:
 UpdateMovingBGTiles:
 ; Animate water and flower
 ; tiles in the overworld.
-	ldh a, [$d7]
+	ldh a, [hffd7]
 	and a
 	ret z ; no animations if indoors (or if a menu set this to 0)
 
-	ldh a, [$d8]
+	ldh a, [hffd8]
 	inc a
-	ldh [$d8], a
+	ldh [hffd8], a
 	cp 20
 	ret c
 	cp 21
@@ -490,17 +490,17 @@ UpdateMovingBGTiles:
 	jr nz, .left
 
 .done
-	ldh a, [$d7]
+	ldh a, [hffd7]
 	rrca
 	ret nc
 ; if in a cave, no flower animations
 	xor a
-	ldh [$d8], a
+	ldh [hffd8], a
 	ret
 
 .flower
 	xor a
-	ldh [$d8], a
+	ldh [hffd8], a
 
 	ld a, [wMovingBGTilesCounter2]
 	and 1
