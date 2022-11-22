@@ -1,18 +1,9 @@
 SECTION "HRAM", HRAM
 
-hff80:: ds 1 ; ff80
-hff81:: ds 1 ; ff81
-hff82:: ds 1 ; ff82
-hff83:: ds 1 ; ff83
-hff84:: ds 1 ; ff84
-hff85:: ds 1 ; ff85
-hff86:: ds 1 ; ff86
-hff87:: ds 1 ; ff87
-hff88:: ds 1 ; ff88
-hff89:: ds 1 ; ff89
 hff8a:: ds 1 ; ff8a
 
 UNION
+hROMBankTemp::
 hff8b:: ds 1 ; ff8b
 hff8c:: ds 1 ; ff8c
 hff8d:: ds 1 ; ff8d
@@ -70,28 +61,25 @@ hffb7:: ds 1 ; ffb7
 hLoadedROMBank:: ds 1 ; ffb8
 hSavedROMBank::  ds 1 ; ffb9
 
-hffba:: ds 1 ; ffba
+hBGMapMode:: ds 1 ; ffba
 hffbb:: ds 1 ; ffbb
 hffbc:: ds 1 ; ffbc
 hffbd:: ds 1 ; ffbd
 hffbe:: ds 1 ; ffbe
 hffbf:: ds 1 ; ffbf
 hffc0:: ds 1 ; ffc0
-hffc1:: ds 1 ; ffc1
-hffc2:: ds 1 ; ffc2
-hffc3:: ds 1 ; ffc3
-hffc4:: ds 1 ; ffc4
-hffc5:: ds 1 ; ffc5
-hffc6:: ds 1 ; ffc6
-hffc7:: ds 1 ; ffc7
-hffc8:: ds 1 ; ffc8
-hffc9:: ds 1 ; ffc9
-hffca:: ds 1 ; ffca
-hffcb:: ds 1 ; ffcb
-hffcc:: ds 1 ; ffcc
-hffcd:: ds 1 ; ffcd
-hffce:: ds 1 ; ffce
-hffcf:: ds 1 ; ffcf
+hVBlankCopyBGSrc:: ds 2 ; ffc1
+hVBlankCopyBGDest:: ds 2 ; ffc3
+hVBlankCopyBGNumRows:: ds 1 ; ffc5
+
+hVBlankCopySize:: ds 1 ; ffc6
+hVBlankCopySrc:: ds 2 ; ffc7
+hVBlankCopyDest:: ds 2 ; ffc9
+
+hVBlankCopySize2:: ds 1 ; ffcb
+hVBlankCopySrc2:: ds 2 ; ffcc
+hVBlankCopyDest2:: ds 2 ; ffce
+
 hffd0:: ds 1 ; ffd0
 hffd1:: ds 1 ; ffd1
 hffd2:: ds 1 ; ffd2

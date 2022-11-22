@@ -53,24 +53,24 @@ WaitForTextScrollButtonPress:
 	ld a, $06
 	ldh [hff8c], a
 
-jr_38bb:
+.asm_38bb:
 	push hl
 	ld a, [wd078]
 	and a
-	jr z, jr_38c5
+	jr z, .asm_38c5
 
-	call $5b8a
+	call Func_1c_5b8a
 
-jr_38c5:
-	ld hl, wc4f2
-	call Call_3c34
+.asm_38c5:
+	hlcoord 18, 16
+	call Func_3c34
 	pop hl
 	call JoypadLowSensitivity
 	ld a, $2d
 	call Predef
 	ldh a, [hffb5]
 	and $03
-	jr z, jr_38bb
+	jr z, .asm_38bb
 
 	pop af
 	ldh [hff8c], a

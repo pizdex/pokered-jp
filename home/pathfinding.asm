@@ -8,11 +8,11 @@ abs_ab::
 	ret
 
 MoveSprite::
-	call Call_358b
-MoveSprite_::
+	call Func_358b
+_MoveSprite::
 	push hl
 	push bc
-	call Call_3598
+	call Func_3598
 	xor a
 	ld [hl], a
 

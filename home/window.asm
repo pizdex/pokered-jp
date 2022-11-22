@@ -12,10 +12,10 @@ HandleMenuInput_:
 	ld a, $06
 	ldh [hff8c], a
 
-Jump_3b19:
+Func_3b19:
 	xor a
 	ld [wd068], a
-	call Call_3bc6
+	call Func_3bc6
 	call Delay3
 
 jr_3b23:
@@ -36,8 +36,8 @@ jr_3b32:
 	jr nz, jr_3b56
 
 	push hl
-	ld hl, wc48e
-	call Call_3c34
+	ld hl, wTilemap + $ee
+	call Func_3c34
 	pop hl
 	ld a, [wcc34]
 	dec a
@@ -104,7 +104,7 @@ jr_3b92:
 jr_3b96:
 	ld a, [wcc29]
 	and b
-	jp z, Jump_3b19
+	jp z, Func_3b19
 
 jr_3b9d:
 	ldh a, [hffb5]
@@ -138,12 +138,12 @@ jr_3bbe:
 
 	jr jr_3b9d
 
-Call_3bc6:
+Func_3bc6:
 	ld a, [wcc24]
 	and a
 	jr z, jr_3bd6
 
-	ld hl, wc3a0
+	ld hl, wTilemap
 	ld bc, $0014
 
 jr_3bd2:
@@ -228,7 +228,7 @@ EraseMenuCursor:
 	ret
 
 
-Call_3c34:
+Func_3c34:
 	ld a, [hl]
 	ld b, a
 	ld a, $ee
@@ -299,5 +299,5 @@ PrintText:
 	pop hl
 
 PrintText_NoCreatingTextBox:
-	ld bc, wc4b9
-	jp Jump_05f1
+	ld bc, wTilemap + $119
+	jp TextCommandProcessor

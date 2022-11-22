@@ -112,8 +112,8 @@ CloseTextDisplay::
 	ldh [hWY], a ; move the window off the screen
 	call DelayFrame
 	call LoadGBPal
-	xor a
-	ldh [hffba], a ; disable continuous WRAM to VRAM transfer each V-blank
+	xor a ; disable auto-transfer
+	ldh [hBGMapMode], a
 
 ; loop to make sprites face the directions they originally faced before the dialogue
 	ld hl, wSprite01StateData2OrigFacingDirection
@@ -152,7 +152,7 @@ DisplayPokemartDialogue::
 	call LoadItemList
 	ld a, PRICEDITEMLISTMENU
 	ld [wListMenuID], a
-	homecall DisplayPokemartDialogue_
+	homecall _DisplayPokemartDialogue
 	jp AfterDisplayingTextID
 
 PokemartGreetingText::
@@ -184,7 +184,7 @@ DisplayPokemonCenterDialogue::
 	ldh [hItemPrice + 2], a
 
 	inc hl
-	homecall DisplayPokemonCenterDialogue_
+	homecall _DisplayPokemonCenterDialogue
 	jp AfterDisplayingTextID
 
 DisplaySafariGameOverText::
@@ -198,7 +198,7 @@ DisplayPokemonFaintedText:
 
 PokemonFaintedText::
 	text_ram wcd68 ; TEMP
-	text "は　ちからつきた"
+	text "は ちからつきた"
 	done
 
 DisplayPlayerBlackedOutText:
@@ -207,11 +207,11 @@ DisplayPlayerBlackedOutText:
 	jp HoldTextDisplayOpen
 
 PlayerBlackedOutText::
-	text "<PLAYER>の　てもとには"
-	line "たたかえる#が　もういない！"
+	text "<PLAYER>の てもとには"
+	line "たたかえる#が もういない！"
 
 	para "<PLAYER>は"
-	line "めのまえが　まっくらに　なった！"
+	line "めのまえが まっくらに なった！"
 	prompt
 
 DisplayRepelWoreOffText:
@@ -220,5 +220,5 @@ DisplayRepelWoreOffText:
 	jp AfterDisplayingTextID
 
 RepelWoreOffText::
-	text "スプレーの　こうかがきれた"
+	text "スプレーの こうかがきれた"
 	done

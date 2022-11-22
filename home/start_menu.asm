@@ -58,7 +58,7 @@ RedisplayStartMenu::
 	ld a, b
 	and START | B_BUTTON
 	jp nz, CloseStartMenu
-	call SaveScreenTilesToBuffer2 ; copy background from wTileMap to wTileMapBackup2
+	call SaveScreenTilesToBuffer2 ; copy background from wTilemap to wTilemapBackup2
 	CheckEvent EVENT_GOT_POKEDEX
 	ld a, [wCurrentMenuItem]
 	jr nz, .displayMenuItem

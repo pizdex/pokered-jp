@@ -1,10 +1,10 @@
-CopyFarBytes2::
-; Identical to FarCopyData, but uses hROMBankTemp
+CopyBytesFar2::
+; Identical to CopyBytesFar, but uses hROMBankTemp
 ; as temp space instead of wcee4.
-	ldh [hff8b], a
+	ldh [hROMBankTemp], a
 	ldh a, [hLoadedROMBank]
 	push af
-	ldh a, [hff8b]
+	ldh a, [hROMBankTemp]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	call CopyBytes
@@ -13,12 +13,12 @@ CopyFarBytes2::
 	ld [MBC1RomBank], a
 	ret
 
-CopyFarBytes3::
+CopyBytesFar3::
 ; Copy bc bytes from a:de to hl.
-	ldh [hff8b], a
+	ldh [hROMBankTemp], a
 	ldh a, [hLoadedROMBank]
 	push af
-	ldh a, [hff8b]
+	ldh a, [hROMBankTemp]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	push hl
@@ -35,16 +35,16 @@ CopyFarBytes3::
 	ld [MBC1RomBank], a
 	ret
 
-CopyFarBytesDouble::
+CopyBytesFarDouble::
 ; Expand bc bytes of 1bpp image data
 ; from a:hl to 2bpp data at de.
-	ldh [hff8b], a
+	ldh [hROMBankTemp], a
 	ldh a, [hLoadedROMBank]
 	push af
-	ldh a, [hff8b]
+	ldh a, [hROMBankTemp]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-.asm_02cc
+.loop
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -53,7 +53,7 @@ CopyFarBytesDouble::
 	dec bc
 	ld a, c
 	or b
-	jr nz, .asm_02cc
+	jr nz, .loop
 	pop af
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
@@ -63,120 +63,118 @@ CopyVideoData::
 ; Wait for the next VBlank, then copy c 2bpp
 ; tiles from b:de to hl, 8 tiles at a time.
 ; This takes c/8 frames.
-
-	ldh a, [hffba]
+	ldh a, [hBGMapMode]
 	push af
-	xor a
-	ldh [hffba], a
+	xor a ; disable auto-transfer
+	ldh [hBGMapMode], a
 
 	ldh a, [hLoadedROMBank]
-	ldh [hff8b], a
-
+	ldh [hROMBankTemp], a
 	ld a, b
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 
 	ld a, e
-	ldh [hffc7], a
+	ldh [hVBlankCopySrc], a
 	ld a, d
-	ldh [hffc8], a
+	ldh [hVBlankCopySrc + 1], a
 	ld a, l
-	ldh [hffc9], a
+	ldh [hVBlankCopyDest], a
 	ld a, h
-	ldh [hffca], a
+	ldh [hVBlankCopyDest + 1], a
 
-.asm_02f9
+.loop
 	ld a, c
 	cp 8
-	jr nc, .keepgoing
+	jr nc, .copy
 
-	ldh [hffc6], a
+	ldh [hVBlankCopySize], a
 	call DelayFrame
-	ldh a, [hff8b]
+	ldh a, [hROMBankTemp]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	pop af
-	ldh [hffba], a
+	ldh [hBGMapMode], a
 	ret
 
-.keepgoing
+.copy
 	ld a, 8
-	ldh [hffc6], a
+	ldh [hVBlankCopySize], a
 	call DelayFrame
 	ld a, c
 	sub 8
 	ld c, a
-	jr .asm_02f9
+	jr .loop
 
 CopyVideoDataDouble:
-	ldh a, [hffba]
+	ldh a, [hBGMapMode]
 	push af
-	xor a
-	ldh [hffba], a
+	xor a ; disable auto-transfer
+	ldh [hBGMapMode], a
 	ldh a, [hLoadedROMBank]
-	ldh [hff8b], a
+	ldh [hROMBankTemp], a
 
 	ld a, b
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 
 	ld a, e
-	ldh [hffcc], a
+	ldh [hVBlankCopySrc2], a
 	ld a, d
-	ldh [hffcd], a
+	ldh [hVBlankCopySrc2 + 1], a
 	ld a, l
-	ldh [hffce], a
+	ldh [hVBlankCopyDest2], a
 	ld a, h
-	ldh [hffcf], a
+	ldh [hVBlankCopyDest2 + 1], a
 
-.asm_0337
+.loop
 	ld a, c
-	cp $08
-	jr nc, .asm_034c
+	cp 8
+	jr nc, .copy
 
-	ldh [hffcb], a
+	ldh [hVBlankCopySize2], a
 	call DelayFrame
-	ldh a, [hff8b]
+	ldh a, [hROMBankTemp]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	pop af
-	ldh [hffba], a
+	ldh [hBGMapMode], a
 	ret
 
-.asm_034c
-	ld a, $08
-	ldh [hffcb], a
+.copy
+	ld a, 8
+	ldh [hVBlankCopySize2], a
 	call DelayFrame
 	ld a, c
-	sub $08
+	sub 8
 	ld c, a
-	jr .asm_0337
+	jr .loop
 
-Function_0359::
-.asm_0359
+Func_0359::
+.loop
 	call DelayFrame
 	push bc
 	call JoypadLowSensitivity
 	pop bc
 	ldh a, [hJoyHeld]
 	cp $46
-	jr z, .asm_0372
+	jr z, .exit
 	ldh a, [hffb5]
 	and $09
-	jr nz, .asm_0372
+	jr nz, .exit
 	dec c
-	jr nz, .asm_0359
+	jr nz, .loop
 	and a
 	ret
 
-.asm_0372
+.exit
 	scf
 	ret
 
 ClearScreenArea::
 ; Clear tilemap area c×b at hl.
-	ld a, $7f
-	ld de, 20
+	ld a, " " ; blank tile
+	ld de, SCREEN_WIDTH
 .y
 	push hl
 	push bc
@@ -192,45 +190,45 @@ ClearScreenArea::
 	ret
 
 CopyScreenTileBufferToVRAM::
-; Copy wTileMap to the BG Map starting at b * $100.
+; Copy wTilemap to the BG Map starting at b * $100.
 ; This is done in thirds of 6 rows, so it takes 3 frames.
 	ld c, 6
 	ld hl, $600 * 0
-	ld de, wc3a0
+	decoord 0, 6 * 0
 	call .setup
 	call DelayFrame
 
 	ld hl, $600 * 1
-	ld de, wc418
+	decoord 0, 6 * 1
 	call .setup
 	call DelayFrame
 
 	ld hl, $600 * 2
-	ld de, wc490
+	decoord 0, 6 * 2
 	call .setup
 	jp DelayFrame
 
 .setup
 	ld a, d
-	ldh [hffc2], a
+	ldh [hVBlankCopyBGSrc + 1], a
 	call GetRowColAddressBGMap
 	ld a, l
-	ldh [hffc3], a
+	ldh [hVBlankCopyBGDest], a
 	ld a, h
-	ldh [hffc4], a
+	ldh [hVBlankCopyBGDest + 1], a
 	ld a, c
-	ldh [hffc5], a
+	ldh [hVBlankCopyBGNumRows], a
 	ld a, e
-	ldh [hffc1], a
+	ldh [hVBlankCopyBGSrc], a
 	ret
 
 ClearScreen::
-; Clear wTileMap, then wait
+; Clear wTilemap, then wait
 ; for the bg map to update.
-	ld bc, $168
+	ld bc, 20 * 18
 	inc b
-	ld hl, wc3a0
-	ld a, $7f
+	hlcoord 0, 0
+	ld a, " "
 .loop
 	ld [hli], a
 	dec c

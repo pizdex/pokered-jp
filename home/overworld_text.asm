@@ -10,20 +10,20 @@ ExclamationText::
 	done
 
 GroundRoseText::
-	text "どこかで　じめんがもりあがった！"
+	text "どこかで じめんがもりあがった！"
 	done
 
 BoulderText::
-	text "「かいりき」　で　うごかせるかも<……>"
+	text "「かいりき」 で うごかせるかも<……>"
 	done
 
 MartSignText::
-	text "#　グッズが　いっぱい！"
+	text "# グッズが いっぱい！"
 	line "フレンドりィショップ"
 	done
 
 PokeCenterSignText::
-	text "#の　たいりょく　かいふく！"
+	text "#の たいりょく かいふく！"
 	line "#センター"
 	done
 

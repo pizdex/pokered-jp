@@ -1,9 +1,7 @@
 ; subtracts the amount the player paid from their money
 ; OUTPUT: carry = 0(success) or 1(fail because there is not enough money)
 SubtractAmountPaidFromMoney::
-	ld b, $01
-	ld hl, $6abc
-	jp Bankswitch
+	farjp _SubtractAmountPaidFromMoney
 
 ; adds the amount the player sold to their money
 AddAmountSoldToMoney::
@@ -25,15 +23,7 @@ AddAmountSoldToMoney::
 ; [wWhichPokemon] = index (within the inventory) of the item to remove
 ; [wItemQuantity] = quantity to remove
 RemoveItemFromInventory::
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, $03
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	call $4652
-	pop af
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	homecall _RemoveItemFromInventory
 	ret
 
 ; function to add an item (in varying quantities) to the player's bag or PC box
@@ -44,15 +34,6 @@ RemoveItemFromInventory::
 ; sets carry flag if successful, unsets carry flag if unsuccessful
 AddItemToInventory::
 	push bc
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, $03
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	call $45e2
-	pop bc
-	ld a, b
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	homecall_sf _AddItemToInventory
 	pop bc
 	ret

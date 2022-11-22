@@ -83,7 +83,7 @@ SetSpriteFacingDirectionAndDelay::
 SetSpriteFacingDirection:
 	ld a, $09
 	ldh [hff8b], a
-	call Call_3546
+	call Func_3546
 	ldh a, [hff8d]
 	ld [hl], a
 	ret
@@ -150,7 +150,7 @@ CheckBoulderCoords::
 	jp CheckCoords
 
 
-Call_3546:
+Func_3546:
 	ld h, $c1
 	jr jr_354c
 
@@ -197,26 +197,26 @@ jr_3575:
 
 
 	push hl
-	call Call_3598
+	call Func_3598
 	ld [hl], $fe
-	call Call_35a2
+	call Func_35a2
 	ldh a, [hff8d]
 	ld [hl], a
 	pop hl
 	ret
 
 
-Call_358b:
+Func_358b:
 	push hl
-	call Call_3598
+	call Func_3598
 	ld [hl], $ff
-	call Call_35a2
+	call Func_35a2
 	ld [hl], $ff
 	pop hl
 	ret
 
 
-Call_3598:
+Func_3598:
 	ld h, $c2
 	ldh a, [hff8c]
 	swap a
@@ -225,7 +225,7 @@ Call_3598:
 	ret
 
 
-Call_35a2:
+Func_35a2:
 	push de
 	ld hl, wMapSpriteData
 	ldh a, [hff8c]

@@ -5,10 +5,10 @@ Predef::
 	ld [wcf0d], a
 
 	push af
-	ld a, $13
+	ld a, BANK(GetPredefPointer)
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	call $7ea5
+	call GetPredefPointer
 	ld a, [wPredefBank]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a

@@ -1,8 +1,8 @@
 DisplayTextBoxID:
-	homecall_sf DisplayTextBoxID_
+	homecall_sf _DisplayTextBoxID
 	ret
 
-Call_3145:
+Func_3145:
 	ld a, [wcc57]
 	and a
 	ret nz

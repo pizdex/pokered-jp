@@ -248,27 +248,9 @@ jr_3a99:
 	ret
 
 AddEnemyMonToPlayerParty::
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, $03
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	call $77d3
-	pop bc
-	ld a, b
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	homecall_sf _AddEnemyMonToPlayerParty
 	ret
 
 MoveMon::
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, $03
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	call $7854
-	pop bc
-	ld a, b
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	homecall_sf _MoveMon
 	ret

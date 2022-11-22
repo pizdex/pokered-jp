@@ -22,6 +22,4 @@ GivePokemon::
 	ld [wd0ec], a
 	xor a
 	ld [wcc49], a
-	ld b, $13
-	ld hl, $7da1
-	jp Bankswitch
+	farjp _GivePokemon

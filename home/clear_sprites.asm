@@ -1,7 +1,7 @@
-ClearSprites:
+ClearSprites::
 	xor a
 	ld hl, wOAMBuffer
-	ld b, wOAMBufferEnd - wOAMBuffer
+	ld b, wOAMBuffer.end - wOAMBuffer
 .loop
 	ld [hli], a
 	dec b

@@ -58,7 +58,7 @@ DrawHPBar::
 	ret
 
 LoadMonData:
-	jpfar LoadMonData_
+	jpfar _LoadMonData
 
 OverwritewMoves::
 ; Write c to [wMoves + b]. Unused.
@@ -225,7 +225,7 @@ HandlePartyMenuInput:
 	res 6, [hl]
 	ld a, [wcc35]
 	and a
-	jp nz, Jump_2ea3
+	jp nz, Func_2ea3
 
 	pop af
 	ldh [hffd7], a
@@ -254,7 +254,7 @@ HandlePartyMenuInput:
 	scf
 	ret
 
-Jump_2ea3:
+Func_2ea3:
 	bit 1, b
 	jr z, jr_2ebb
 
@@ -296,7 +296,7 @@ PrintStatusCondition::
 	ld a, [de]
 	or b
 	pop de
-	jr nz, jr_2eed
+	jr nz, PrintStatusConditionNotFainted
 
 	ld a, $cb
 	ld [hli], a
@@ -306,20 +306,9 @@ PrintStatusCondition::
 	and a
 	ret
 
-
-jr_2eed:
-	ldh a, [hLoadedROMBank]
-	push af
-	ld a, $1e
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	call $4000
-	pop bc
-	ld a, b
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+PrintStatusConditionNotFainted::
+	homecall_sf PrintStatusAilment
 	ret
-
 
 PrintLevel:
 	ld a, $6e
@@ -409,7 +398,7 @@ GetMonHeader:
 	ld de, wd095
 	ld bc, $001c
 	ld a, $01
-	call CopyFarBytes
+	call CopyBytesFar
 
 .done
 	ld a, [wd092]

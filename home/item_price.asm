@@ -36,10 +36,10 @@ jr_384a:
 	jr jr_3864
 
 jr_385a:
-	ld a, $1e
+	ld a, BANK(GetMachinePrice)
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	call $7fb2
+	call GetMachinePrice
 
 jr_3864:
 	ld de, hff8b

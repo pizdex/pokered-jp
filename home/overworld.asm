@@ -56,7 +56,7 @@ OverworldLoopLessDelay:
 	call nz, HandleMidJump
 	ld a, [wcfac]
 	and a
-	jp nz, Jump_1fcc
+	jp nz, Func_1fcc
 
 	call JoypadOverworld
 	ld b, $07
@@ -64,12 +64,12 @@ OverworldLoopLessDelay:
 	call Bankswitch
 	ld a, [wd982]
 	and a
-	jp nz, Jump_2153
+	jp nz, Func_2153
 
 	ld hl, wd6ac
 	bit 3, [hl]
 	res 3, [hl]
-	jp nz, Jump_2153
+	jp nz, Func_2153
 
 	ld a, [wd6b1]
 	and $18
@@ -77,7 +77,7 @@ OverworldLoopLessDelay:
 
 	ld a, [wd036]
 	and a
-	jp nz, Jump_2043
+	jp nz, Func_2043
 
 	ld a, [wd6af]
 	bit 7, a
@@ -95,21 +95,21 @@ jr_1e6c:
 
 	xor a
 	ldh [hff8c], a
-	jp Jump_1e9a
+	jp Func_1e9a
 
 
 jr_1e76:
 	bit 0, a
-	jp z, Jump_1f02
+	jp z, Func_1f02
 
 	ld a, [wd6af]
 	bit 2, a
-	jp nz, Jump_1ee4
+	jp nz, Func_1ee4
 
-	call Call_3145
+	call Func_3145
 	jr nz, jr_1eda
 
-	call Call_3ee5
+	call Func_3ee5
 	ldh a, [hffeb]
 	and a
 	jp z, OverworldLoop
@@ -119,7 +119,7 @@ jr_1e76:
 	and a
 	jp z, OverworldLoop
 
-Jump_1e9a:
+Func_1e9a:
 	ld a, $35
 	call Predef
 	call UpdateSprites
@@ -144,7 +144,7 @@ Jump_1e9a:
 	call Predef
 	ld a, [wCurMap]
 	ld [wd699], a
-	call $6260
+	call SpecialWarpIn
 	ld a, [wCurMap]
 	call SwitchToMapRomBank
 	ld hl, wd2e6
@@ -157,12 +157,12 @@ jr_1ed7:
 jr_1eda:
 	ld a, [wd036]
 	and a
-	jp nz, Jump_2043
+	jp nz, Func_2043
 
 	jp OverworldLoop
 
 
-Jump_1ee4:
+Func_1ee4:
 jr_1ee4:
 	ld hl, wcd5b
 	res 2, [hl]
@@ -179,7 +179,7 @@ jr_1ee4:
 	jp OverworldLoop
 
 
-Jump_1f02:
+Func_1f02:
 	ldh a, [hJoyHeld]
 	bit 7, a
 	jr z, jr_1f11
@@ -272,7 +272,7 @@ jr_1f7b:
 	ld a, [wd4a9]
 	ld [wd4a7], a
 	call NewBattle
-	jp c, Jump_204e
+	jp c, Func_204e
 
 	jp OverworldLoop
 
@@ -311,7 +311,7 @@ jr_1fc5:
 	ld [wcfac], a
 	jr jr_1fde
 
-Jump_1fcc:
+Func_1fcc:
 	ld a, [wd6b5]
 	bit 7, a
 	jr z, jr_1fdb
@@ -369,7 +369,7 @@ jr_201a:
 	call Bankswitch
 	ld a, [wd982]
 	and a
-	jp nz, Jump_2153
+	jp nz, Func_2153
 
 jr_2030:
 	ld a, [wd034]
@@ -382,13 +382,13 @@ jr_2030:
 	and a
 	jp nz, HandleBlackOut
 
-Jump_2043:
+Func_2043:
 	call NewBattle
 	ld hl, wd6b5
 	res 2, [hl]
 	jp nc, CheckWarpsNoCollision
 
-Jump_204e:
+Func_204e:
 	ld hl, wd6ac
 	res 6, [hl]
 	ld hl, wd6b2
@@ -410,7 +410,7 @@ jr_206e:
 	set 5, [hl]
 	ld a, [wCurMap]
 	cp $28
-	jp z, Jump_2087
+	jp z, Func_2087
 
 	ld hl, $4ba3
 	ld b, $0f
@@ -419,7 +419,7 @@ jr_206e:
 	and a
 	jr z, jr_208f
 
-Jump_2087:
+Func_2087:
 	ld c, $0a
 	call DelayFrames
 	jp EnterMap
@@ -437,7 +437,7 @@ NewBattle:
 	bit 4, a
 	jr nz, jr_20b5
 
-	call Call_3145
+	call Func_3145
 	jr nz, jr_20b5
 
 	ld a, [wd6ad]
@@ -576,7 +576,7 @@ jr_214c:
 	ld a, [hli]
 	ldh [hff8b], a
 
-Jump_2153:
+Func_2153:
 jr_2153:
 	ld a, [wd32d]
 	sub c
@@ -686,7 +686,7 @@ jr_220a:
 	ld [wd2de], a
 	ld a, h
 	ld [wd2df], a
-	jp Jump_22c4
+	jp Func_22c4
 
 
 jr_2215:
@@ -727,7 +727,7 @@ jr_224e:
 	ld [wd2de], a
 	ld a, h
 	ld [wd2df], a
-	jp Jump_22c4
+	jp Func_22c4
 
 
 jr_2259:
@@ -756,7 +756,7 @@ jr_2259:
 	ld [wd2de], a
 	ld a, h
 	ld [wd2df], a
-	jp Jump_22c4
+	jp Func_22c4
 
 
 jr_2290:
@@ -787,7 +787,7 @@ jr_2290:
 	ld a, h
 	ld [wd2df], a
 
-Jump_22c4:
+Func_22c4:
 	call LoadMapHeader
 	call PlayDefaultMusicFadeOutCurrent
 	ld b, $09
@@ -804,7 +804,7 @@ jr_22dd:
 
 
 PlayMapChangeSound:
-	ld a, [wc448]
+	ld a, [$c448]
 	cp $0b
 	jr nz, jr_22eb
 
@@ -884,7 +884,6 @@ MapEntryAfterBattle:
 
 	jp LoadGBPal
 
-
 HandleBlackOut:
 	call GBFadeOutToBlack
 	ld a, $08
@@ -894,11 +893,10 @@ HandleBlackOut:
 	ld a, $01
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	call $755f
-	call $6260
+	call Func_01_755f
+	call SpecialWarpIn
 	call PlayDefaultMusicFadeOutCurrent
-	jp $5bb6
-
+	jp SpecialEnterMap
 
 StopMusic:
 	ld [wAudioFadeOutControl], a
@@ -929,8 +927,8 @@ HandleFlyWarpOrDungeonWarp:
 	ld a, $01
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	call $6260
-	jp $5bb6
+	call SpecialWarpIn
+	jp SpecialEnterMap
 
 
 LeaveMapAnim:
@@ -1018,7 +1016,7 @@ LoadTilesetTilePatternData:
 	ld de, $9000
 	ld bc, $0600
 	ld a, [wd4aa]
-	jp CopyFarBytes2
+	jp CopyBytesFar2
 
 
 LoadTileBlockMap:
@@ -1505,7 +1503,7 @@ jr_266c:
 	jr jr_265f
 
 jr_266f:
-	ld a, [wc45c]
+	ld a, [$c45c]
 	ld b, a
 	ld a, [hl]
 	cp b
@@ -1595,7 +1593,7 @@ LoadCurrentMapView:
 	ld e, a
 	ld a, [wd2df]
 	ld d, a
-	ld hl, wc508
+	ld hl, wTilemap + $168
 	ld b, $05
 
 jr_26d3:
@@ -1643,7 +1641,7 @@ jr_26fd:
 	dec b
 	jr nz, jr_26d3
 
-	ld hl, wc508
+	ld hl, wTilemap + $168
 	ld bc, $0000
 	ld a, [wd2e2]
 	and a
@@ -1661,7 +1659,7 @@ jr_2710:
 	add hl, bc
 
 jr_271a:
-	ld de, wc3a0
+	ld de, wTilemap
 	ld b, $12
 
 jr_271f:
@@ -1710,7 +1708,7 @@ AdvancePlayerSprite:
 jr_2754:
 	ld a, [wcfac]
 	cp $07
-	jp nz, Jump_2847
+	jp nz, Func_2847
 
 	ld a, c
 	cp $01
@@ -1866,7 +1864,7 @@ jr_2840:
 
 	call ScheduleWestColumnRedraw
 
-Jump_2847:
+Func_2847:
 jr_2847:
 	ld a, [$c103]
 	ld b, a
@@ -1962,7 +1960,7 @@ MoveTileBlockMapPointerNorth:
 
 
 ScheduleNorthRowRedraw:
-	ld hl, wc3a0
+	ld hl, wTilemap
 	call CopyToRedrawRowOrColumnSrcTiles
 	ld a, [wd4a5]
 	ldh [hffd1], a
@@ -1988,7 +1986,7 @@ jr_28bc:
 
 
 ScheduleSouthRowRedraw:
-	ld hl, wc4e0
+	ld hl, $c4e0
 	call CopyToRedrawRowOrColumnSrcTiles
 	ld a, [wd4a5]
 	ld l, a
@@ -2008,7 +2006,7 @@ ScheduleSouthRowRedraw:
 
 
 ScheduleEastColumnRedraw:
-	ld hl, wc3b2
+	ld hl, wTilemap + $12
 	call ScheduleColumnRedrawHelper
 	ld a, [wd4a5]
 	ld c, a
@@ -2052,7 +2050,7 @@ jr_2915:
 
 
 ScheduleWestColumnRedraw:
-	ld hl, wc3a0
+	ld hl, wTilemap
 	call ScheduleColumnRedrawHelper
 	ld a, [wd4a5]
 	ldh [hffd1], a
@@ -2181,7 +2179,7 @@ jr_29ac:
 CollisionCheckOnWater:
 	ld a, [wd6af]
 	bit 7, a
-	jp nz, Jump_2a15
+	jp nz, Func_2a15
 
 	ld a, [wd4a9]
 	ld d, a
@@ -2233,7 +2231,7 @@ jr_2a12:
 	scf
 	jr jr_2a16
 
-Jump_2a15:
+Func_2a15:
 jr_2a15:
 	and a
 
@@ -2475,7 +2473,7 @@ jr_2b47:
 jr_2b61:
 	ld a, [wd6ad]
 	bit 5, a
-	jp nz, Jump_2c09
+	jp nz, Func_2c09
 
 	ld a, [hli]
 	ld [wNumSprites], a
@@ -2506,12 +2504,12 @@ jr_2b85:
 	ld de, $c110
 	ld a, [wNumSprites]
 	and a
-	jp z, Jump_2c09
+	jp z, Func_2c09
 
 	ld b, a
 	ld c, $00
 
-Jump_2b99:
+Func_2b99:
 	ld a, [hli]
 	ld [de], a
 	inc d
@@ -2599,9 +2597,9 @@ jr_2bfd:
 	inc c
 	inc c
 	dec b
-	jp nz, Jump_2b99
+	jp nz, Func_2b99
 
-Jump_2c09:
+Func_2c09:
 	ld a, $19
 	call Predef
 	ld hl, $4f2e
@@ -2670,7 +2668,7 @@ LoadMapData:
 	call LoadTileBlockMap
 	call LoadTilesetTilePatternData
 	call LoadCurrentMapView
-	ld hl, wc3a0
+	ld hl, wTilemap
 	ld de, $9800
 	ld b, $12
 

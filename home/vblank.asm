@@ -1,4 +1,4 @@
-VBlank:
+VBlank::
 	push af
 	push bc
 	push de
@@ -19,17 +19,17 @@ VBlank:
 	ldh [rWY], a
 
 .asm_0ac7
-	call AutoBGMapTransfer
+	call UpdateBGMap
 	call VBlankCopyBGMap
 	call RedrawRowOrColumn
 	call VBlankCopy
 	call VBlankCopyDouble
 	call UpdateMovingBGTiles
-	call $ff80
-	ld a, $01
+	call hDMARoutine
+	ld a, BANK(PrepareOAMData)
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-	call $4672
+	call PrepareOAMData
 
 	; VBlank-sensitive operations end here.
 	call Random
@@ -53,29 +53,26 @@ VBlank:
 	ld a, [wAudioROMBank]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
-
 ; checkForAudio1
-	cp $02
+	cp BANK(Audio1_UpdateMusic)
 	jr nz, .asm_0b0d
 ; audio1
-	call $4000
+	call Audio1_UpdateMusic
 	jr .asm_0b1c
 
 .asm_0b0d:
-	cp $08
+	cp BANK(Audio2_UpdateMusic)
 	jr nz, .asm_0b19
 ; audio2
-	call $6c38
-	call $455f
+	call Music_DoLowHealthAlarm
+	call Audio2_UpdateMusic
 	jr .asm_0b1c
 
 .asm_0b19:
-	call $4417
+	call Audio3_UpdateMusic
 
 .asm_0b1c:
-	ld b, $06
-	ld hl, $4dee
-	call Bankswitch
+	farcall TrackPlayTime
 
 	ld a, [wd0e7]
 	ldh [hLoadedROMBank], a
@@ -86,7 +83,6 @@ VBlank:
 	pop bc
 	pop af
 	reti
-
 
 NOT_VBLANKED EQU 1
 

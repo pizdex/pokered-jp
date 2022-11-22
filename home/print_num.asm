@@ -63,8 +63,8 @@ jr_3cbb:
 	ldh [hff9a], a
 	ld a, $40
 	ldh [hff9b], a
-	call Call_3d55
-	call Call_3db9
+	call Func_3d55
+	call Func_3db9
 
 jr_3ce8:
 	ld a, $01
@@ -73,8 +73,8 @@ jr_3ce8:
 	ldh [hff9a], a
 	ld a, $a0
 	ldh [hff9b], a
-	call Call_3d55
-	call Call_3db9
+	call Func_3d55
+	call Func_3db9
 
 jr_3cfa:
 	xor a
@@ -83,8 +83,8 @@ jr_3cfa:
 	ldh [hff9a], a
 	ld a, $10
 	ldh [hff9b], a
-	call Call_3d55
-	call Call_3db9
+	call Func_3d55
+	call Func_3db9
 
 jr_3d0b:
 	xor a
@@ -93,8 +93,8 @@ jr_3d0b:
 	ldh [hff9a], a
 	ld a, $e8
 	ldh [hff9b], a
-	call Call_3d55
-	call Call_3db9
+	call Func_3d55
+	call Func_3db9
 
 jr_3d1c:
 	xor a
@@ -103,8 +103,8 @@ jr_3d1c:
 	ldh [hff9a], a
 	ld a, $64
 	ldh [hff9b], a
-	call Call_3d55
-	call Call_3db9
+	call Func_3d55
+	call Func_3db9
 
 jr_3d2c:
 	ld c, $00
@@ -125,7 +125,7 @@ jr_3d39:
 	ldh [hff95], a
 	jr nz, jr_3d46
 
-	call Call_3db3
+	call Func_3db3
 	jr jr_3d4a
 
 jr_3d46:
@@ -134,7 +134,7 @@ jr_3d46:
 	ld [hl], a
 
 jr_3d4a:
-	call Call_3db9
+	call Func_3db9
 	ld a, $f6
 	add b
 	ld [hli], a
@@ -143,7 +143,7 @@ jr_3d4a:
 	pop bc
 	ret
 
-Call_3d55:
+Func_3d55:
 	ld c, $00
 
 jr_3d57:
@@ -223,7 +223,7 @@ jr_3da7:
 	ldh [hff95], a
 	ret
 
-Call_3db3:
+Func_3db3:
 jr_3db3:
 	bit 7, d
 	ret z
@@ -231,7 +231,7 @@ jr_3db3:
 	ld [hl], $f6
 	ret
 
-Call_3db9:
+Func_3db9:
 	bit 7, d
 	jr nz, jr_3dc5
 

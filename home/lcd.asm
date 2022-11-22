@@ -11,7 +11,7 @@ DisableLCD::
 
 .wait
 	ldh a, [rLY]
-	cp 145
+	cp SCRN_Y + 1
 	jr nz, .wait
 
 	ldh a, [rLCDC]

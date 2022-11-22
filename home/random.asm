@@ -1,10 +1,9 @@
 Random::
+; Returns a random number in a.
 	push hl
 	push de
 	push bc
-	ld b, $04
-	ld hl, $7fea
-	call Bankswitch
+	farcall _Random
 	ldh a, [hffd3]
 	pop bc
 	pop de

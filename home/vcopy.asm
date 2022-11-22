@@ -87,13 +87,13 @@ RedrawRowOrColumn:
 	ldh a, [hffd2]
 	ld d, a
 	push de
-	call Call_07d9
+	call Func_07d9
 	pop de
 	ld a, $20
 	add e
 	ld e, a
 
-Call_07d9:
+Func_07d9:
 	ld c, 20 / 2
 .asm_07db:
 	ld a, [hli]
@@ -113,15 +113,15 @@ Call_07d9:
 	jr nz, .asm_07db
 	ret
 
-AutoBGMapTransfer:
+UpdateBGMap:
 ; This function automatically transfers tile number data from the tile map at
-; wTileMap to VRAM during V-blank. Note that it only transfers one third of the
+; wTilemap to VRAM during V-blank. Note that it only transfers one third of the
 ; background per V-blank. It cycles through which third it draws.
 ; This transfer is turned off when walking around the map, but is turned
 ; on when talking to sprites, battling, using menus, etc. This is because
 ; the above function, RedrawRowOrColumn, is used when walking to
 ; improve efficiency.
-	ldh a, [hffba]
+	ldh a, [hBGMapMode]
 	and a
 	ret z
 
@@ -136,7 +136,7 @@ AutoBGMapTransfer:
 	dec a
 	jr z, .asm_0825
 
-	ld hl, wc490
+	ld hl, $c490
 	ld sp, hl
 	ld a, [hffbd]
 	ld h, a
@@ -148,7 +148,7 @@ AutoBGMapTransfer:
 	jr .asm_0837
 
 .asm_0815:
-	ld hl, wc3a0
+	ld hl, wTilemap
 	ld sp, hl
 	ld a, [hffbd]
 	ld h, a
@@ -158,7 +158,7 @@ AutoBGMapTransfer:
 	jr .asm_0837
 
 .asm_0825:
-	ld hl, wc418
+	ld hl, $c418
 	ld sp, hl
 	ld a, [hffbd]
 	ld h, a
@@ -238,9 +238,9 @@ TransferBgRows:
 	ret
 
 VBlankCopyBGMap:
-; Copies [hVBlankCopyBGNumRows] rows from hVBlankCopyBGSource to hVBlankCopyBGDest.
-; If hVBlankCopyBGSource is XX00, the transfer is disabled.
-	ldh a, [hffc1]
+; Copies [hVBlankCopyBGNumRows] rows from hVBlankCopyBGSrc to hVBlankCopyBGDest.
+; If hVBlankCopyBGSrc is XX00, the transfer is disabled.
+	ldh a, [hVBlankCopyBGSrc]
 	and a
 	ret z
 
@@ -249,29 +249,29 @@ VBlankCopyBGMap:
 	ldh [hffbf], a
 	ld a, l
 	ldh [hffc0], a
-	ldh a, [hffc1]
+	ldh a, [hVBlankCopyBGSrc]
 	ld l, a
-	ldh a, [hffc2]
+	ldh a, [hVBlankCopyBGSrc + 1]
 	ld h, a
 	ld sp, hl
-	ldh a, [hffc3]
+	ldh a, [hVBlankCopyBGDest]
 	ld l, a
-	ldh a, [hffc4]
+	ldh a, [hVBlankCopyBGDest + 1]
 	ld h, a
-	ldh a, [hffc5]
+	ldh a, [hVBlankCopyBGNumRows]
 	ld b, a
 	xor a
-	ldh [hffc1], a
+	ldh [hVBlankCopyBGSrc], a
 	jr TransferBgRows
 
 VBlankCopyDouble:
-; Copy [hVBlankCopyDoubleSize] 1bpp tiles
-; from hVBlankCopyDoubleSource to hVBlankCopyDoubleDest.
+; Copy [hVBlankCopySize2] 1bpp tiles
+; from hVBlankCopySrc2 to hVBlankCopyDest2.
 
 ; While we're here, convert to 2bpp.
 ; The process is straightforward:
 ; copy each byte twice.
-	ldh a, [hffcb]
+	ldh a, [hVBlankCopySize2]
 	and a
 	ret z
 
@@ -280,19 +280,19 @@ VBlankCopyDouble:
 	ldh [hffbf], a
 	ld a, l
 	ldh [hffc0], a
-	ldh a, [hffcc]
+	ldh a, [hVBlankCopySrc2]
 	ld l, a
-	ldh a, [hffcd]
+	ldh a, [hVBlankCopySrc2 + 1]
 	ld h, a
 	ld sp, hl
-	ldh a, [hffce]
+	ldh a, [hVBlankCopyDest2]
 	ld l, a
-	ldh a, [hffcf]
+	ldh a, [hVBlankCopyDest2 + 1]
 	ld h, a
-	ldh a, [hffcb]
+	ldh a, [hVBlankCopySize2]
 	ld b, a
 	xor a
-	ldh [hffcb], a
+	ldh [hVBlankCopySize2], a
 
 .asm_08be:
 	pop de
@@ -335,15 +335,15 @@ VBlankCopyDouble:
 	jr nz, .asm_08be
 
 	ld a, l
-	ldh [hffce], a
+	ldh [hVBlankCopyDest2], a
 	ld a, h
-	ldh [hffcf], a
+	ldh [hVBlankCopyDest2 + 1], a
 
 	ld hl, sp + 0
 	ld a, l
-	ldh [hffcc], a
+	ldh [hVBlankCopySrc2], a
 	ld a, h
-	ldh [hffcd], a
+	ldh [hVBlankCopySrc2 + 1], a
 
 	ldh a, [hffbf]
 	ld h, a
@@ -354,11 +354,11 @@ VBlankCopyDouble:
 
 VBlankCopy:
 ; Copy [hVBlankCopySize] 2bpp tiles (or 16 * [hVBlankCopySize] tile map entries)
-; from hVBlankCopySource to hVBlankCopyDest.
+; from hVBlankCopySrc to hVBlankCopyDest.
 
 ; Source and destination addresses are updated,
 ; so transfer can continue in subsequent calls.
-	ldh a, [hffc6]
+	ldh a, [hVBlankCopySize]
 	and a
 	ret z
 
@@ -368,21 +368,21 @@ VBlankCopy:
 	ld a, l
 	ldh [hffc0], a
 
-	ldh a, [hffc7]
+	ldh a, [hVBlankCopySrc]
 	ld l, a
-	ldh a, [hffc7 + 1]
+	ldh a, [hVBlankCopySrc + 1]
 	ld h, a
 	ld sp, hl
 
-	ldh a, [hffc9]
+	ldh a, [hVBlankCopyDest]
 	ld l, a
-	ldh a, [hffc9 + 1]
+	ldh a, [hVBlankCopyDest + 1]
 	ld h, a
 
-	ldh a, [hffc6]
+	ldh a, [hVBlankCopySize]
 	ld b, a
 	xor a ; transferred
-	ldh [hffc6], a
+	ldh [hVBlankCopySize], a
 
 .asm_091a:
 	pop de
@@ -429,15 +429,15 @@ VBlankCopy:
 	jr nz, .asm_091a
 
 	ld a, l
-	ldh [hffc9], a
+	ldh [hVBlankCopyDest], a
 	ld a, h
-	ldh [hffca], a
+	ldh [hVBlankCopyDest + 1], a
 
 	ld hl, sp + 0
 	ld a, l
-	ldh [hffc7], a
+	ldh [hVBlankCopySrc], a
 	ld a, h
-	ldh [hffc8], a
+	ldh [hVBlankCopySrc + 1], a
 
 	ldh a, [hffbf]
 	ld h, a

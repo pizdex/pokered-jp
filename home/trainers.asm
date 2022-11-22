@@ -113,7 +113,7 @@ TalkToTrainer::
 	ld a, $08
 	call ReadTrainerHeaderInfo
 	pop de
-	call Call_339c
+	call Func_339c
 	ld hl, wd6b2
 	set 4, [hl]
 	ld hl, wcd5b
@@ -309,7 +309,7 @@ jr_3394:
 	ld e, l
 	jr jr_3354
 
-Call_339c:
+Func_339c:
 	ldh a, [hLoadedROMBank]
 	ld [wd06f], a
 	ld a, h

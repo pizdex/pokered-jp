@@ -3,7 +3,7 @@ RestoreScreenTilesAndReloadTilePatterns::
 	ld a, $01
 	ld [wUpdateSpritesEnabled], a
 	call ReloadMapSpriteTilePatterns
-	call Call_374a
+	call Func_374a
 	call LoadTextBoxTilePatterns
 	call RunDefaultPaletteCommand
 	jr Delay3

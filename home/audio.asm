@@ -65,35 +65,36 @@ jr_0de5:
 	jp PlaySound
 
 UpdateMusic6Times::
+; This is called when entering a map, before fading out the current music and
+; playing the default music (i.e. the map's music or biking/surfing music).
 	ld a, [wAudioROMBank]
 	ld b, a
-	cp $02
-	jr nz, jr_0e00
+	cp BANK(Audio1_UpdateMusic)
+	jr nz, .checkAudio2
+; audio 1
+	ld hl, Audio1_UpdateMusic
+	jr .next
 
-	ld hl, $4000
-	jr jr_0e0c
+.checkAudio2
+	cp BANK(Audio2_UpdateMusic)
+	jr nz, .audio3
+; audio 2
+	ld hl, Audio2_UpdateMusic
+	jr .next
 
-jr_0e00:
-	cp $08
-	jr nz, jr_0e09
+.audio3
+	ld hl, Audio3_UpdateMusic
 
-	ld hl, $455f
-	jr jr_0e0c
-
-jr_0e09:
-	ld hl, $4417
-
-jr_0e0c:
-	ld c, $06
-
-jr_0e0e:
+.next
+	ld c, 6
+.loop
 	push bc
 	push hl
 	call Bankswitch
 	pop hl
 	pop bc
 	dec c
-	jr nz, jr_0e0e
+	jr nz, .loop
 	ret
 
 CompareMapMusicBankWithCurrentBank::
@@ -101,21 +102,20 @@ CompareMapMusicBankWithCurrentBank::
 	ld e, a
 	ld a, [wAudioROMBank]
 	cp e
-	jr nz, jr_0e28
+	jr nz, .asm_0e28
 
 	ld [wAudioSavedROMBank], a
 	and a
 	ret
 
-jr_0e28:
+.asm_0e28:
 	ld a, c
 	and a
 	ld a, e
-	jr nz, jr_0e30
-
+	jr nz, .asm_0e30
 	ld [wAudioROMBank], a
 
-jr_0e30:
+.asm_0e30
 	ld [wAudioSavedROMBank], a
 	scf
 	ret
@@ -175,7 +175,7 @@ jr_0e77:
 	jr nz, jr_0e91
 
 	ld a, b
-	call $4773
+	call Audio1_PlaySound
 	jr jr_0e9f
 
 jr_0e91:
@@ -183,12 +183,12 @@ jr_0e91:
 	jr nz, jr_0e9b
 
 	ld a, b
-	call $4d1b
+	call Audio2_PlaySound
 	jr jr_0e9f
 
 jr_0e9b:
 	ld a, b
-	call $4b8a
+	call Audio3_PlaySound
 
 jr_0e9f:
 	ldh a, [hSavedROMBank]

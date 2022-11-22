@@ -80,7 +80,7 @@
 	charmap "』", $73
 	charmap "⋯", $75
 
-	charmap "　", $7f
+	charmap " ", $7f
 
 	charmap "ア", $80
 	charmap "イ", $81

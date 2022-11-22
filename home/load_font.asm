@@ -7,7 +7,7 @@ LoadFontTilePatterns:
 	ld de, $8800
 	ld bc, $0400
 	ld a, $04
-	jp CopyFarBytesDouble
+	jp CopyBytesFarDouble
 
 jr_36de:
 	ld de, $4b19
@@ -24,7 +24,7 @@ LoadTextBoxTilePatterns:
 	ld de, $9600
 	ld bc, $0200
 	ld a, $04
-	jp CopyFarBytes2
+	jp CopyBytesFar2
 
 jr_36fe:
 	ld de, $52f1
@@ -41,7 +41,7 @@ LoadHpBarAndStatusTilePatterns:
 	ld de, $9620
 	ld bc, $01e0
 	ld a, $04
-	jp CopyFarBytes2
+	jp CopyBytesFar2
 
 jr_371e:
 	ld de, $4f39
@@ -72,38 +72,38 @@ UncompressSpriteFromDE::
 	jp DecompressSpriteData
 
 SaveScreenTilesToBuffer2:
-	ld hl, wc3a0
+	ld hl, wTilemap
 	ld de, wcd7c
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
 	jp CopyBytes
 
-Call_374a:
-	call Call_3752
+Func_374a:
+	call Func_3752
 	ld a, $01
-	ldh [hffba], a
+	ldh [hBGMapMode], a
 	ret
 
-Call_3752:
+Func_3752:
 	xor a
-	ldh [hffba], a
+	ldh [hBGMapMode], a
 	ld hl, wcd7c
-	ld de, wc3a0
+	ld de, wTilemap
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
 	jp CopyBytes
 
-Call_3761:
-	ld hl, wc3a0
-	ld de, wc508
+Func_3761:
+	ld hl, wTilemap
+	ld de, wTilemap + $168
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
 	jp CopyBytes
 
-Jump_376d:
+Func_376d:
 	xor a
-	ldh [hffba], a
-	ld hl, wc508
-	ld de, wc3a0
+	ldh [hBGMapMode], a
+	ld hl, wTilemap + $168
+	ld de, wTilemap
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
 	call CopyBytes
 	ld a, $01
-	ldh [hffba], a
+	ldh [hBGMapMode], a
 	ret

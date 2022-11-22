@@ -34,9 +34,7 @@ GetTrainerInformation::
 	ret
 
 GetTrainerName:
-	ld b, $04
-	ld hl, $7fb3
-	jp Bankswitch
+	farjp _GetTrainerName
 
 CheckMoney::
 	ld de, wd2cb

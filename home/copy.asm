@@ -1,4 +1,4 @@
-CopyFarBytes::
+CopyBytesFar::
 ; Copy bc bytes from a:hl to de.
 	ld [wcee4], a
 	ldh a, [hLoadedROMBank]

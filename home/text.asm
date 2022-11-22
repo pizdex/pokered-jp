@@ -4,48 +4,48 @@ TextBoxBorder::
 	ld a, $79
 	ld [hli], a
 	inc a
-	call Call_03ff
+	call .PlaceChars
 	inc a
 	ld [hl], a
 	pop hl
-	ld de, $0014
+	ld de, SCREEN_WIDTH
 	add hl, de
 
-.asm_03e1:
+.next
 	push hl
 	ld a, $7c
 	ld [hli], a
 	ld a, $7f
-	call Call_03ff
+	call .PlaceChars
 	ld [hl], $7c
 	pop hl
-	ld de, $0014
+	ld de, SCREEN_WIDTH
 	add hl, de
 	dec b
-	jr nz, .asm_03e1
+	jr nz, .next
 
 	ld a, $7d
 	ld [hli], a
 	ld a, $7a
-	call Call_03ff
+	call .PlaceChars
 	ld [hl], $7e
 	ret
 
-Call_03ff:
+.PlaceChars:
+; Place char a, c times.
 	ld d, c
-.asm_0400
+.loop
 	ld [hli], a
 	dec d
-	jr nz, .asm_0400
+	jr nz, .loop
 	ret
-
 
 PlaceString::
 	push hl
 
 PlaceNextChar::
 	ld a, [de]
-	cp $50
+	cp "@"
 	jr nz, .NotTerminator
 	ld b, h
 	ld c, l
@@ -53,59 +53,59 @@ PlaceNextChar::
 	ret
 
 .NotTerminator
-	cp $4e
-	jr nz, .asm_041c
+	cp "<NEXT>"
+	jr nz, .NotNext
 
 	pop hl
-	ld bc, $0028
+	ld bc, 2 * SCREEN_WIDTH
 	add hl, bc
 	push hl
-	jp Jump_04c5
+	jp NextChar
 
-.asm_041c
-	cp $4f
-	jr nz, .asm_0428
+.NotNext
+	cp "<LINE>"
+	jr nz, .NotLine
 	pop hl
-	ld hl, wc4e1
+	hlcoord 1, 16
 	push hl
-	jp Jump_04c5
+	jp NextChar
 
-.asm_0428:
+.NotLine
 	and a
-	jp z, Jump_04c9
+	jp z, NullChar
 
 	cp $4c
-	jp z, Jump_05bb
+	jp z, _ContTextNoPause
 	cp $4b
-	jp z, Jump_05a9
+	jp z, _ContText
 	cp $51
-	jp z, Jump_0588
+	jp z, Paragraph
 	cp $52
-	jp z, Jump_04da
+	jp z, PrintPlayerName
 	cp $53
-	jp z, Jump_04e0
+	jp z, PrintRivalName
 	cp $54
-	jp z, Jump_04fe
+	jp z, PrintPKMNText
 	cp $5b
-	jp z, Jump_04f2
+	jp z, PrintPCText
 	cp $5e
-	jp z, Jump_04f8
+	jp z, PrintRocketText
 	cp $5c
-	jp z, Jump_04ec
+	jp z, PrintTMText
 	cp $5d
-	jp z, Jump_04e6
+	jp z, PrintTrainerText
 	cp $55
-	jp z, Jump_0555
+	jp z, ContText
 	cp $56
-	jp z, Jump_0504
+	jp z, PrintSixDotsText
 	cp $57
-	jp z, Jump_0581
+	jp z, DoneText
 	cp $58
-	jp z, Jump_0569
+	jp z, PromptText
 	cp $59
-	jp z, Jump_050a
+	jp z, PlaceMoveTargetsName
 	cp $5a
-	jp z, Jump_0510
+	jp z, PlaceMoveUsersName
 	cp $e4
 	jr z, jr_0484
 	cp $e5
@@ -113,11 +113,11 @@ PlaceNextChar::
 
 jr_0484:
 	push hl
-	ld bc, hffec
+	ld bc, $ffec
 	add hl, bc
 	ld [hl], a
 	pop hl
-	jr jr_04c5
+	jr NextChar
 
 jr_048d:
 	cp $60
@@ -137,7 +137,7 @@ jr_049f:
 	push af
 	ld a, $e5
 	push hl
-	ld bc, hffec
+	ld bc, $ffec
 	add hl, bc
 	ld [hl], a
 	pop hl
@@ -158,7 +158,7 @@ jr_04b6:
 	push af
 	ld a, $e4
 	push hl
-	ld bc, hffec
+	ld bc, $ffec
 	add hl, bc
 	ld [hl], a
 	pop hl
@@ -168,95 +168,61 @@ jr_04c1:
 	ld [hli], a
 	call PrintLetterDelay
 
-Jump_04c5:
-jr_04c5:
+NextChar::
 	inc de
 	jp PlaceNextChar
 
-
-Jump_04c9:
+NullChar:
 	ld b, h
 	ld c, l
 	pop hl
-	ld de, $04d1
+	ld de, TextIDErrorText
 	dec de
 	ret
 
+TextIDErrorText:
+	text_decimal hff8c, 1, 2
+	text "エラー"
+	done
 
-	add hl, bc
-	adc h
-	rst $38
-	ld [de], a
-	nop
-	add e
-	and l
-	db $e3
-	ld d, a
-
-Jump_04da:
+MACRO print_name
 	push de
-	ld de, wd11d
-	jr jr_0526
+	ld de, \1
+	jr PlaceCommandCharacter
+ENDM
 
-Jump_04e0:
-	push de
-	ld de, wd2ce
-	jr jr_0526
+PrintPlayerName: print_name wd11d
+PrintRivalName: print_name wd2ce
 
-Jump_04e6:
-	push de
-	ld de, $0536
-	jr jr_0526
+PrintTrainerText: print_name TrainerText
+PrintTMText:      print_name TMText
+PrintPCText:      print_name PCText
+PrintRocketText:  print_name RocketText
+PrintPKMNText:    print_name PKMNText
+PrintSixDotsText: print_name SixDotsText
 
-Jump_04ec:
-	push de
-	ld de, $0530
-	jr jr_0526
-
-Jump_04f2:
-	push de
-	ld de, $053c
-	jr jr_0526
-
-Jump_04f8:
-	push de
-	ld de, $0541
-	jr jr_0526
-
-Jump_04fe:
-	push de
-	ld de, $0548
-	jr jr_0526
-
-Jump_0504:
-	push de
-	ld de, $054d
-	jr jr_0526
-
-Jump_050a:
+PlaceMoveTargetsName:
 	ldh a, [hfff3]
 	xor $01
-	jr jr_0512
+	jr PlaceMoveUsersName.place
 
-Jump_0510:
+PlaceMoveUsersName:
 	ldh a, [hfff3]
-
-jr_0512:
+.place
 	push de
 	and a
-	jr nz, jr_051b
-
+	jr nz, .enemy
 	ld de, wcff0
-	jr jr_0526
+	jr PlaceCommandCharacter
 
-jr_051b:
-	ld de, $0550
+.enemy
+	ld de, EnemyText
 	call PlaceString
 	ld h, b
 	ld l, c
 	ld de, wcfc1
 
-jr_0526:
+PlaceCommandCharacter::
 	call PlaceString
 	ld h, b
 	ld l, c
@@ -264,29 +230,19 @@ jr_0526:
 	inc de
 	jp PlaceNextChar
 
+TMText::      db   "わざマシン@"
+TrainerText:: db   "トレーナー@"
+PCText::      db   "パソコン@"
+RocketText::  db   "ロケットだん@"
+PKMNText::    db   "ポケモン@"
+SixDotsText:: db   "⋯⋯@"
+EnemyText::   db   "てきの @"
 
-	call c, $9d2b
-	adc e
-	xor e
-	ld d, b
-
-	db $93, $a7, $e3, $94, $e3, $50, $40, $8e, $89, $ab, $50
-
-	xor b
-	adc b
-	xor h
-	sub e
-	jr nc, @-$20
-
-	ld d, b
-
-	db $43, $88, $a1, $ab, $50, $75, $75, $50, $c3, $b7, $c9, $7f, $50
-
-Jump_0555:
+ContText:
 	push de
 	ld b, h
 	ld c, l
-	ld hl, $0565
+	ld hl, ContCharText
 	call TextCommandProcessor
 	ld h, b
 	ld l, c
@@ -294,107 +250,97 @@ Jump_0555:
 	inc de
 	jp PlaceNextChar
 
+ContCharText::
+	text "<_CONT>@"
+	text_end
 
-	db $00, $4b, $50, $50
-
-Jump_0569:
+PromptText:
 	ld a, [wd0f0]
 	cp $04
-	jp z, Jump_0576
+	jp z, .ok
 
 	ld a, $ee
-	ld [wc4f2], a
-
-Jump_0576:
-	call Call_05eb
+	ldcoord_a 18, 16
+.ok
+	call ProtectedDelay3
 	call ManualTextScroll
-	ld a, $7f
-	ld [wc4f2], a
+	ld a, " "
+	ldcoord_a 18, 16
 
-Jump_0581:
+DoneText::
 	pop hl
-	ld de, $0587
+	ld de, .stop
 	dec de
 	ret
 
+.stop:
+	text_end
 
-	db $50
-
-Jump_0588:
+Paragraph:
 	push de
 	ld a, $ee
-	ld [wc4f2], a
-	call Call_05eb
+	ldcoord_a 18, 16
+	call ProtectedDelay3
 	call ManualTextScroll
-	ld hl, wc4a5
-	ld bc, $0412
+	hlcoord 1, 13
+	lb bc, 4, 18
 	call ClearScreenArea
-	ld c, $14
+	ld c, 20
 	call DelayFrames
 	pop de
-	ld hl, wc4b9
-	jp Jump_04c5
+	hlcoord 1, 14
+	jp NextChar
 
-
-Jump_05a9:
+_ContText::
 	ld a, $ee
-	ld [wc4f2], a
-	call Call_05eb
+	ldcoord_a 18, 16
+	call ProtectedDelay3
 	push de
 	call ManualTextScroll
 	pop de
-	ld a, $7f
-	ld [wc4f2], a
+	ld a, " "
+	ldcoord_a 18, 16
 
-Jump_05bb:
+_ContTextNoPause::
 	push de
-	call Call_05c9
-	call Call_05c9
-	ld hl, wc4e1
+	call ScrollTextUpOneLine
+	call ScrollTextUpOneLine
+	hlcoord 1, 16
 	pop de
-	jp Jump_04c5
+	jp NextChar
 
-
-Call_05c9:
-	ld hl, wc4b8
-	ld de, wc4a4
-	ld b, $3c
-
-jr_05d1:
+ScrollTextUpOneLine::
+	hlcoord 0, 14 ; top row of text
+	decoord 0, 13 ; empty line above text
+	ld b, SCREEN_WIDTH * 3
+.copyText
 	ld a, [hli]
 	ld [de], a
 	inc de
 	dec b
-	jr nz, jr_05d1
-
-	ld hl, wc4e1
-	ld a, $7f
-	ld b, $12
-
-jr_05de:
+	jr nz, .copyText
+	hlcoord 1, 16
+	ld a, " "
+	ld b, SCREEN_WIDTH - 2
+.clearText
 	ld [hli], a
 	dec b
-	jr nz, jr_05de
+	jr nz, .clearText
 
-	ld b, $05
-
-jr_05e4:
+	ld b, 5
+.wait
 	call DelayFrame
 	dec b
-	jr nz, jr_05e4
-
+	jr nz, .wait
 	ret
 
-
-Call_05eb:
+ProtectedDelay3:
 	push bc
 	call Delay3
 	pop bc
 	ret
 
-
 TextCommandProcessor:
-Jump_05f1:
 	ld a, [wd2d7]
 	push af
 	set 1, a
@@ -404,23 +350,20 @@ Jump_05f1:
 	ld a, b
 	ld [wcc3b], a
 
-NextTextCommand:
-jr_0602:
+NextTextCommand::
 	ld a, [hli]
-	cp $50
-	jr nz, jr_060c
-
+	cp TX_END
+	jr nz, .TextCommand
 	pop af
 	ld [wd2d7], a
 	ret
 
-
-jr_060c:
+.TextCommand
 	push hl
-	ld hl, $0746
+	ld hl, TextCommandJumpTable
 	push bc
 	add a
-	ld b, $00
+	ld b, 0
 	ld c, a
 	add hl, bc
 	pop bc
@@ -429,7 +372,8 @@ jr_060c:
 	ld l, a
 	jp hl
 
-
+TextCommand_BOX::
+; draw a box (height, width)
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -444,8 +388,10 @@ jr_060c:
 	ld l, e
 	call TextBoxBorder
 	pop hl
-	jr jr_0602
+	jr NextTextCommand
 
+TextCommand_START::
+; write text until "@"
 	pop hl
 	ld d, h
 	ld e, l
@@ -455,8 +401,9 @@ jr_060c:
 	ld h, d
 	ld l, e
 	inc hl
-	jr jr_0602
+	jr NextTextCommand
 
+TextCommand_RAM::
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -467,8 +414,9 @@ jr_060c:
 	ld l, c
 	call PlaceString
 	pop hl
-	jr jr_0602
+	jr NextTextCommand
 
+TextCommand_BCD::
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -483,8 +431,9 @@ jr_060c:
 	ld b, h
 	ld c, l
 	pop hl
-	jr jr_0602
+	jr NextTextCommand
 
+TextCommand_MOVE::
 	pop hl
 	ld a, [hli]
 	ld [wcc3a], a
@@ -494,42 +443,44 @@ jr_060c:
 	ld b, a
 	jp NextTextCommand
 
-
+TextCommand_LOW::
+; write text at (1,16)
 	pop hl
-	ld bc, wc4e1
+	bccoord 1, 16 ; second line of dialogue text box
 	jp NextTextCommand
 
-
+TextCommand_PROMPT_BUTTON::
+; wait for button press; show arrow
 	ld a, [wd0f0]
 	cp $04
 	jp z, TextCommand_WAIT_BUTTON
 
 	ld a, $ee
-	ld [wc4f2], a
+	ld [wTilemap + $152], a
 	push bc
 	call ManualTextScroll
 	pop bc
 	ld a, $7f
-	ld [wc4f2], a
+	ld [wTilemap + $152], a
 	pop hl
 	jp NextTextCommand
 
-
+TextCommand_SCROLL::
 	ld a, $7f
-	ld [wc4f2], a
-	call Call_05c9
-	call Call_05c9
+	ld [wTilemap + $152], a
+	call ScrollTextUpOneLine
+	call ScrollTextUpOneLine
 	pop hl
-	ld bc, wc4e1
+	ld bc, $c4e1
 	jp NextTextCommand
 
-
+TextCommand_START_ASM::
 	pop hl
 	ld de, $0602
 	push de
 	jp hl
 
-
+TextCommand_NUM::
 	pop hl
 	ld a, [hli]
 	ld e, a
@@ -553,17 +504,16 @@ jr_060c:
 	pop hl
 	jp NextTextCommand
 
-
+TextCommand_PAUSE::
+; wait for button press or 30 frames
 	push bc
 	call Joypad
 	ldh a, [hJoyHeld]
-	and $03
-	jr nz, jr_06cf
-
-	ld c, $1e
+	and A_BUTTON | B_BUTTON
+	jr nz, .done
+	ld c, 30
 	call DelayFrames
-
-jr_06cf:
+.done
 	pop bc
 	pop hl
 	jp NextTextCommand
@@ -577,24 +527,20 @@ TextCommand_SOUND::
 	ld b, a
 	push hl
 	ld hl, TextCommandSounds
-
-jr_06dd:
+.loop
 	ld a, [hli]
 	cp b
-	jr z, jr_06e4
-
+	jr z, .play
 	inc hl
-	jr jr_06dd
+	jr .loop
 
-jr_06e4:
+.play
 	cp $14
-	jr z, jr_06fc
-
+	jr z, .pokemonCry
 	cp $15
-	jr z, jr_06fc
-
+	jr z, .pokemonCry
 	cp $16
-	jr z, jr_06fc
+	jr z, .pokemonCry
 
 	ld a, [hl]
 	call PlaySound
@@ -603,7 +549,7 @@ jr_06e4:
 	pop bc
 	jp NextTextCommand
 
-jr_06fc:
+.pokemonCry
 	push de
 	ld a, [hl]
 	call PlayCry
@@ -633,22 +579,20 @@ TextCommand_DOTS::
 	ld h, b
 	ld l, c
 
-jr_0721:
+.loop
 	ld a, $75
 	ld [hli], a
 	push de
 	call Joypad
 	pop de
-	ldh a, [hJoyHeld]
-	and $03
-	jr nz, jr_0734
-
-	ld c, $0a
+	ldh a, [hJoyHeld] ; joypad state
+	and A_BUTTON | B_BUTTON
+	jr nz, .next ; if so, skip the delay
+	ld c, 10
 	call DelayFrames
-
-jr_0734:
+.next
 	dec d
-	jr nz, jr_0721
+	jr nz, .loop
 
 	ld b, h
 	ld c, l
@@ -662,34 +606,28 @@ TextCommand_WAIT_BUTTON:
 	pop hl
 	jp NextTextCommand
 
-
-	db $2d, $06, $3a, $06, $48, $06
-
-	ld e, d
-	ld b, $1b
-	db $06
-
-	db $68, $06, $6f, $06
-
-	adc d
-	db $06
-
-	db $9c, $06, $a2, $06, $c0, $06, $d4, $06
-
-	dec de
-	rlca
-	dec a
-	rlca
-	call nc, wd406
-	ld b, $d4
-	db $06
-
-	db $d4, $06, $d4, $06
-
-	db $d4
-	db $06
-
-	db $d4, $06
-
-	call nc, wd406
-	db $06
+TextCommandJumpTable::
+; entries correspond to TX_* constants (see macros/scripts/text.asm)
+	dw TextCommand_START         ; TX_START
+	dw TextCommand_RAM           ; TX_RAM
+	dw TextCommand_BCD           ; TX_BCD
+	dw TextCommand_MOVE          ; TX_MOVE
+	dw TextCommand_BOX           ; TX_BOX
+	dw TextCommand_LOW           ; TX_LOW
+	dw TextCommand_PROMPT_BUTTON ; TX_PROMPT_BUTTON
+	dw TextCommand_SCROLL        ; TX_SCROLL
+	dw TextCommand_START_ASM     ; TX_START_ASM
+	dw TextCommand_NUM           ; TX_NUM
+	dw TextCommand_PAUSE         ; TX_PAUSE
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_DOTS          ; TX_DOTS
+	dw TextCommand_WAIT_BUTTON   ; TX_WAIT_BUTTON
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)

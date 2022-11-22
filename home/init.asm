@@ -4,19 +4,9 @@ SoftReset::
 	ld c, 32
 	call DelayFrames
 
+LCDC_DEFAULT EQU LCDCF_ON | LCDCF_WIN9C00 | LCDCF_WINON | LCDCF_BG8800 | LCDCF_BG9800 | LCDCF_OBJ8 | LCDCF_OBJON | LCDCF_BGON
+
 Init::
-;  Program init.
-
-LCDC_DEFAULT EQU %11100011
-; * LCD enabled
-; * Window tile map at $9C00
-; * Window display enabled
-; * BG and window tile data at $8800
-; * BG tile map at $9800
-; * 8x8 OBJ size
-; * OBJ display enabled
-; * BG display enabled
-
 	di
 
 	xor a
@@ -40,7 +30,7 @@ LCDC_DEFAULT EQU %11100011
 
 	ld sp, wStackTop
 
-; Clear RAM
+; Clear WRAM
 	ld hl, _RAM
 	ld bc, $2000
 .clear
@@ -92,7 +82,6 @@ LCDC_DEFAULT EQU %11100011
 	ld a, 16
 	ldh [hff8a], a
 	call StopAllSounds
-
 
 	ei
 

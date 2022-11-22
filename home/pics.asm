@@ -1,4 +1,4 @@
-Call_2ffd:
+Func_2ffd:
 	ld bc, wd095
 	add hl, bc
 	ld a, [hli]
@@ -40,7 +40,7 @@ jr_3031:
 LoadMonFrontSprite:
 	push de
 	ld hl, $000b
-	call Call_2ffd
+	call Func_2ffd
 	ld hl, wd09f
 	ld a, [hli]
 	ld c, a
@@ -77,22 +77,22 @@ LoadMonFrontSprite:
 	add a
 	ldh [hff8d], a
 	xor a
-	ld [$4000], a
+	ld [MBC1SRamBank], a
 	ld hl, $a000
-	call Call_30ae
+	call Func_30ae
 	ld de, $a188
 	ld hl, $a000
-	call Call_3091
+	call Func_3091
 	ld hl, $a188
-	call Call_30ae
+	call Func_30ae
 	ld de, $a310
 	ld hl, $a188
-	call Call_3091
+	call Func_3091
 	pop de
-	jp Jump_30b9
+	jp Func_30b9
 
 
-Call_3091:
+Func_3091:
 	ldh a, [hff8d]
 	ld b, $00
 	ld c, a
@@ -122,7 +122,7 @@ jr_309e:
 	ret
 
 
-Call_30ae:
+Func_30ae:
 	ld bc, $0188
 
 jr_30b1:
@@ -136,9 +136,9 @@ jr_30b1:
 	ret
 
 
-Jump_30b9:
+Func_30b9:
 	xor a
-	ld [$4000], a
+	ld [MBC1SRamBank], a
 	push de
 	ld hl, $a497
 	ld de, $a30f

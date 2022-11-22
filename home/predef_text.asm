@@ -24,5 +24,3 @@ SetMapTextPointer:
 	ld a, h
 	ld [wd2ec], a
 	ret
-
-	dr $3f52, $4000

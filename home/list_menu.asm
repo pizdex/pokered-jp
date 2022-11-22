@@ -1,6 +1,6 @@
 DisplayListMenuID::
-	xor a
-	ldh [hffba], a
+	xor a ; disable auto-transfer
+	ldh [hBGMapMode], a
 	ld a, $01
 	ld [hffb7], a
 	ld a, [wd037]
@@ -30,7 +30,7 @@ jr_170b:
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
 	call UpdateSprites
-	ld hl, wc3cc
+	ld hl, $c3cc
 	ld de, $090e
 	ld a, [wListMenuID]
 	and a
@@ -58,24 +58,24 @@ jr_174e:
 	ld c, $0a
 	call DelayFrames
 
-Jump_1765:
-	xor a
-	ldh [hffba], a
-	call Call_1968
+Func_1765:
+	xor a ; disable auto-transfer
+	ldh [hBGMapMode], a
+	call Func_1968
 	ld a, $01
-	ldh [hffba], a
+	ldh [hBGMapMode], a
 	call Delay3
 	ld a, [wd037]
 	and a
 	jr z, jr_1793
 
 	ld a, $ed
-	ld [wc3f5], a
+	ld [$c3f5], a
 	ld c, $50
 	call DelayFrames
 	xor a
 	ld [wCurrentMenuItem], a
-	ld hl, wc3f5
+	ld hl, $c3f5
 	ld a, l
 	ld [wcc30], a
 	ld a, h
@@ -86,10 +86,10 @@ jr_1793:
 	call LoadGBPal
 	call HandleMenuInput
 	push af
-	call Call_3bc6
+	call Func_3bc6
 	pop af
 	bit 0, a
-	jp z, Jump_1840
+	jp z, Func_1840
 
 jr_17a3:
 	ld a, [wCurrentMenuItem]
@@ -106,11 +106,11 @@ jr_17a3:
 	ld c, a
 	ld a, [wd0ef]
 	and a
-	jp z, Jump_194c
+	jp z, Func_194c
 
 	dec a
 	cp c
-	jp c, Jump_194c
+	jp c, Func_194c
 
 	ld a, c
 	ld [wcf79], a
@@ -180,9 +180,9 @@ jr_1823:
 	jp PopBank
 
 
-Jump_1840:
+Func_1840:
 	bit 1, a
-	jp nz, Jump_194c
+	jp nz, Func_194c
 
 	bit 2, a
 	jp nz, $6adf
@@ -197,60 +197,60 @@ Jump_1840:
 	ld b, a
 	ld a, [wd0ef]
 	cp b
-	jp c, Jump_1765
+	jp c, Func_1765
 
 	inc [hl]
-	jp Jump_1765
+	jp Func_1765
 
 
 jr_1861:
 	ld a, [hl]
 	and a
-	jp z, Jump_1765
+	jp z, Func_1765
 
 	dec [hl]
-	jp Jump_1765
+	jp Func_1765
 
 
-	ld hl, wc463
+	ld hl, $c463
 	ld b, $01
 	ld c, $03
 	ld a, [wListMenuID]
 	cp $02
 	jr nz, jr_187f
 
-	ld hl, wc45b
+	ld hl, $c45b
 	ld b, $01
 	ld c, $0b
 
 jr_187f:
 	call TextBoxBorder
-	ld hl, wc478
+	ld hl, $c478
 	ld a, [wListMenuID]
 	cp $02
 	jr nz, jr_1894
 
 	ld a, $f0
-	ld [wc47a], a
-	ld hl, wc470
+	ld [$c47a], a
+	ld hl, $c470
 
 jr_1894:
 	ld de, $1941
 	call PlaceString
 	xor a
 	ld [wcf7d], a
-	jp Jump_18ba
+	jp Func_18ba
 
 
-Jump_18a1:
+Func_18a1:
 jr_18a1:
 	call JoypadLowSensitivity
 	ldh a, [hJoyPressed]
 	bit 0, a
-	jp nz, Jump_193c
+	jp nz, Func_193c
 
 	bit 1, a
-	jp nz, Jump_193e
+	jp nz, Func_193e
 
 	bit 6, a
 	jr nz, jr_18ba
@@ -260,7 +260,7 @@ jr_18a1:
 
 	jr jr_18a1
 
-Jump_18ba:
+Func_18ba:
 jr_18ba:
 	ld a, [wcf7e]
 	inc a
@@ -284,7 +284,7 @@ jr_18cc:
 	ld [hl], a
 
 jr_18d6:
-	ld hl, wc479
+	ld hl, $c479
 	ld a, [wListMenuID]
 	cp $02
 	jr nz, jr_1930
@@ -327,34 +327,34 @@ jr_18ed:
 	ldh [hffa1], a
 
 jr_191c:
-	ld hl, wc474
+	ld hl, $c474
 	ld de, $1945
 	call PlaceString
 	ld de, hff9f
 	ld c, $83
 	call PrintBCDNumber
-	ld hl, wc471
+	ld hl, $c471
 
 jr_1930:
 	ld de, wcf7d
 	ld bc, $8102
 	call PrintNumber
-	jp Jump_18a1
+	jp Func_18a1
 
 
-Jump_193c:
+Func_193c:
 	xor a
 	ret
 
 
-Jump_193e:
+Func_193e:
 	ld a, $ff
 	ret
 
 
 	db $f1, $f6, $f7, $50, $7f, $7f, $7f, $7f, $7f, $7f, $50
 
-Jump_194c:
+Func_194c:
 	ld a, [wCurrentMenuItem]
 	ld [wd0f2], a
 	ld a, $02
@@ -369,8 +369,8 @@ Jump_194c:
 	ret
 
 
-Call_1968:
-	ld hl, wc3e1
+Func_1968:
+	ld hl, $c3e1
 	ld b, $09
 	ld c, $0e
 	call ClearScreenArea
@@ -397,16 +397,16 @@ jr_198b:
 	inc d
 
 jr_1990:
-	ld hl, wc3f6
+	ld hl, $c3f6
 	ld b, $04
 
-Jump_1995:
+Func_1995:
 	ld a, b
 	ld [wcf79], a
 	ld a, [de]
 	ld [wd0e3], a
 	cp $ff
-	jp z, Jump_1aa1
+	jp z, Func_1aa1
 
 	push bc
 	push de
@@ -569,7 +569,7 @@ jr_1a8f:
 	pop bc
 	inc c
 	dec b
-	jp nz, Jump_1995
+	jp nz, Func_1995
 
 	ld bc, hfff8
 	add hl, bc
@@ -578,7 +578,7 @@ jr_1a8f:
 	ret
 
 
-Jump_1aa1:
+Func_1aa1:
 	ld de, $1aa7
 	jp PlaceString
 

@@ -2,6 +2,7 @@ INCLUDE "macros/const.asm"
 INCLUDE "macros/farcall.asm"
 INCLUDE "macros/data.asm"
 INCLUDE "macros/code.asm"
+INCLUDE "macros/coords.asm"
 
 INCLUDE "macros/scripts/text.asm"
 INCLUDE "macros/scripts/events.asm"
