@@ -5318,6 +5318,8 @@ wd9ae:: ds 1 ; d9ae
 wd9af:: ds 1 ; d9af
 wd9b0:: ds 1 ; d9b0
 wd9b1:: ds 1 ; d9b1
+
+wBoxCount::
 wd9b2:: ds 1 ; d9b2
 wd9b3:: ds 1 ; d9b3
 wd9b4:: ds 1 ; d9b4

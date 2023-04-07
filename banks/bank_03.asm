@@ -20,7 +20,10 @@ _TossItem::
 	dr $e9c4, $ea6f
 
 _IsKeyItem::
-	dr $ea6f, $f7d3
+	dr $ea6f, $eaa4
+
+KeyItemFlags:
+	dr $eaa4, $f7d3
 
 _AddEnemyMonToPlayerParty::
 	dr $f7d3, $f854

@@ -8,7 +8,7 @@ INCLUDE "macros/scripts/text.asm"
 INCLUDE "macros/scripts/events.asm"
 
 
-dr: MACRO
+MACRO dr
 ; IF DEF(RED)
 INCBIN "baserom/baserom-red.gb", \1, \2 +- \1
 ; ELSE

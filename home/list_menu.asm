@@ -211,7 +211,7 @@ jr_1861:
 	dec [hl]
 	jp Func_1765
 
-
+Func_186a:
 	ld hl, $c463
 	ld b, $01
 	ld c, $03
