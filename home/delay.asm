@@ -1,4 +1,4 @@
-DelayFrames:
+DelayFrames::
 	call DelayFrame
 	dec c
 	jr nz, DelayFrames

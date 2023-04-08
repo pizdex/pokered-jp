@@ -190,6 +190,10 @@
 	charmap "？", $e6
 	charmap "！", $e7
 	charmap "。", $e8
+	charmap "ァ", $e9
+	charmap "ゥ", $ea
+	charmap "ェ", $eb
+
 
 	charmap "円", $f0
 

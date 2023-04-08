@@ -15,7 +15,7 @@ jr_36de:
 	ld bc, $0480
 	jp CopyVideoDataDouble
 
-LoadTextBoxTilePatterns:
+LoadTextBoxTilePatterns::
 	ldh a, [rLCDC]
 	bit 7, a
 	jr nz, jr_36fe

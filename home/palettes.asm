@@ -11,7 +11,7 @@ RestoreScreenTilesAndReloadTilePatterns::
 GBPalWhiteOutWithDelay3:
 	call GBPalWhiteOut
 
-Delay3:
+Delay3::
 	ld c, $03
 	jp DelayFrames
 
@@ -21,7 +21,6 @@ GBPalNormal:
 	ld a, $d0
 	ldh [rOBP0], a
 	ret
-
 
 GBPalWhiteOut:
 	xor a

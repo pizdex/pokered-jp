@@ -341,7 +341,7 @@ GetwMoves:
 	ld a, [hl]
 	ret
 
-GetMonHeader:
+GetMonHeader::
 	ldh a, [hLoadedROMBank]
 	push af
 	ld a, $0e

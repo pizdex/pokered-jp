@@ -108,7 +108,7 @@ Init::
 	ld a, LCDC_DEFAULT
 	ldh [rLCDC], a
 
-	jp SetDefaultNamesBeforeTitlescreen
+	jp PrepareTitleScreen
 
 ClearVRAM::
 	ld hl, _VRAM
